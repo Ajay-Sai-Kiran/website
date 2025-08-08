@@ -1,0 +1,475 @@
+/*
+ * Global Stylesheet for D3‑FORGE website
+ *
+ * This stylesheet defines a simple design system for the D3‑FORGE site.  It
+ * includes colour variables, typography rules and responsive layout classes.
+ * The design emphasises clarity and accessibility, with ample white space
+ * and high contrast.  Media queries are used to adapt the layout across
+ * desktops, tablets and phones – a key tenant of responsive design,
+ * which according to the MDN Web Docs describes a site that “responds to
+ * the environment in which it is viewed”【601381623451264†L976-L983】.
+ */
+
+/* Root variables for colours and sizing */
+:root {
+  --colour-primary: #563d7c;
+  --colour-secondary: #0077b6;
+  --colour-accent: #00b4d8;
+  --colour-light: #f8f9fa;
+  --colour-dark: #1b1f24;
+  --colour-text: #333;
+  --max-width: 1200px;
+  --transition-speed: 0.3s;
+  --font-title: 'Poppins', sans-serif;
+  --font-body: 'Open Sans', sans-serif;
+}
+
+/* Global resets */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  line-height: 1.6;
+  color: var(--colour-text);
+  background-color: var(--colour-light);
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-speed);
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Container */
+.container {
+  width: 90%;
+  max-width: var(--max-width);
+  margin: auto;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background: transparent;
+  z-index: 1000;
+  transition: background var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.navbar.scrolled {
+  background: rgba(27, 31, 36, 0.9);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .logo {
+  font-family: var(--font-title);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--colour-light);
+  letter-spacing: 1px;
+}
+
+.navbar ul.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.navbar ul.nav-links li a {
+  color: var(--colour-light);
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  padding-bottom: 0.2rem;
+  border-bottom: 2px solid transparent;
+  transition: border-color var(--transition-speed);
+}
+
+.navbar ul.nav-links li a:hover,
+.navbar ul.nav-links li a.active {
+  border-color: var(--colour-accent);
+}
+
+/* Hamburger for mobile */
+.navbar .hamburger {
+  display: none;
+  font-size: 2rem;
+  color: var(--colour-light);
+  cursor: pointer;
+}
+
+/* Mobile navigation */
+.mobile-nav {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: var(--colour-dark);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  z-index: 999;
+}
+
+.mobile-nav a {
+  color: var(--colour-light);
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  font-family: var(--font-title);
+}
+
+/* Hero section */
+.hero {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../assets/hero.jpg') center/cover no-repeat;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--colour-light);
+  padding: 0 1rem;
+  position: relative;
+  padding-top: 4rem; /* offset for fixed navbar */
+}
+
+.hero h1 {
+  font-family: var(--font-title);
+  font-size: clamp(2rem, 5vw, 4rem);
+  margin-bottom: 1rem;
+  text-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+
+.hero p {
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  margin-bottom: 2rem;
+  line-height: 1.4;
+}
+
+.btn {
+  display: inline-block;
+  background: var(--colour-accent);
+  color: var(--colour-light);
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: background var(--transition-speed);
+}
+
+.btn:hover {
+  background: var(--colour-secondary);
+}
+
+/* Modal overlay for course details */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  overflow-y: auto;
+  padding: 2rem;
+}
+
+/* Container for modal content */
+.modal-content {
+  background: var(--colour-light);
+  color: var(--colour-text);
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 800px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.modal-content h2 {
+  font-family: var(--font-title);
+  margin-bottom: 0.5rem;
+  font-size: 1.8rem;
+  color: var(--colour-primary);
+}
+
+.modal-content h3 {
+  font-family: var(--font-title);
+  margin-top: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: var(--colour-secondary);
+}
+
+.modal-content ul {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  list-style: disc;
+}
+
+/* Close button for modal */
+.modal-close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.8rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--colour-dark);
+}
+
+/* Section headings */
+.section {
+  padding: 6rem 0;
+}
+
+.section-title {
+  font-family: var(--font-title);
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: var(--colour-dark);
+}
+
+.section-subtitle {
+  text-align: center;
+  max-width: 600px;
+  margin: auto;
+  margin-bottom: 3rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* Cards grid */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.card {
+  background: var(--colour-light);
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.card ion-icon {
+  font-size: 3rem;
+  color: var(--colour-secondary);
+  margin-bottom: 1rem;
+}
+
+.card h3 {
+  font-family: var(--font-title);
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.card p {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+/* Services and training sections card specific styling */
+.card.service {
+  background: var(--colour-dark);
+  color: var(--colour-light);
+}
+
+.card.service ion-icon {
+  color: var(--colour-accent);
+}
+
+.card.training {
+  background: var(--colour-accent);
+  color: var(--colour-light);
+}
+
+.card.training ion-icon {
+  color: var(--colour-dark);
+}
+
+/* About section */
+.about {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2rem;
+}
+
+.about .image {
+  flex: 1 1 400px;
+}
+
+.about .content {
+  flex: 1 1 400px;
+}
+
+.about .content h2 {
+  font-family: var(--font-title);
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.about .content p {
+  margin-bottom: 1rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* Contact section */
+.contact-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.contact-info > div {
+  flex: 1 1 300px;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  resize: vertical;
+}
+
+.contact-form button {
+  align-self: flex-start;
+}
+
+/* Footer */
+footer {
+  background: var(--colour-dark);
+  color: var(--colour-light);
+  padding: 2rem 0;
+}
+
+footer .footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+footer .footer-column {
+  flex: 1 1 200px;
+}
+
+footer h4 {
+  font-family: var(--font-title);
+  margin-bottom: 0.5rem;
+}
+
+footer ul li a {
+  color: var(--colour-light);
+  font-size: 0.9rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+footer ul li a:hover {
+  color: var(--colour-accent);
+}
+
+footer .social-icons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+footer .social-icons a {
+  font-size: 1.5rem;
+  color: var(--colour-light);
+}
+
+footer .social-icons a:hover {
+  color: var(--colour-accent);
+}
+
+.copyright {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.85rem;
+  color: #aaa;
+}
+
+/* Fade‑in animation for scroll reveal */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive media queries */
+@media (max-width: 991px) {
+  .navbar ul.nav-links {
+    display: none;
+  }
+  .navbar .hamburger {
+    display: block;
+  }
+  .mobile-nav {
+    display: flex;
+  }
+  .about {
+    flex-direction: column;
+    text-align: center;
+  }
+  .about .image, .about .content {
+    flex: 1 1 100%;
+  }
+  .contact-info {
+    flex-direction: column;
+  }
+  footer .footer-container {
+    flex-direction: column;
+  }
+}

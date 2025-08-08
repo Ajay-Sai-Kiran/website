@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Training | D3‑FORGE</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <a href="index.html" class="logo">D3‑FORGE</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="training.html" class="active">Training</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="hamburger">
+      <ion-icon name="menu-outline"></ion-icon>
+    </div>
+  </nav>
+  <div class="mobile-nav">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="services.html">Services</a>
+    <a href="training.html">Training</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <!-- Training Header -->
+  <header class="hero" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('assets/training.jpg');">
+    <div class="container">
+      <h1 class="fade-in">Training Programmes</h1>
+      <p class="fade-in" style="--delay:0.2s">Grow your skills with hands‑on courses taught by industry experts</p>
+    </div>
+  </header>
+
+  <!-- Course Categories -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title fade-in">Course Catalogue</h2>
+      <p class="section-subtitle fade-in">Choose from a variety of disciplines and skill levels. Each course emphasises practical experience and mentoring.</p>
+      <div class="cards">
+        <a href="courses/ai.html" class="card training fade-in course-card" data-course="ai" style="--delay:0s">
+          <ion-icon name="analytics-outline"></ion-icon>
+          <h3>Data Science &amp; AI</h3>
+          <p>Dive deep into machine learning, deep learning and data visualisation using Python and popular libraries.</p>
+        </a>
+        <a href="courses/frontend.html" class="card training fade-in course-card" data-course="frontend" style="--delay:0.1s">
+          <ion-icon name="code-slash-outline"></ion-icon>
+          <h3>Front‑End Development</h3>
+          <p>Master HTML5, CSS3, JavaScript and modern frameworks such as React and Angular to build dynamic interfaces.</p>
+        </a>
+        <a href="courses/backend.html" class="card training fade-in course-card" data-course="backend" style="--delay:0.2s">
+          <ion-icon name="server-outline"></ion-icon>
+          <h3>Back‑End &amp; APIs</h3>
+          <p>Learn server‑side languages, databases and API design including Node.js, Python, SQL and RESTful services.</p>
+        </a>
+        <a href="courses/cloud.html" class="card training fade-in course-card" data-course="cloud" style="--delay:0.3s">
+          <ion-icon name="cloud-outline"></ion-icon>
+          <h3>Cloud &amp; DevOps</h3>
+          <p>Develop skills in AWS, Azure and container orchestration while implementing CI/CD pipelines and infrastructure as code.</p>
+        </a>
+        <a href="courses/testing.html" class="card training fade-in course-card" data-course="testing" style="--delay:0.4s">
+          <ion-icon name="bug-outline"></ion-icon>
+          <h3>Software Testing</h3>
+          <p>Understand testing strategies, automation frameworks and quality management to deliver reliable applications.</p>
+        </a>
+        <a href="courses/uiux.html" class="card training fade-in course-card" data-course="uiux" style="--delay:0.5s">
+          <ion-icon name="brush-outline"></ion-icon>
+          <h3>UI/UX &amp; Product Design</h3>
+          <p>Design user‑centred experiences with Figma, accessibility principles and iterative prototyping.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Learn with Us -->
+  <section class="section" style="background: var(--colour-dark); color: var(--colour-light);">
+    <div class="container">
+      <h2 class="section-title fade-in" style="color: var(--colour-light)">Why Learn with D3‑FORGE?</h2>
+      <p class="section-subtitle fade-in" style="color:#ccc">We combine modern educational design with industry expertise to offer a comprehensive learning experience.</p>
+      <div class="cards">
+        <div class="card service fade-in" style="--delay:0s">
+          <ion-icon name="navigate-outline"></ion-icon>
+          <h3>Intuitive Navigation</h3>
+          <p>Courses and resources are organised to create clear pathways for each learner, reducing the number of clicks to reach important information.</p>
+        </div>
+        <div class="card service fade-in" style="--delay:0.1s">
+          <ion-icon name="phone-portrait-outline"></ion-icon>
+          <h3>Mobile Responsive</h3>
+          <p>Our platform adapts to any screen size with fluid layouts, touch‑friendly elements and properly sized text.</p>
+        </div>
+        <div class="card service fade-in" style="--delay:0.2s">
+          <ion-icon name="school-outline"></ion-icon>
+          <h3>LMS Integration</h3>
+          <p>Single sign‑on capabilities, consistent branding and personalised dashboards integrate seamlessly with learning portals.</p>
+        </div>
+        <div class="card service fade-in" style="--delay:0.3s">
+          <ion-icon name="clipboard-outline"></ion-icon>
+          <h3>Simplified Enrolment</h3>
+          <p>Step‑by‑step applications, secure payment processing and save‑and‑continue functionality streamline the enrolment process.</p>
+        </div>
+        <div class="card service fade-in" style="--delay:0.4s">
+          <ion-icon name="shield-checkmark-outline"></ion-icon>
+          <h3>Security & Accessibility</h3>
+          <p>We prioritise robust security and compliance features to protect sensitive data while ensuring inclusive access for all users.</p>
+        </div>
+        <div class="card service fade-in" style="--delay:0.5s">
+          <ion-icon name="people-circle-outline"></ion-icon>
+          <h3>Community Support</h3>
+          <p>Connect with mentors and peers through discussion forums, collaborative projects and live Q&A sessions.</p>
+        </div>
+      </div>
+      <div style="text-align:center; margin-top:2rem;" class="fade-in">
+        <a href="contact.html" class="btn">Request Details</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Course Detail Modals -->
+  <!-- Each modal contains an overview and curriculum for the corresponding course. Clicking a course card opens the associated modal. -->
+  <div id="modal-ai" class="modal">
+    <div class="modal-content">
+      <span class="modal-close">&times;</span>
+      <h2>Data Science &amp; AI</h2>
+      <p>Our Data Science &amp; AI programme provides a comprehensive foundation in data analysis, machine learning and deep learning. Learn Python, statistics, data visualisation and work with popular libraries such as pandas, NumPy, scikit‑learn, TensorFlow and Keras. Throughout the course you’ll build real‑world projects and explore ethical considerations in AI.</p>
+      <h3>Curriculum</h3>
+      <ul>
+        <li>Data Science Foundations: statistics, probability, Python and Jupyter notebooks.</li>
+        <li>Data Wrangling &amp; Visualisation: use pandas, NumPy and matplotlib/seaborn for exploratory analysis.</li>
+        <li>Machine Learning: supervised &amp; unsupervised algorithms, model evaluation and hyperparameter tuning.</li>
+        <li>Deep Learning: neural networks, CNNs and RNNs implemented using TensorFlow and Keras.</li>
+        <li>Capstone Project: apply your skills to a real‑world problem, from data collection to deployment.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="modal-frontend" class="modal">
+    <div class="modal-content">
+      <span class="modal-close">&times;</span>
+      <h2>Front‑End Development</h2>
+      <p>This programme teaches you to craft engaging web experiences. Master HTML5 semantics, modern CSS (Flexbox &amp; Grid), JavaScript ES6+ and responsive design principles. We also explore accessibility guidelines and frameworks like React and Angular so you can build single‑page applications.</p>
+      <h3>Curriculum</h3>
+      <ul>
+        <li>HTML &amp; CSS Fundamentals: semantic markup, selectors, Flexbox, Grid and responsive layouts.</li>
+        <li>JavaScript Basics: variables, functions, objects, ES6 features and DOM manipulation.</li>
+        <li>Frameworks &amp; Tooling: React fundamentals, component lifecycle and an introduction to Angular.</li>
+        <li>Responsive &amp; Accessible Design: mobile‑first approaches, ARIA roles and usability testing.</li>
+        <li>Build Tools &amp; Project: version control with Git, npm scripts, webpack and a final portfolio project.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="modal-backend" class="modal">
+    <div class="modal-content">
+      <span class="modal-close">&times;</span>
+      <h2>Back‑End &amp; APIs</h2>
+      <p>Learn server‑side programming, database management and API design. This course covers Node.js with Express, Python frameworks like Flask and Django, relational and NoSQL databases, RESTful and GraphQL APIs, authentication and security, microservices and deployment strategies.</p>
+      <h3>Curriculum</h3>
+      <ul>
+        <li>Server‑Side Fundamentals: asynchronous programming patterns with Node.js and Express.</li>
+        <li>Database Systems: design schemas, write queries in PostgreSQL and model data with MongoDB.</li>
+        <li>API Design: build RESTful services, explore GraphQL and document your endpoints.</li>
+        <li>Authentication &amp; Security: implement JWT/OAuth, validation and protect against vulnerabilities.</li>
+        <li>Deployment &amp; Scaling: deploy to cloud platforms, containerise with Docker and scale microservices.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="modal-cloud" class="modal">
+    <div class="modal-content">
+      <span class="modal-close">&times;</span>
+      <h2>Cloud &amp; DevOps</h2>
+      <p>Gain expertise in cloud architectures and DevOps practices. Learn about AWS and Azure services, containerisation with Docker, orchestration with Kubernetes, CI/CD pipelines, infrastructure as code and monitoring. By the end, you’ll design, deploy and maintain scalable cloud environments.</p>
+      <h3>Curriculum</h3>
+      <ul>
+        <li>Cloud Fundamentals: core services from AWS, Azure and GCP; IAM, networking and pricing models.</li>
+        <li>Containerisation: build and manage Docker images and compose multi‑container applications.</li>
+        <li>Kubernetes &amp; Orchestration: deploy, scale and update applications on Kubernetes clusters.</li>
+        <li>CI/CD &amp; Automation: set up pipelines with Jenkins or GitHub Actions, automate testing and deployment.</li>
+        <li>Infrastructure as Code: write declarative templates with Terraform and CloudFormation.</li>
+        <li>Monitoring &amp; Logging: use Prometheus, Grafana and the ELK stack to observe system health.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="modal-testing" class="modal">
+    <div class="modal-content">
+      <span class="modal-close">&times;</span>
+      <h2>Software Testing &amp; QA</h2>
+      <p>Understand testing methodologies across the software development lifecycle. This course teaches manual testing, test planning, automation frameworks like Selenium and Cypress, unit testing with JUnit/PyTest, as well as performance and security testing. You’ll practise creating test suites, reporting bugs and integrating tests into CI/CD pipelines.</p>
+      <h3>Curriculum</h3>
+      <ul>
+        <li>Testing Principles: types of testing, SDLC integration and writing effective test plans and cases.</li>
+        <li>Manual &amp; Exploratory Testing: defect tracking, exploratory techniques and test management tools.</li>
+        <li>Automation Frameworks: set up automated tests with Selenium, Cypress and integrate with CI/CD.</li>
+        <li>Unit &amp; Integration Testing: write tests in JUnit and PyTest, mock dependencies and measure coverage.</li>
+        <li>Performance &amp; Security: learn load testing, profiling, vulnerability scanning and secure coding practices.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="modal-uiux" class="modal">
+    <div class="modal-content">
+      <span class="modal-close">&times;</span>
+      <h2>UI/UX &amp; Product Design</h2>
+      <p>This programme equips you to design human‑centred products. Learn user research techniques, information architecture, interaction design, visual design principles, prototyping in Figma/Adobe XD, accessibility guidelines and product thinking. The course emphasises iterative design and usability testing.</p>
+      <h3>Curriculum</h3>
+      <ul>
+        <li>User Research &amp; Personas: interview techniques, surveys, empathy mapping and persona creation.</li>
+        <li>Information Architecture: create sitemaps, user flows and organise content for clarity.</li>
+        <li>Visual Design: typography, colour theory, layout and design systems.</li>
+        <li>Prototyping &amp; Tools: use Figma/Adobe XD to create wireframes, mockups and interactive prototypes.</li>
+        <li>Usability Testing: plan and run usability tests, analyse feedback and iterate on designs.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-container">
+      <div class="footer-column">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="training.html" class="active">Training</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#">Hyderābād, Telangana, India</a></li>
+          <li><a href="mailto:info@d3forge.com">info@d3forge.com</a></li>
+          <li><a href="tel:+911234567890">+91 123 456 7890</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Follow Us</h4>
+        <div class="social-icons">
+          <a href="#"><ion-icon name="logo-linkedin"></ion-icon></a>
+          <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
+          <a href="#"><ion-icon name="logo-github"></ion-icon></a>
+        </div>
+      </div>
+    </div>
+    <p class="copyright">© 2025 D3‑FORGE. All Rights Reserved.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/script.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
