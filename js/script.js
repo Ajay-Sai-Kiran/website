@@ -1,5 +1,5 @@
 /*
- * Client-side scripts for D3‑FORGE website
+ * Client-side scripts for D3-FORGE website
  *
  * This JavaScript module implements interactive behaviours for the site:
  * – responsive navigation toggling for small screens;
@@ -108,3 +108,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+// WhatsApp Click-to-Chat with page context (English, Telugu, Hindi)
+(function(){
+  const waBtn = document.querySelector('.whatsapp-floating');
+  if (!waBtn) return;
+  const phone = '918519888804';
+  const title = document.title;
+  const url = location.href;
+  const textLines = [
+    `Hi D3-FORGE, I'm on "${title}" and would like to know more. ${url}`,
+    `నమస్తే D3-FORGE, నేను "${title}" పేజీలో ఉన్నాను. మరింత సమాచారం కావాలి. ${url}`,
+    `नमस्ते D3-FORGE, मैं "${title}" पेज पर हूँ और अधिक जानकारी चाहता/चाहती हूँ। ${url}`
+  ];
+  const message = textLines.join('\n\n');
+  waBtn.href = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+})();
