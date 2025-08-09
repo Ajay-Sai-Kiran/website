@@ -1,13 +1,13 @@
 /*
- * Global Stylesheet for D3‑FORGE website
+ * Global Stylesheet for D3-FORGE website
  *
- * This stylesheet defines a simple design system for the D3‑FORGE site.  It
+ * This stylesheet defines a simple design system for the D3-FORGE site.  It
  * includes colour variables, typography rules and responsive layout classes.
  * The design emphasises clarity and accessibility, with ample white space
  * and high contrast.  Media queries are used to adapt the layout across
  * desktops, tablets and phones – a key tenant of responsive design,
  * which according to the MDN Web Docs describes a site that “responds to
- * the environment in which it is viewed”【601381623451264†L976-L983】.
+ * the environment in which it is viewed”.
  */
 
 /* Root variables for colours and sizing */
@@ -436,7 +436,7 @@ footer .social-icons a:hover {
   color: #aaa;
 }
 
-/* Fade‑in animation for scroll reveal */
+/* Fade-in animation for scroll reveal */
 .fade-in {
   opacity: 0;
   transform: translateY(20px);
@@ -450,26 +450,26 @@ footer .social-icons a:hover {
 
 /* Responsive media queries */
 @media (max-width: 991px) {
-  .navbar ul.nav-links {
-    display: none;
-  }
-  .navbar .hamburger {
-    display: block;
-  }
-  .mobile-nav {
-    display: flex;
-  }
-  .about {
-    flex-direction: column;
-    text-align: center;
-  }
-  .about .image, .about .content {
-    flex: 1 1 100%;
-  }
-  .contact-info {
-    flex-direction: column;
-  }
-  footer .footer-container {
-    flex-direction: column;
-  }
+  .navbar ul.nav-links { display: none; }
+  .navbar .hamburger { display: block; }
+  .mobile-nav { display: none; }
+  .mobile-nav.open { display: flex; }
+  .about { flex-direction: column; text-align: center; }
+  .about .image, .about .content { flex: 1 1 100%; }
+  .contact-info { flex-direction: column; }
+  footer .footer-container { flex-direction: column; }
+}
+
+/* Floating WhatsApp */
+.whatsapp-floating{
+  position:fixed; bottom:20px; right:20px;
+  width:56px; height:56px; border-radius:50%;
+  background:#25D366; color:#fff;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 6px 18px rgba(0,0,0,.2);
+  z-index:10000; transition:transform .2s, box-shadow .2s;
+}
+.whatsapp-floating:hover{ transform:translateY(-2px); box-shadow:0 10px 24px rgba(0,0,0,.3); }
+@media (max-width:480px){
+  .whatsapp-floating{ bottom:16px; right:16px; width:56px; height:56px; }
 }
