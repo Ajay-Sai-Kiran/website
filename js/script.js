@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
 (function(){
   const waBtn = document.querySelector('.whatsapp-floating');
   if (!waBtn) return;
-  const phone = '918519888804';
+  const phone = '+918125352626';
   const title = document.title;
   const url = location.href;
   const textLines = [
