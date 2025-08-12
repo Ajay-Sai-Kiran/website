@@ -41,6 +41,25 @@
     .syllabus { display:grid; gap:.6rem; padding-left: 1rem; }
     .syllabus li { background:#f6fafb; border:1px solid rgba(0,0,0,.06); padding:.7rem .9rem; border-radius:12px; }
   </style>
+
+  <!-- Minimal, namespaced LMS styles. Safe to move into css/style.css -->
+  <style>
+    .lms-hidden { display: none !important; }
+    .lms-embed-wrap { border: 1px solid #e5e7eb; border-radius: 14px; overflow: hidden; }
+    .lms-embed-wrap iframe { width: 100%; height: min(80vh, 1200px); border: 0; display: block; }
+    .lms-embed-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 16px 0; }
+    .lms-btn { appearance: none; border: 0; border-radius: 999px; padding: 10px 16px; cursor: pointer; font-weight: 600; }
+    .lms-btn.ghost { background: transparent; color: #111827; }
+    .lms-btn.primary { background: #111827; color: #fff; }
+    .lms-modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.45); display: grid; place-items: center; z-index: 10000; }
+    .lms-modal { width: 100%; max-width: 420px; background: #fff; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,.15); overflow: hidden; }
+    .lms-modal header { padding: 16px 20px; font-weight: 600; border-bottom: 1px solid #eee; }
+    .lms-modal .lms-body { padding: 20px; }
+    .lms-modal .lms-actions { display: flex; gap: 10px; justify-content: flex-end; padding: 16px 20px; border-top: 1px solid #eee; }
+    .lms-field { display: grid; gap: 6px; margin-bottom: 14px; }
+    .lms-field input { width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 10px; font: inherit; }
+    .lms-error { color: #b91c1c; font-size: 0.9rem; min-height: 1.2em; }
+  </style>
 </head>
 <body>
   <!-- Navigation -->
@@ -52,6 +71,8 @@
       <li><a href="services.html">Services</a></li>
       <li><a href="training.html">Training</a></li>
       <li><a href="contact.html">Contact</a></li>
+      <!-- NEW: Login to LMS (desktop) -->
+      <li><a href="#" data-lms-login-open>Login to LMS</a></li>
     </ul>
     <div class="hamburger">
       <ion-icon name="menu-outline"></ion-icon>
@@ -64,6 +85,8 @@
     <a href="services.html">Services</a>
     <a href="training.html">Training</a>
     <a href="contact.html">Contact</a>
+    <!-- NEW: Login to LMS (mobile) -->
+    <a href="#" data-lms-login-open>Login to LMS</a>
   </div>
 
   <!-- Hero Section -->
@@ -188,6 +211,25 @@
     </div>
   </section>
 
+  <!-- LMS Embed (hidden until login) -->
+  <section class="section" id="lms-section">
+    <div class="container">
+      <section id="lms-embed-section" class="lms-hidden" aria-live="polite">
+        <div class="lms-embed-toolbar">
+          <strong>Learning Management System</strong>
+          <div style="display:flex; gap:8px; align-items:center">
+            <button type="button" id="lms-open-in-modal" class="lms-btn ghost" title="Open login / account">Account</button>
+            <button type="button" id="lms-signout" class="lms-btn ghost">Sign out</button>
+          </div>
+        </div>
+        <div class="lms-embed-wrap">
+          <!-- Replace LMS_EMBED_URL with your LMS page that allows embedding -->
+          <iframe id="lms-iframe" src="LMS_EMBED_URL" title="LMS"></iframe>
+        </div>
+      </section>
+    </div>
+  </section>
+
   <!-- Call to Action -->
   <section class="section" style="background: var(--colour-accent); color: var(--colour-light);">
     <div class="container">
@@ -273,31 +315,32 @@
       </div>
     </div>
   </div>
-<div id="sap-pppmqm-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="sap-pppmqm-title">
-  <div class="modal-card" role="document">
-    <header class="modal-header">
-      <h3 id="sap-pppmqm-title">SAP PP–PM–QM — 8-Week Syllabus</h3>
-      <button class="close-btn" aria-label="Close syllabus" data-close-modal>&times;</button>
-    </header>
-    <div class="modal-body">
-      <p><strong>Outcome:</strong> Deliver integrated Production Planning, Quality Management, and Plant Maintenance in SAP S/4HANA with hands‑on confidence and governance alignment.</p>
-      <ol class="syllabus">
-        <li><strong>Week 1:</strong> S/4HANA Manufacturing & Asset Management Overview — org structure (plants, storage locations), master-data map, roles, and Fiori workspace.</li>
-        <li><strong>Week 2:</strong> PP Master Data — materials, BOMs, work centers/resources, routings/task lists, production versions; change control & release strategy.</li>
-        <li><strong>Week 3:</strong> Demand & MRP — planning strategies (MTS/MTO), PIRs, MRP Live, exception messages, pegging, lot sizing.</li>
-        <li><strong>Week 4:</strong> Shop‑Floor Execution & Capacity — production orders, confirmations, GI/GR, variance & settlement, basic capacity planning and PP/DS overview.</li>
-        <li><strong>Week 5:</strong> QM Foundations & Procurement — MICs, inspection plans & methods, sampling, GR inspections, usage decisions, defect recording.</li>
-        <li><strong>Week 6:</strong> QM in Production & Sales — in‑process (03) & GR from production (04) lots, nonconformance handling/CAPA, quality certificates.</li>
-        <li><strong>Week 7:</strong> PM/EAM — technical objects (functional locations, equipment), notifications & orders, preventive maintenance plans, calibration (QM integration), resource scheduling/mobile.</li>
-        <li><strong>Week 8:</strong> Capstone — end‑to‑end scenario: forecast → MRP → production → inspections → maintenance order → analytics; ADRs and final presentation.</li>
-      </ol>
-    </div>
-    <div class="modal-actions">
-      <a class="btn" href="assets/syllabus-sap-pp-pm-qm.pdf" download>Download Syllabus (PDF)</a>
-      <a class="btn btn-dark" href="contact.html">Register Interest</a>
+  <div id="sap-pppmqm-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="sap-pppmqm-title">
+    <div class="modal-card" role="document">
+      <header class="modal-header">
+        <h3 id="sap-pppmqm-title">SAP PP–PM–QM — 8-Week Syllabus</h3>
+        <button class="close-btn" aria-label="Close syllabus" data-close-modal>&times;</button>
+      </header>
+      <div class="modal-body">
+        <p><strong>Outcome:</strong> Deliver integrated Production Planning, Quality Management, and Plant Maintenance in SAP S/4HANA with hands‑on confidence and governance alignment.</p>
+        <ol class="syllabus">
+          <li><strong>Week 1:</strong> S/4HANA Manufacturing & Asset Management Overview — org structure (plants, storage locations), master-data map, roles, and Fiori workspace.</li>
+          <li><strong>Week 2:</strong> PP Master Data — materials, BOMs, work centers/resources, routings/task lists, production versions; change control & release strategy.</li>
+          <li><strong>Week 3:</strong> Demand & MRP — planning strategies (MTS/MTO), PIRs, MRP Live, exception messages, pegging, lot sizing.</li>
+          <li><strong>Week 4:</strong> Shop‑Floor Execution & Capacity — production orders, confirmations, GI/GR, variance & settlement, basic capacity planning and PP/DS overview.</li>
+          <li><strong>Week 5:</strong> QM Foundations & Procurement — MICs, inspection plans & methods, sampling, GR inspections, usage decisions, defect recording.</li>
+          <li><strong>Week 6:</strong> QM in Production & Sales — in‑process (03) & GR from production (04) lots, nonconformance handling/CAPA, quality certificates.</li>
+          <li><strong>Week 7:</strong> PM/EAM — technical objects (functional locations, equipment), notifications & orders, preventive maintenance plans, calibration (QM integration), resource scheduling/mobile.</li>
+          <li><strong>Week 8:</strong> Capstone — end‑to‑end scenario: forecast → MRP → production → inspections → maintenance order → analytics; ADRs and final presentation.</li>
+        </ol>
+      </div>
+      <div class="modal-actions">
+        <a class="btn" href="assets/syllabus-sap-pp-pm-qm.pdf" download>Download Syllabus (PDF)</a>
+        <a class="btn btn-dark" href="contact.html">Register Interest</a>
+      </div>
     </div>
   </div>
-</div>
+
   <!-- Scripts -->
   <script src="js/script.js"></script>
   <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
@@ -350,5 +393,150 @@
       });
     })();
   </script>
+
+  <!-- LMS Login Modal (independent of your existing .modal styles) -->
+  <div id="lms-login-shell" class="lms-modal-backdrop lms-hidden" role="dialog" aria-modal="true" aria-labelledby="lms-login-title">
+    <div class="lms-modal" role="document">
+      <header id="lms-login-title">Login to LMS</header>
+      <form id="lms-login-form" class="lms-body">
+        <div class="lms-field">
+          <label for="lms-email">Email</label>
+          <input id="lms-email" name="email" type="email" autocomplete="email" required />
+        </div>
+        <div class="lms-field">
+          <label for="lms-password">Password</label>
+          <input id="lms-password" name="password" type="password" autocomplete="current-password" required />
+        </div>
+        <p id="lms-error" class="lms-error" aria-live="polite"></p>
+      </form>
+      <div class="lms-actions">
+        <button type="button" class="lms-btn ghost" data-lms-close>Cancel</button>
+        <button type="submit" form="lms-login-form" class="lms-btn primary" id="lms-submit">Log in</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase Auth (modular v10 via CDN). Replace firebaseConfig placeholders. -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+    // 🔧 Replace all YOUR_FIREBASE_* placeholders below
+    const firebaseConfig = {
+      apiKey: "YOUR_FIREBASE_API_KEY",
+      authDomain: "YOUR_FIREBASE_AUTH_DOMAIN",
+      projectId: "YOUR_FIREBASE_PROJECT_ID",
+      appId: "YOUR_FIREBASE_APP_ID",
+      // (Optional but recommended if you use other products)
+      storageBucket: "YOUR_FIREBASE_STORAGE_BUCKET",
+      messagingSenderId: "YOUR_FIREBASE_MESSAGING_SENDER_ID",
+    };
+
+    // Initialize
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Elements
+    const loginLinks = document.querySelectorAll('[data-lms-login-open]');
+    const modalShell = document.getElementById('lms-login-shell');
+    const form = document.getElementById('lms-login-form');
+    const emailEl = document.getElementById('lms-email');
+    const pwdEl = document.getElementById('lms-password');
+    const submitBtn = document.getElementById('lms-submit');
+    const errorEl = document.getElementById('lms-error');
+    const closeBtn = document.querySelector('[data-lms-close]');
+    const embedSection = document.getElementById('lms-embed-section');
+    const iframe = document.getElementById('lms-iframe');
+    const signoutBtn = document.getElementById('lms-signout');
+    const accountBtn = document.getElementById('lms-open-in-modal');
+
+    // Helpers
+    const openModal = () => modalShell.classList.remove('lms-hidden');
+    const closeModal = () => {
+      modalShell.classList.add('lms-hidden');
+      errorEl.textContent = '';
+      form.reset();
+    };
+    const showEmbed = () => embedSection.classList.remove('lms-hidden');
+    const hideEmbed = () => embedSection.classList.add('lms-hidden');
+
+    // Nav links → open modal or jump to LMS if already signed in
+    loginLinks.forEach(el => el.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (auth.currentUser) {
+        document.getElementById('lms-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        openModal();
+        setTimeout(() => emailEl?.focus(), 0);
+      }
+    }));
+    closeBtn?.addEventListener('click', closeModal);
+    accountBtn?.addEventListener('click', () => openModal());
+
+    // Form submit → Firebase email/password login
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorEl.textContent = '';
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Logging in…';
+      try {
+        const email = emailEl.value.trim();
+        const password = pwdEl.value;
+        await signInWithEmailAndPassword(auth, email, password);
+        closeModal();
+        showEmbed();
+        // Optional: If your LMS expects a token or user hint, you could refresh the iframe here
+        // and append a query param with an ID token. Example (only if your LMS is configured to accept it):
+        // const token = await auth.currentUser.getIdToken();
+        // iframe.src = `LMS_EMBED_URL?token=${encodeURIComponent(token)}`;
+      } catch (err) {
+        console.error('[LMS login] error', err);
+        errorEl.textContent = prettyAuthError(err?.code || err?.message || 'Login failed.');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Log in';
+      }
+    });
+
+    // Keep UI in sync with auth state
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        showEmbed();
+        loginLinks.forEach(el => el.textContent = 'Open LMS');
+      } else {
+        hideEmbed();
+        loginLinks.forEach(el => el.textContent = 'Login to LMS');
+      }
+    });
+
+    // Sign out → hide embed
+    signoutBtn?.addEventListener('click', async () => {
+      await signOut(auth);
+      hideEmbed();
+    });
+
+    // Human‑friendly Firebase errors
+    function prettyAuthError(code) {
+      const map = {
+        'auth/invalid-email': 'That email looks invalid.',
+        'auth/missing-password': 'Please enter your password.',
+        'auth/weak-password': 'That password is too weak.',
+        'auth/user-not-found': 'No account found with that email.',
+        'auth/wrong-password': 'Incorrect password.',
+        'auth/too-many-requests': 'Too many attempts. Try again later.',
+      };
+      return map[code] || 'Unable to sign in. Please check your details and try again.';
+    }
+
+    // Accessibility: close with ESC, click outside
+    modalShell?.addEventListener('click', (e) => { if (e.target === modalShell) closeModal(); });
+    window.addEventListener('keydown', (e) => { if (!modalShell.classList.contains('lms-hidden') && e.key === 'Escape') closeModal(); });
+  </script>
+
+  <!-- Notes:
+    • Replace YOUR_FIREBASE_* and LMS_EMBED_URL above.
+    • Your LMS must allow being framed (no X‑Frame‑Options: DENY/SAMEORIGIN and proper CSP frame-ancestors on their side).
+    • If you prefer to use your existing modal system, remove the LMS modal markup & styles and call openModal()/closeModal() from your own modal.
+  -->
 </body>
 </html>
