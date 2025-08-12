@@ -180,7 +180,16 @@
           <p>8-week end-to-end program: Strategy → Architecture → Data → Agents → MLOps → Governance → Stakeholder Alignment → Capstone.</p>
           <div class="course-actions">
             <button class="btn btn-light" data-open-modal="#genai-modal">View Syllabus</button>
-            <a class="btn btn-ghost" href="training.html">Details</a>
+            <!-- NEW: direct download from GitHub raw (does NOT open modal) -->
+            <a
+              class="btn btn-ghost"
+              href="https://raw.githubusercontent.com/Ajay-Sai-Kiran/website/main/assets/AI%20for%20Product%20Managers%20(1).pdf"
+              download="AI-for-Product-Managers.pdf"
+              rel="noopener"
+              data-modal-exempt
+            >Download PDF</a>
+            <!-- Ensure Details link navigates normally (does NOT open modal) -->
+            <a class="btn btn-ghost" href="training.html" data-modal-exempt>Details</a>
           </div>
         </article>
 
@@ -310,11 +319,18 @@
         </ol>
       </div>
       <div class="modal-actions">
-        <a class="btn" href="assets/syllabus-genai-pm.pdf" download>Download Syllabus (PDF)</a>
+        <!-- UPDATED: link directly to your GitHub PDF (raw) and force a clean filename -->
+        <a
+          class="btn"
+          href="https://raw.githubusercontent.com/Ajay-Sai-Kiran/website/main/assets/AI%20for%20Product%20Managers%20(1).pdf"
+          download="AI-for-Product-Managers.pdf"
+          rel="noopener"
+        >Download Syllabus (PDF)</a>
         <a class="btn btn-dark" href="contact.html">Register Interest</a>
       </div>
     </div>
   </div>
+
   <div id="sap-pppmqm-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="sap-pppmqm-title">
     <div class="modal-card" role="document">
       <header class="modal-header">
@@ -322,16 +338,16 @@
         <button class="close-btn" aria-label="Close syllabus" data-close-modal>&times;</button>
       </header>
       <div class="modal-body">
-        <p><strong>Outcome:</strong> Deliver integrated Production Planning, Quality Management, and Plant Maintenance in SAP S/4HANA with hands‑on confidence and governance alignment.</p>
+        <p><strong>Outcome:</strong> Deliver integrated Production Planning, Quality Management, and Plant Maintenance in SAP S/4HANA with hands-on confidence and governance alignment.</p>
         <ol class="syllabus">
           <li><strong>Week 1:</strong> S/4HANA Manufacturing & Asset Management Overview — org structure (plants, storage locations), master-data map, roles, and Fiori workspace.</li>
           <li><strong>Week 2:</strong> PP Master Data — materials, BOMs, work centers/resources, routings/task lists, production versions; change control & release strategy.</li>
           <li><strong>Week 3:</strong> Demand & MRP — planning strategies (MTS/MTO), PIRs, MRP Live, exception messages, pegging, lot sizing.</li>
-          <li><strong>Week 4:</strong> Shop‑Floor Execution & Capacity — production orders, confirmations, GI/GR, variance & settlement, basic capacity planning and PP/DS overview.</li>
+          <li><strong>Week 4:</strong> Shop-Floor Execution & Capacity — production orders, confirmations, GI/GR, variance & settlement, basic capacity planning and PP/DS overview.</li>
           <li><strong>Week 5:</strong> QM Foundations & Procurement — MICs, inspection plans & methods, sampling, GR inspections, usage decisions, defect recording.</li>
-          <li><strong>Week 6:</strong> QM in Production & Sales — in‑process (03) & GR from production (04) lots, nonconformance handling/CAPA, quality certificates.</li>
+          <li><strong>Week 6:</strong> QM in Production & Sales — in-process (03) & GR from production (04) lots, nonconformance handling/CAPA, quality certificates.</li>
           <li><strong>Week 7:</strong> PM/EAM — technical objects (functional locations, equipment), notifications & orders, preventive maintenance plans, calibration (QM integration), resource scheduling/mobile.</li>
-          <li><strong>Week 8:</strong> Capstone — end‑to‑end scenario: forecast → MRP → production → inspections → maintenance order → analytics; ADRs and final presentation.</li>
+          <li><strong>Week 8:</strong> Capstone — end-to-end scenario: forecast → MRP → production → inspections → maintenance order → analytics; ADRs and final presentation.</li>
         </ol>
       </div>
       <div class="modal-actions">
@@ -363,6 +379,12 @@
         el.addEventListener('keydown', e => {
           if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); }
         });
+      });
+
+      // ✅ Allow certain links/buttons inside a card to bypass the modal
+      document.querySelectorAll('[data-modal-exempt]').forEach(el => {
+        el.addEventListener('click', e => e.stopPropagation());
+        el.addEventListener('keydown', e => e.stopPropagation());
       });
 
       // Close actions
@@ -515,7 +537,7 @@
       hideEmbed();
     });
 
-    // Human‑friendly Firebase errors
+    // Human-friendly Firebase errors
     function prettyAuthError(code) {
       const map = {
         'auth/invalid-email': 'That email looks invalid.',
@@ -535,7 +557,7 @@
 
   <!-- Notes:
     • Replace YOUR_FIREBASE_* and LMS_EMBED_URL above.
-    • Your LMS must allow being framed (no X‑Frame‑Options: DENY/SAMEORIGIN and proper CSP frame-ancestors on their side).
+    • Your LMS must allow being framed (no X-Frame-Options: DENY/SAMEORIGIN and proper CSP frame-ancestors on their side).
     • If you prefer to use your existing modal system, remove the LMS modal markup & styles and call openModal()/closeModal() from your own modal.
   -->
 </body>
