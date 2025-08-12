@@ -7,6 +7,50 @@
   <title>Training | D3-FORGE</title>
   <link rel="stylesheet" href="css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Minimal styles for the new Upcoming Courses section, modal, and form.
+       You can move these into css/style.css. -->
+  <style>
+    .section-dark { background: var(--colour-dark, #0d2326); color: var(--colour-light, #ffffff); }
+    .course-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
+    .course-card {
+      background: #01b8cf; color: #0d2326; border-radius: 14px; padding: 1.25rem 1.25rem 1rem;
+      box-shadow: 0 8px 28px rgba(0,0,0,.18); border: 1px solid rgba(255,255,255,.15);
+      transition: transform .18s ease, box-shadow .18s ease; cursor: pointer;
+    }
+    .course-card:hover { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(0,0,0,.22); }
+    .course-card h3 { color: #ffffff; margin: .5rem 0 .25rem; font-weight: 700; }
+    .course-card p { color: #e9feff; margin: 0 0 .75rem; }
+    .course-icon { font-size: 34px; color: #083a41; }
+    .course-actions { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; }
+    .btn-light { background: #ffffff; color: #0d2326; border: none; padding: .55rem .85rem; border-radius: 10px; font-weight: 600; }
+    .btn-ghost { background: transparent; border: 1px solid rgba(255,255,255,.7); color: #ffffff; padding: .5rem .85rem; border-radius: 10px; }
+    .pill-muted { background: rgba(255,255,255,.2); color: #fff; padding: .35rem .6rem; border-radius: 999px; font-size: .8rem; }
+    .course-card:focus { outline: 3px solid #ffffff; outline-offset: 2px; }
+
+    /* Modal */
+    .modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,.55); z-index: 9999; padding: 1rem; }
+    .modal[aria-hidden="false"] { display: flex; }
+    .modal-card { width: min(960px, 92vw); max-height: 90vh; overflow: auto; background: #ffffff; color: #111; border-radius: 18px; box-shadow: 0 24px 64px rgba(0,0,0,.25); }
+    .modal-header { display:flex; align-items:center; justify-content:space-between; padding:1rem 1.25rem; border-bottom:1px solid rgba(0,0,0,.08); position:sticky; top:0; background:#fff; border-top-left-radius:18px; border-top-right-radius:18px; }
+    .modal-body { padding: 1.25rem; }
+    .modal-actions { display:flex; gap:.75rem; padding: 0 1.25rem 1.25rem; flex-wrap: wrap; }
+    .close-btn { background:transparent; border:none; font-size:1.6rem; line-height:1; cursor:pointer; color:#333; }
+    .btn-dark { background: var(--colour-dark, #0d2326); color:#fff; }
+    .syllabus { display:grid; gap:.6rem; padding-left: 1rem; }
+    .syllabus li { background:#f6fafb; border:1px solid rgba(0,0,0,.06); padding:.7rem .9rem; border-radius:12px; }
+
+    /* Inquiry form */
+    .inquiry { background: #f6fbfc; border: 1px solid rgba(0,0,0,.06); border-radius: 14px; padding: 1.25rem; box-shadow: 0 8px 24px rgba(0,0,0,.06); }
+    .inquiry form { display: grid; gap: .9rem; grid-template-columns: 1fr 1fr; }
+    .inquiry form .full { grid-column: 1 / -1; }
+    .inquiry label { font-weight: 600; display:block; margin-bottom: .25rem; }
+    .inquiry input, .inquiry select, .inquiry textarea {
+      width: 100%; border: 1px solid #cfe6ea; border-radius: 10px; padding: .65rem .75rem; font: inherit; background: #fff;
+    }
+    .inquiry textarea { min-height: 110px; resize: vertical; }
+    .inquiry .actions { display:flex; gap:.6rem; justify-content: flex-end; grid-column: 1 / -1; }
+  </style>
 </head>
 <body>
   <!-- Navigation -->
@@ -76,17 +120,49 @@
           <p>Design user-centred experiences with Figma, accessibility principles and iterative prototyping.</p>
         </a>
         <a href="courses/sap.html" class="card training fade-in course-card" data-course="sap" style="--delay:0.6s">
-        <ion-icon name="business-outline"></ion-icon>
-        <h3>SAP</h3>
-        <p>Learn SAP S/4HANA fundamentals, Fiori UX, and end-to-end business process configuration.</p>
-      </a>
-      
-      <a href="courses/mulesoft.html" class="card training fade-in course-card" data-course="mulesoft" style="--delay:0.7s">
-        <ion-icon name="git-branch-outline"></ion-icon>
-        <h3>MuleSoft Integration</h3>
-        <p>Design, build, and manage APIs and integrations using Anypoint Platform, flows, and connectors.</p>
-      </a>
+          <ion-icon name="business-outline"></ion-icon>
+          <h3>SAP</h3>
+          <p>Learn SAP S/4HANA fundamentals, Fiori UX, and end-to-end business process configuration.</p>
+        </a>
+        <a href="courses/mulesoft.html" class="card training fade-in course-card" data-course="mulesoft" style="--delay:0.7s">
+          <ion-icon name="git-branch-outline"></ion-icon>
+          <h3>MuleSoft Integration</h3>
+          <p>Design, build, and manage APIs and integrations using Anypoint Platform, flows, and connectors.</p>
+        </a>
+      </div>
+    </div>
+  </section>
 
+  <!-- Upcoming Courses (NEW) -->
+  <section class="section section-dark" id="upcoming-courses">
+    <div class="container">
+      <h2 class="section-title" style="color: var(--colour-light)">Upcoming Courses</h2>
+      <p class="section-subtitle" style="color:#cde9e6">Reserve your spot in our next industry-ready cohorts.</p>
+
+      <div class="course-cards">
+        <!-- Generative AI for Product Managers -->
+        <article class="course-card"
+                 role="button" tabindex="0"
+                 aria-controls="genai-modal" aria-haspopup="dialog"
+                 data-open-modal="#genai-modal">
+          <div class="course-icon">
+            <ion-icon name="rocket-outline"></ion-icon>
+          </div>
+          <h3>Generative AI for Product Managers</h3>
+          <p>8-week end-to-end program: Strategy → Architecture → Data → Agents → MLOps → Governance → Stakeholder Alignment → Capstone.</p>
+          <div class="course-actions">
+            <button class="btn btn-light" data-open-modal="#genai-modal">View Syllabus</button>
+            <a class="btn btn-ghost" href="#inquiry">Request Details</a>
+          </div>
+        </article>
+
+        <!-- Placeholder tile (optional) -->
+        <article class="course-card" aria-disabled="true">
+          <div class="course-icon"><ion-icon name="shield-checkmark-outline"></ion-icon></div>
+          <h3>AI Ethics Fundamentals</h3>
+          <p>Bias mitigation, explainability, governance and compliance in production AI systems.</p>
+          <div class="course-actions"><span class="pill-muted">Coming Soon</span></div>
+        </article>
       </div>
     </div>
   </section>
@@ -134,101 +210,84 @@
     </div>
   </section>
 
-  <!-- Course Detail Modals (unchanged) -->
-  <div id="modal-ai" class="modal">
-    <div class="modal-content">
-      <span class="modal-close">&times;</span>
-      <h2>Data Science &amp; AI</h2>
-      <p>Our Data Science &amp; AI programme provides a comprehensive foundation in data analysis, machine learning and deep learning. Learn Python, statistics, data visualisation and work with popular libraries such as pandas, NumPy, scikit-learn, TensorFlow and Keras. Throughout the course you’ll build real-world projects and explore ethical considerations in AI.</p>
-      <h3>Curriculum</h3>
-      <ul>
-        <li>Data Science Foundations: statistics, probability, Python and Jupyter notebooks.</li>
-        <li>Data Wrangling &amp; Visualisation: use pandas, NumPy and matplotlib/seaborn for exploratory analysis.</li>
-        <li>Machine Learning: supervised &amp; unsupervised algorithms, model evaluation and hyperparameter tuning.</li>
-        <li>Deep Learning: neural networks, CNNs and RNNs implemented using TensorFlow and Keras.</li>
-        <li>Capstone Project: apply your skills to a real-world problem, from data collection to deployment.</li>
-      </ul>
-    </div>
-  </div>
+  <!-- Inquiry Form (NEW) -->
+  <section class="section" id="inquiry">
+    <div class="container">
+      <h2 class="section-title">Course Inquiry</h2>
+      <p class="section-subtitle">Tell us a bit about you, and we’ll share the next cohort dates and enrollment steps.</p>
 
-  <div id="modal-frontend" class="modal">
-    <div class="modal-content">
-      <span class="modal-close">&times;</span>
-      <h2>Front-End Development</h2>
-      <p>This programme teaches you to craft engaging web experiences. Master HTML5 semantics, modern CSS (Flexbox &amp; Grid), JavaScript ES6+ and responsive design principles. We also explore accessibility guidelines and frameworks like React and Angular so you can build single-page applications.</p>
-      <h3>Curriculum</h3>
-      <ul>
-        <li>HTML &amp; CSS Fundamentals: semantic markup, selectors, Flexbox, Grid and responsive layouts.</li>
-        <li>JavaScript Basics: variables, functions, objects, ES6 features and DOM manipulation.</li>
-        <li>Frameworks &amp; Tooling: React fundamentals, component lifecycle and an introduction to Angular.</li>
-        <li>Responsive &amp; Accessible Design: mobile-first approaches, ARIA roles and usability testing.</li>
-        <li>Build Tools &amp; Project: version control with Git, npm scripts, webpack and a final portfolio project.</li>
-      </ul>
+      <div class="inquiry">
+        <!-- mailto by default; swap 'action' to your backend or Formspree/Netlify as needed -->
+        <form method="post" action="mailto:info@d-3forge.com" enctype="text/plain">
+          <div>
+            <label for="name">Full Name*</label>
+            <input id="name" name="Name" type="text" required>
+          </div>
+          <div>
+            <label for="email">Email*</label>
+            <input id="email" name="Email" type="email" required>
+          </div>
+          <div>
+            <label for="company">Company</label>
+            <input id="company" name="Company" type="text">
+          </div>
+          <div>
+            <label for="role">Role</label>
+            <input id="role" name="Role" type="text">
+          </div>
+          <div>
+            <label for="course">Course*</label>
+            <select id="course" name="Course" required>
+              <option value="Generative AI for Product Managers" selected>Generative AI for Product Managers</option>
+              <option value="AI Ethics Fundamentals">AI Ethics Fundamentals</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div>
+            <label for="cohort">Cohort Preference</label>
+            <select id="cohort" name="Cohort">
+              <option value="Next Available">Next Available</option>
+              <option value="Month+1">Month +1</option>
+              <option value="Corporate Private">Corporate Private</option>
+            </select>
+          </div>
+          <div class="full">
+            <label for="message">Message</label>
+            <textarea id="message" name="Message" placeholder="Any goals, team size, or scheduling needs?"></textarea>
+          </div>
+          <div class="actions">
+            <button class="btn" type="submit">Send Inquiry</button>
+            <a class="btn btn-dark" href="contact.html">Contact Page</a>
+          </div>
+        </form>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <div id="modal-backend" class="modal">
-    <div class="modal-content">
-      <span class="modal-close">&times;</span>
-      <h2>Back-End &amp; APIs</h2>
-      <p>Learn server-side programming, database management and API design. This course covers Node.js with Express, Python frameworks like Flask and Django, relational and NoSQL databases, RESTful and GraphQL APIs, authentication and security, microservices and deployment strategies.</p>
-      <h3>Curriculum</h3>
-      <ul>
-        <li>Server-Side Fundamentals: asynchronous programming patterns with Node.js and Express.</li>
-        <li>Database Systems: design schemas, write queries in PostgreSQL and model data with MongoDB.</li>
-        <li>API Design: build RESTful services, explore GraphQL and document your endpoints.</li>
-        <li>Authentication &amp; Security: implement JWT/OAuth, validation and protect against vulnerabilities.</li>
-        <li>Deployment &amp; Scaling: deploy to cloud platforms, containerise with Docker and scale microservices.</li>
-      </ul>
-    </div>
-  </div>
-
-  <div id="modal-cloud" class="modal">
-    <div class="modal-content">
-      <span class="modal-close">&times;</span>
-      <h2>Cloud &amp; DevOps</h2>
-      <p>Gain expertise in cloud architectures and DevOps practices. Learn about AWS and Azure services, containerisation with Docker, orchestration with Kubernetes, CI/CD pipelines, infrastructure as code and monitoring. By the end, you’ll design, deploy and maintain scalable cloud environments.</p>
-      <h3>Curriculum</h3>
-      <ul>
-        <li>Cloud Fundamentals: core services from AWS, Azure and GCP; IAM, networking and pricing models.</li>
-        <li>Containerisation: build and manage Docker images and compose multi-container applications.</li>
-        <li>Kubernetes &amp; Orchestration: deploy, scale and update applications on Kubernetes clusters.</li>
-        <li>CI/CD &amp; Automation: set up pipelines with Jenkins or GitHub Actions, automate testing and deployment.</li>
-        <li>Infrastructure as Code: write declarative templates with Terraform and CloudFormation.</li>
-        <li>Monitoring &amp; Logging: use Prometheus, Grafana and the ELK stack to observe system health.</li>
-      </ul>
-    </div>
-  </div>
-
-  <div id="modal-testing" class="modal">
-    <div class="modal-content">
-      <span class="modal-close">&times;</span>
-      <h2>Software Testing &amp; QA</h2>
-      <p>Understand testing methodologies across the software development lifecycle. This course teaches manual testing, test planning, automation frameworks like Selenium and Cypress, unit testing with JUnit/PyTest, as well as performance and security testing. You’ll practise creating test suites, reporting bugs and integrating tests into CI/CD pipelines.</p>
-      <h3>Curriculum</h3>
-      <ul>
-        <li>Testing Principles: types of testing, SDLC integration and writing effective test plans and cases.</li>
-        <li>Manual &amp; Exploratory Testing: defect tracking, exploratory techniques and test management tools.</li>
-        <li>Automation Frameworks: set up automated tests with Selenium, Cypress and integrate with CI/CD.</li>
-        <li>Unit &amp; Integration Testing: write tests in JUnit and PyTest, mock dependencies and measure coverage.</li>
-        <li>Performance &amp; Security: learn load testing, profiling, vulnerability scanning and secure coding practices.</li>
-      </ul>
-    </div>
-  </div>
-
-  <div id="modal-uiux" class="modal">
-    <div class="modal-content">
-      <span class="modal-close">&times;</span>
-      <h2>UI/UX &amp; Product Design</h2>
-      <p>This programme equips you to design human-centred products. Learn user research techniques, information architecture, interaction design, visual design principles, prototyping in Figma/Adobe XD, accessibility guidelines and product thinking. The course emphasises iterative design and usability testing.</p>
-      <h3>Curriculum</h3>
-      <ul>
-        <li>User Research &amp; Personas: interview techniques, surveys, empathy mapping and persona creation.</li>
-        <li>Information Architecture: create sitemaps, user flows and organise content for clarity.</li>
-        <li>Visual Design: typography, colour theory, layout and design systems.</li>
-        <li>Prototyping &amp; Tools: use Figma/Adobe XD to create wireframes, mockups and interactive prototypes.</li>
-        <li>Usability Testing: plan and run usability tests, analyse feedback and iterate on designs.</li>
-      </ul>
+  <!-- Syllabus Modal (NEW) -->
+  <div id="genai-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="genai-title">
+    <div class="modal-card" role="document">
+      <header class="modal-header">
+        <h3 id="genai-title">Generative AI for Product Managers — 8-Week Syllabus</h3>
+        <button class="close-btn" aria-label="Close syllabus" data-close-modal>&times;</button>
+      </header>
+      <div class="modal-body">
+        <p><strong>Outcome:</strong> Launch AI-powered products with strategic clarity, technical depth, and governance alignment.</p>
+        <ol class="syllabus">
+          <li><strong>Week 1:</strong> Strategic Product Leadership in GenAI — vision, RICE/OKRs, market opportunity.</li>
+          <li><strong>Week 2:</strong> Architecture & Technical Foundations — RAG, agentic systems, transformers, compute sizing.</li>
+          <li><strong>Week 3:</strong> Data & Retrieval Pipeline — ingestion, chunking, embeddings, vector DB trade-offs.</li>
+          <li><strong>Week 4:</strong> Agentic Workflow & Multi-Agent Design — orchestration, routers, fallbacks, recovery.</li>
+          <li><strong>Week 5:</strong> MLOps, Deployment & Monitoring — CI/CD, drift/latency/hallucination metrics, rollback.</li>
+          <li><strong>Week 6:</strong> Ethics, Governance & Reliability — bias mitigation, explainability, compliance, auditability.</li>
+          <li><strong>Week 7:</strong> Execution & Stakeholder Alignment — exec storytelling, trade-offs, cross-functional handoffs.</li>
+          <li><strong>Week 8:</strong> Capstone — end-to-end system design, ADRs, final presentation.</li>
+        </ol>
+      </div>
+      <div class="modal-actions">
+        <a class="btn" href="assets/syllabus-genai-pm.pdf" download>Download Syllabus (PDF)</a>
+        <a class="btn btn-dark" href="#inquiry">Register Interest</a>
+      </div>
     </div>
   </div>
 
@@ -260,11 +319,11 @@
           <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
           <a href="#"><ion-icon name="logo-github"></ion-icon></a>
           <a href="https://www.instagram.com/d3.forge/"
-     class="ig"
-     target="_blank" rel="noopener noreferrer"
-     aria-label="Instagram">
-    <ion-icon name="logo-instagram"></ion-icon>
-  </a>
+             class="ig"
+             target="_blank" rel="noopener noreferrer"
+             aria-label="Instagram">
+            <ion-icon name="logo-instagram"></ion-icon>
+          </a>
         </div>
       </div>
     </div>
@@ -273,15 +332,62 @@
 
   <!-- Floating WhatsApp -->
   <a class="whatsapp-floating"
-   href="whatsapp://send?phone=918125352626&text=Hi%20D-3Forge%2C%20I%20have%20a%20question%20about%20your%20services."
-   target="_blank" rel="noopener"
-   aria-label="Chat on WhatsApp">
-  <ion-icon name="logo-whatsapp"></ion-icon>
-</a>
+     href="whatsapp://send?phone=918125352626&text=Hi%20D-3Forge%2C%20I%20have%20a%20question%20about%20your%20training%20programmes."
+     target="_blank" rel="noopener"
+     aria-label="Chat on WhatsApp">
+    <ion-icon name="logo-whatsapp"></ion-icon>
+  </a>
 
   <!-- Scripts -->
   <script src="js/script.js"></script>
   <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://cdn.jsdelivr.net/npm/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+  <!-- Lightweight JS for tile → modal behaviour. Merge into js/script.js if preferred. -->
+  <script>
+    (function () {
+      // Open via buttons or clicking the whole card
+      document.querySelectorAll('[data-open-modal]').forEach(el => {
+        el.addEventListener('click', e => {
+          const sel = el.getAttribute('data-open-modal');
+          const modal = document.querySelector(sel);
+          if (!modal) return;
+          modal.setAttribute('aria-hidden', 'false');
+          document.body.style.overflow = 'hidden';
+          e.preventDefault();
+        });
+        el.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); }
+        });
+      });
+
+      // Close actions
+      document.querySelectorAll('[data-close-modal]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const modal = btn.closest('.modal');
+          modal.setAttribute('aria-hidden', 'true');
+          document.body.style.overflow = '';
+        });
+      });
+
+      // Click outside to close
+      document.querySelectorAll('.modal').forEach(modal => {
+        modal.addEventListener('click', e => {
+          if (e.target === modal) {
+            modal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+          }
+        });
+      });
+
+      // ESC to close
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') {
+          document.querySelectorAll('.modal[aria-hidden="false"]').forEach(m => m.setAttribute('aria-hidden', 'true'));
+          document.body.style.overflow = '';
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
