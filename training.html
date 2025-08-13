@@ -4,20 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Training | D3-FORGE</title>
+  <title>Tech Training & Cohorts: Generative AI, Cloud, Testing | D3-FORGE (Hyderabad)</title>
+  <meta name="description" content="Hands-on training with live cohorts: Generative AI for Product Managers, Cloud & DevOps, Software Testing, UI/UX, SAP and more. Request upcoming dates or join the next cohort.">
+  <link rel="canonical" href="https://d-3forge.com/training.html">
+
   <link rel="stylesheet" href="css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 
-  <!-- Minimal styles for the new Upcoming Courses section, modal, and form.
-       You can move these into css/style.css. -->
+  <!-- Optional: move these styles to css/style.css later -->
   <style>
     .section-dark { background: var(--colour-dark, #0d2326); color: var(--colour-light, #ffffff); }
     .course-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
-    .course-card {
-      background: #01b8cf; color: #0d2326; border-radius: 14px; padding: 1.25rem 1.25rem 1rem;
-      box-shadow: 0 8px 28px rgba(0,0,0,.18); border: 1px solid rgba(255,255,255,.15);
-      transition: transform .18s ease, box-shadow .18s ease; cursor: pointer;
-    }
+    .course-card { background: #01b8cf; color: #0d2326; border-radius: 14px; padding: 1.25rem 1.25rem 1rem; box-shadow: 0 8px 28px rgba(0,0,0,.18); border: 1px solid rgba(255,255,255,.15); transition: transform .18s ease, box-shadow .18s ease; cursor: pointer; }
     .course-card:hover { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(0,0,0,.22); }
     .course-card h3 { color: #ffffff; margin: .5rem 0 .25rem; font-weight: 700; }
     .course-card p { color: #e9feff; margin: 0 0 .75rem; }
@@ -28,7 +26,6 @@
     .pill-muted { background: rgba(255,255,255,.2); color: #fff; padding: .35rem .6rem; border-radius: 999px; font-size: .8rem; }
     .course-card:focus { outline: 3px solid #ffffff; outline-offset: 2px; }
 
-    /* Modal */
     .modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,.55); z-index: 9999; padding: 1rem; }
     .modal[aria-hidden="false"] { display: flex; }
     .modal-card { width: min(960px, 92vw); max-height: 90vh; overflow: auto; background: #ffffff; color: #111; border-radius: 18px; box-shadow: 0 24px 64px rgba(0,0,0,.25); }
@@ -40,17 +37,49 @@
     .syllabus { display:grid; gap:.6rem; padding-left: 1rem; }
     .syllabus li { background:#f6fafb; border:1px solid rgba(0,0,0,.06); padding:.7rem .9rem; border-radius:12px; }
 
-    /* Inquiry form */
     .inquiry { background: #f6fbfc; border: 1px solid rgba(0,0,0,.06); border-radius: 14px; padding: 1.25rem; box-shadow: 0 8px 24px rgba(0,0,0,.06); }
     .inquiry form { display: grid; gap: .9rem; grid-template-columns: 1fr 1fr; }
     .inquiry form .full { grid-column: 1 / -1; }
     .inquiry label { font-weight: 600; display:block; margin-bottom: .25rem; }
-    .inquiry input, .inquiry select, .inquiry textarea {
-      width: 100%; border: 1px solid #cfe6ea; border-radius: 10px; padding: .65rem .75rem; font: inherit; background: #fff;
-    }
+    .inquiry input, .inquiry select, .inquiry textarea { width: 100%; border: 1px solid #cfe6ea; border-radius: 10px; padding: .65rem .75rem; font: inherit; background: #fff; }
     .inquiry textarea { min-height: 110px; resize: vertical; }
     .inquiry .actions { display:flex; gap:.6rem; justify-content: flex-end; grid-column: 1 / -1; }
+    .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0; }
   </style>
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"ItemList",
+    "name":"D3-FORGE Training Catalogue",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Generative AI for Product Managers","url":"https://d-3forge.com/courses/generative-ai-for-product-managers.html"},
+      {"@type":"ListItem","position":2,"name":"AI Ethics Fundamentals","url":"https://d-3forge.com/training.html#upcoming-courses"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Course",
+    "name":"Generative AI for Product Managers",
+    "description":"8-week live cohort covering strategy, RAG vs agents, data & retrieval, MLOps, governance, and a capstone.",
+    "provider":{"@type":"Organization","name":"D3-FORGE","url":"https://d-3forge.com"},
+    "url":"https://d-3forge.com/courses/generative-ai-for-product-managers.html"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"Is the Generative AI cohort beginner-friendly?","acceptedAnswer":{"@type":"Answer","text":"Yes. No coding is required; optional labs include guided code walkthroughs."}},
+      {"@type":"Question","name":"Do you provide recordings?","acceptedAnswer":{"@type":"Answer","text":"Yes. Live sessions are recorded and shared with participants."}},
+      {"@type":"Question","name":"Can we run a private corporate cohort?","acceptedAnswer":{"@type":"Answer","text":"Yes. We can customise case studies and scheduling for your team."}}
+    ]
+  }
+  </script>
 </head>
 <body>
   <!-- Navigation -->
@@ -133,7 +162,7 @@
     </div>
   </section>
 
-  <!-- Upcoming Courses (NEW) -->
+  <!-- Upcoming Courses -->
   <section class="section section-dark" id="upcoming-courses">
     <div class="container">
       <h2 class="section-title" style="color: var(--colour-light)">Upcoming Courses</h2>
@@ -152,11 +181,12 @@
           <p>8-week end-to-end program: Strategy → Architecture → Data → Agents → MLOps → Governance → Stakeholder Alignment → Capstone.</p>
           <div class="course-actions">
             <button class="btn btn-light" data-open-modal="#genai-modal">View Syllabus</button>
+            <a class="btn btn-ghost" href="courses/generative-ai-for-product-managers.html">Full Details</a>
             <a class="btn btn-ghost" href="#inquiry">Request Details</a>
           </div>
         </article>
 
-        <!-- Placeholder tile (optional) -->
+        <!-- Placeholder tile -->
         <article class="course-card" aria-disabled="true">
           <div class="course-icon"><ion-icon name="shield-checkmark-outline"></ion-icon></div>
           <h3>AI Ethics Fundamentals</h3>
@@ -210,15 +240,16 @@
     </div>
   </section>
 
-  <!-- Inquiry Form (NEW) -->
+  <!-- Inquiry Form -->
   <section class="section" id="inquiry">
     <div class="container">
       <h2 class="section-title">Course Inquiry</h2>
       <p class="section-subtitle">Tell us a bit about you, and we’ll share the next cohort dates and enrollment steps.</p>
 
       <div class="inquiry">
-        <!-- mailto by default; swap 'action' to your backend or Formspree/Netlify as needed -->
+        <!-- Tip: replace 'action' with your backend or Formspree/Netlify. mailto works but can be flaky. -->
         <form method="post" action="mailto:info@d-3forge.com" enctype="text/plain">
+          <input type="text" name="hp_field" class="sr-only" tabindex="-1" autocomplete="off">
           <div>
             <label for="name">Full Name*</label>
             <input id="name" name="Name" type="text" required>
@@ -264,7 +295,7 @@
     </div>
   </section>
 
-  <!-- Syllabus Modal (NEW) -->
+  <!-- Syllabus Modal -->
   <div id="genai-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="genai-title">
     <div class="modal-card" role="document">
       <header class="modal-header">
@@ -285,7 +316,8 @@
         </ol>
       </div>
       <div class="modal-actions">
-        <a class="btn" href="assets/syllabus-genai-pm.pdf" download>Download Syllabus (PDF)</a>
+        <a class="btn" href="assets/genai-pm-syllabus.pdf" download>Download Syllabus (PDF)</a>
+        <a class="btn btn-dark" href="courses/generative-ai-for-product-managers.html">Full Details</a>
         <a class="btn btn-dark" href="#inquiry">Register Interest</a>
       </div>
     </div>
@@ -318,10 +350,7 @@
           <a href="#"><ion-icon name="logo-linkedin"></ion-icon></a>
           <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
           <a href="#"><ion-icon name="logo-github"></ion-icon></a>
-          <a href="https://www.instagram.com/d3.forge/"
-             class="ig"
-             target="_blank" rel="noopener noreferrer"
-             aria-label="Instagram">
+          <a href="https://www.instagram.com/d3.forge/" class="ig" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
             <ion-icon name="logo-instagram"></ion-icon>
           </a>
         </div>
@@ -330,9 +359,9 @@
     <p class="copyright">© 2025 D3-FORGE. All Rights Reserved.</p>
   </footer>
 
-  <!-- Floating WhatsApp -->
+  <!-- Floating WhatsApp (wa.me works on desktop + mobile) -->
   <a class="whatsapp-floating"
-     href="whatsapp://send?phone=918125352626&text=Hi%20D-3Forge%2C%20I%20have%20a%20question%20about%20your%20training%20programmes."
+     href="https://wa.me/918125352626?text=Hi%20D3-FORGE%2C%20I%27d%20like%20to%20know%20about%20your%20training%20programmes."
      target="_blank" rel="noopener"
      aria-label="Chat on WhatsApp">
     <ion-icon name="logo-whatsapp"></ion-icon>
@@ -343,7 +372,7 @@
   <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://cdn.jsdelivr.net/npm/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
-  <!-- Lightweight JS for tile → modal behaviour. Merge into js/script.js if preferred. -->
+  <!-- Modal logic -->
   <script>
     (function () {
       // Open via buttons or clicking the whole card
