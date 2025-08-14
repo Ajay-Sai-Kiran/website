@@ -1,70 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>D3-FORGE | Design, Development & Deploy</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
 
   <style>
-    /* --- NAVBAR (fixed, white, with logo + name) --- */
+    /* ===== NAVBAR (fixed, white) ===== */
     .navbar{
       position: fixed; top: 0; left: 0; right: 0; z-index: 2000;
-      background: #ffffff; display: flex; align-items: center; justify-content: space-between;
-      padding: .6rem 1rem; box-shadow: 0 2px 12px rgba(0,0,0,.06);
+      background: #ffffff; display:flex; align-items:center; justify-content:space-between;
+      padding:.6rem 1rem; box-shadow:0 2px 12px rgba(0,0,0,.06);
     }
     body{ padding-top:72px; }
     .brand{ display:flex; align-items:center; gap:.6rem; text-decoration:none; }
     .brand img{ height:40px; width:auto; display:block; }
     .brand .site-name{ font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; font-weight:800; color:#0d2326; font-size:1.2rem; letter-spacing:.2px; }
+    .brand .mobile-title{ display:none; font-weight:800; font-size:1.2rem; color:#0d2326; }
     .nav-links{ display:flex; gap:1.2rem; list-style:none; margin:0; padding:0; align-items:center; }
     .nav-links a{ color:#0d2326!important; text-decoration:none; font-weight:600; }
     .nav-links a.active{ color:#01b8cf!important; border-bottom:3px solid #01b8cf; padding-bottom:.2rem; }
+    .hamburger{ display:none; }
 
-    /* Courses / Cards */
-    .section-dark { background: var(--colour-dark, #0d2326); color: var(--colour-light, #ffffff); }
-    .course-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
-    .course-card {
-      background: #01b8cf; color: #0d2326; border-radius: 14px; padding: 1.25rem 1.25rem 1rem;
-      box-shadow: 0 8px 28px rgba(0,0,0,.18); border: 1px solid rgba(255,255,255,.15);
-      transition: transform .18s ease, box-shadow .18s ease; cursor: pointer;
+    /* ===== “Mobile: show only ‘Free’ in the top bar” ===== */
+    @media (max-width:768px){
+      .brand img, .brand .site-name{ display:none !important; }
+      .brand .mobile-title{ display:inline-block; }
     }
-    .course-card:hover { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(0,0,0,.22); }
-    .course-card h3 { color: #ffffff; margin: .5rem 0 .25rem; font-weight: 700; }
-    .course-card p { color: #e9feff; margin: 0 0 .75rem; }
-    .course-icon { font-size: 34px; color: #083a41; }
-    .course-actions { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; }
-    .btn-light { background: #ffffff; color: #0d2326; border: none; padding: .55rem .85rem; border-radius: 10px; font-weight: 600; }
-    .btn-ghost { background: transparent; border: 1px solid rgba(255,255,255,.7); color: #ffffff; padding: .5rem .85rem; border-radius: 10px; }
-    .pill-muted { background: rgba(255,255,255,.2); color: #fff; padding: .35rem .6rem; border-radius: 999px; font-size: .8rem; }
-    .course-card:focus { outline: 3px solid #ffffff; outline-offset: 2px; }
 
-    /* Modal */
-    .modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,.55); z-index: 9999; padding: 1rem; }
-    .modal[aria-hidden="false"] { display: flex; }
-    .modal-card { width: min(960px, 92vw); max-height: 90vh; overflow: auto; background: #ffffff; color: #111; border-radius: 18px; box-shadow: 0 24px 64px rgba(0,0,0,.25); }
-    .modal-header { display:flex; align-items:center; justify-content:space-between; padding:1rem 1.25rem; border-bottom:1px solid rgba(0,0,0,.08); position:sticky; top:0; background:#fff; border-top-left-radius:18px; border-top-right-radius:18px; }
-    .modal-body { padding: 1.25rem; }
-    .modal-actions { display:flex; gap:.75rem; padding: 0 1.25rem 1.25rem; flex-wrap: wrap; }
-    .close-btn { background:transparent; border:none; font-size:1.6rem; line-height:1; cursor:pointer; color:#333; }
-    .btn-dark { background: var(--colour-dark, #0d2326); color:#fff; border-radius:10px; padding:.55rem .85rem; }
-    .syllabus { display:grid; gap:.6rem; padding-left: 1rem; }
-    .syllabus li { background:#f6fafb; border:1px solid rgba(0,0,0,.06); padding:.7rem .9rem; border-radius:12px; }
+    /* ===== Free Course Banner ===== */
+    .free-banner{ background: linear-gradient(135deg, #01b8cf 0%, #0d2326 100%); color:#fff; padding: 1rem 0; }
+    .free-banner .container{ display:grid; grid-template-columns:1fr auto; align-items:center; gap:1rem; }
+    .badge-new{ display:inline-flex; align-items:center; gap:.4rem; font-weight:800; letter-spacing:.02em; background:#fff; color:#0d2326; border-radius:999px; padding:.35rem .7rem; font-size:.8rem; }
+    .free-banner h2{ margin:.25rem 0 0; font-size:clamp(1.15rem, 2.5vw, 1.5rem); font-weight:700; }
+    .free-banner p{ margin:.25rem 0 0; opacity:.9; }
+    .free-banner .actions{ display:flex; gap:.5rem; flex-wrap:wrap; }
+    .free-banner .btn{ background:#fff; color:#0d2326; border-radius:10px; padding:.5rem .85rem; font-weight:700; border:0; cursor:pointer; }
+    .free-banner .btn.ghost{ background:transparent; color:#fff; border:1px solid rgba(255,255,255,.7); }
 
-    /* Free Course Banner */
-    .free-banner { background: linear-gradient(135deg, #01b8cf 0%, #0d2326 100%); color: #fff; padding: 1rem 0; }
-    .free-banner .container { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 1rem; }
-    .badge-new { display: inline-flex; align-items: center; gap: .4rem; font-weight: 800; letter-spacing: .02em; background: #fff; color: #0d2326; border-radius: 999px; padding: .35rem .7rem; font-size: .8rem; }
-    .free-banner h2 { margin: .25rem 0 0; font-size: clamp(1.15rem, 2.5vw, 1.5rem); font-weight: 700; }
-    .free-banner p { margin: .25rem 0 0; opacity: .9; }
-    .free-banner .actions { display:flex; gap:.5rem; flex-wrap:wrap; }
-    .free-banner .btn { background:#fff; color:#0d2326; border-radius:10px; padding:.5rem .85rem; font-weight:700; border:0; cursor:pointer; }
-    .free-banner .btn.ghost { background:transparent; color:#fff; border:1px solid rgba(255,255,255,.7); }
-    .pill-new { background:#fff; color:#0d2326; font-weight:700; padding:.3rem .55rem; border-radius:999px; font-size:.75rem; }
+    /* ===== Course cards & modal (kept from your version) ===== */
+    .section-dark{ background: var(--colour-dark, #0d2326); color: var(--colour-light, #ffffff); }
+    .course-cards{ display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:1.25rem; }
+    .course-card{ background:#01b8cf; color:#0d2326; border-radius:14px; padding:1.25rem 1.25rem 1rem; box-shadow:0 8px 28px rgba(0,0,0,.18); border:1px solid rgba(255,255,255,.15); transition:transform .18s ease, box-shadow .18s ease; cursor:pointer; }
+    .course-card:hover{ transform:translateY(-3px); box-shadow:0 14px 34px rgba(0,0,0,.22); }
+    .course-card h3{ color:#fff; margin:.5rem 0 .25rem; font-weight:700; }
+    .course-card p{ color:#e9feff; margin:0 0 .75rem; }
+    .course-icon{ font-size:34px; color:#083a41; }
+    .course-actions{ display:flex; gap:.5rem; align-items:center; flex-wrap:wrap; }
+    .btn-light{ background:#fff; color:#0d2326; border:none; padding:.55rem .85rem; border-radius:10px; font-weight:600; }
+    .btn-ghost{ background:transparent; border:1px solid rgba(255,255,255,.7); color:#fff; padding:.5rem .85rem; border-radius:10px; }
+    .pill-muted{ background:rgba(255,255,255,.2); color:#fff; padding:.35rem .6rem; border-radius:999px; font-size:.8rem; }
+    .pill-new{ background:#fff; color:#0d2326; font-weight:700; padding:.3rem .55rem; border-radius:999px; font-size:.75rem; }
 
-    /* LMS */
+    .modal{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,.55); z-index:9999; padding:1rem; }
+    .modal[aria-hidden="false"]{ display:flex; }
+    .modal-card{ width:min(960px,92vw); max-height:90vh; overflow:auto; background:#fff; color:#111; border-radius:18px; box-shadow:0 24px 64px rgba(0,0,0,.25); }
+    .modal-header{ display:flex; align-items:center; justify-content:space-between; padding:1rem 1.25rem; border-bottom:1px solid rgba(0,0,0,.08); position:sticky; top:0; background:#fff; border-top-left-radius:18px; border-top-right-radius:18px; }
+    .modal-body{ padding:1.25rem; }
+    .modal-actions{ display:flex; gap:.75rem; padding:0 1.25rem 1.25rem; flex-wrap:wrap; }
+    .close-btn{ background:transparent; border:none; font-size:1.6rem; line-height:1; cursor:pointer; color:#333; }
+    .btn-dark{ background:#0d2326; color:#fff; border-radius:10px; padding:.55rem .85rem; }
+
+    /* LMS minimal */
     .lms-hidden { display: none !important; }
     .lms-embed-wrap { border: 1px solid #e5e7eb; border-radius: 14px; overflow: hidden; }
     .lms-embed-wrap iframe { width: 100%; height: min(80vh, 1200px); border: 0; display: block; }
@@ -86,9 +87,9 @@
   <!-- NAV -->
   <nav class="navbar">
     <a href="index.html" class="brand" aria-label="D-3Forge Home">
-      <!-- 👇 updated logo path -->
-      <img src="assets/IMG-20250811-WA0109.jpg" alt="D-3Forge Logo">
+      <img src="assets/IMG-20250811-WA0109.jpg" alt="D-3Forge Logo" />
       <span class="site-name">D-3Forge</span>
+      <span class="mobile-title">Agentic AI (Free course)</span> <!-- shown only on mobile -->
     </a>
     <ul class="nav-links">
       <li><a href="index.html" class="active">Home</a></li>
@@ -118,7 +119,7 @@
     </div>
   </section>
 
-  <!-- Mobile navigation -->
+  <!-- Mobile nav (your original) -->
   <div class="mobile-nav">
     <a href="index.html">Home</a>
     <a href="about.html">About</a>
@@ -128,7 +129,7 @@
     <a href="#" data-lms-login-open>Login to LMS</a>
   </div>
 
-  <!-- Hero -->
+  <!-- HERO -->
   <header class="hero">
     <div class="container">
       <h1 class="fade-in">Design • Develop • Deploy</h1>
@@ -137,7 +138,7 @@
     </div>
   </header>
 
-  <!-- Services Overview -->
+  <!-- SERVICES -->
   <section class="section" id="services-overview">
     <div class="container">
       <h2 class="section-title fade-in">Our Solutions</h2>
@@ -167,7 +168,7 @@
     </div>
   </section>
 
-  <!-- Training Overview -->
+  <!-- TRAINING -->
   <section class="section" id="training-overview" style="background: var(--colour-dark); color: var(--colour-light);">
     <div class="container">
       <h2 class="section-title fade-in" style="color: var(--colour-light)">Empowering Learners</h2>
@@ -200,7 +201,7 @@
     </div>
   </section>
 
-  <!-- Upcoming Courses -->
+  <!-- UPCOMING COURSES -->
   <section class="section section-dark" id="upcoming-courses">
     <div class="container">
       <h2 class="section-title" style="color: var(--colour-light)">Upcoming Courses</h2>
@@ -208,7 +209,9 @@
 
       <div class="course-cards">
         <!-- Agentic AI — Free -->
-        <article class="course-card" role="button" tabindex="0" aria-controls="agentic-modal" aria-haspopup="dialog" data-open-modal="#agentic-modal">
+        <article class="course-card" role="button" tabindex="0"
+                 aria-controls="agentic-modal" aria-haspopup="dialog"
+                 data-open-modal="#agentic-modal">
           <div class="course-icon"><ion-icon name="construct-outline"></ion-icon></div>
           <h3>Agentic AI (Free)</h3>
           <p>30-day, project-based intro to building LLM agents: tools, memory, planning, and deployment.</p>
@@ -220,14 +223,18 @@
           </div>
         </article>
 
-        <!-- Generative AI for PMs -->
-        <article class="course-card" role="button" tabindex="0" aria-controls="genai-modal" aria-haspopup="dialog" data-open-modal="#genai-modal">
+        <!-- GenAI for PMs -->
+        <article class="course-card" role="button" tabindex="0"
+                 aria-controls="genai-modal" aria-haspopup="dialog"
+                 data-open-modal="#genai-modal">
           <div class="course-icon"><ion-icon name="rocket-outline"></ion-icon></div>
           <h3>Generative AI for Product Managers</h3>
           <p>8-week end-to-end program: Strategy → Architecture → Data → Agents → MLOps → Governance → Stakeholder Alignment → Capstone.</p>
           <div class="course-actions">
             <button class="btn btn-light" data-open-modal="#genai-modal">View Syllabus</button>
-            <a class="btn btn-ghost" href="https://raw.githubusercontent.com/Ajay-Sai-Kiran/website/main/assets/AI%20for%20Product%20Managers%20(1).pdf" download="AI-for-Product-Managers.pdf" rel="noopener" data-modal-exempt>Download PDF</a>
+            <a class="btn btn-ghost"
+               href="https://raw.githubusercontent.com/Ajay-Sai-Kiran/website/main/assets/AI%20for%20Product%20Managers%20(1).pdf"
+               download="AI-for-Product-Managers.pdf" rel="noopener" data-modal-exempt>Download PDF</a>
             <a class="btn btn-ghost" href="training.html" data-modal-exempt>Details</a>
           </div>
         </article>
@@ -249,7 +256,7 @@
     </div>
   </section>
 
-  <!-- LMS Embed (hidden until login) -->
+  <!-- LMS EMBED -->
   <section class="section" id="lms-section">
     <div class="container">
       <section id="lms-embed-section" class="lms-hidden" aria-live="polite">
@@ -278,7 +285,7 @@
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- FOOTER -->
   <footer>
     <div class="container footer-container">
       <div class="footer-column">
@@ -319,7 +326,7 @@
     <ion-icon name="logo-whatsapp"></ion-icon>
   </a>
 
-  <!-- Agentic AI Modal -->
+  <!-- MODAL: Agentic AI (Free) -->
   <div id="agentic-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="agentic-title">
     <div class="modal-card" role="document">
       <header class="modal-header">
@@ -333,7 +340,7 @@
           <li><strong>Days 4–6:</strong> Prompting & Tool Use — function calling; ReAct loop; calculator + web search tool.</li>
           <li><strong>Days 7–9:</strong> Memory — embeddings; vector store (Chroma); doc retrieval.</li>
           <li><strong>Days 10–12:</strong> Planning — ReAct/Reflexion; task decomposition; research summarizer agent.</li>
-          <li><strong>Days 13–15:</strong> Integrations — files; 3rd-party APIs (news/Slack/Notion); scheduling.</li>
+          <li><strong>Days 13–15:</strong> Integrations — files; 3rd‑party APIs (news/Slack/Notion); scheduling.</li>
           <li><strong>Days 16–18:</strong> Reliability — guardrails; retries; logging; quick evals.</li>
           <li><strong>Days 19–21:</strong> Multi-Agent — coordinator/worker; handoffs; recovery.</li>
           <li><strong>Days 22–24:</strong> Performance — async/streaming; caching; memory persistence.</li>
@@ -342,14 +349,10 @@
         </ol>
       </div>
       <div class="modal-actions">
-        <a class="btn"
-           href="#"
-           download="Agentic-AI-30-Day-Syllabus.txt"
-           onclick="
-             const blob = new Blob([document.querySelector('#agentic-modal .modal-body').innerText], {type:'text/plain'});
-             const url = URL.createObjectURL(blob);
-             this.href = url;
-           ">Download Syllabus (TXT)</a>
+        <a class="btn" href="#" download="Agentic-AI-30-Day-Syllabus.txt" onclick="
+          const blob = new Blob([document.querySelector('#agentic-modal .modal-body').innerText], {type:'text/plain'});
+          const url = URL.createObjectURL(blob); this.href = url;
+        ">Download Syllabus (TXT)</a>
         <a class="btn btn-dark"
            href="https://wa.me/918125352626?text=Hi%20D3-FORGE%2C%20I%20want%20to%20enroll%20in%20the%20Free%20Agentic%20AI%20course."
            target="_blank" rel="noopener" data-modal-exempt>Enroll Free</a>
@@ -357,7 +360,7 @@
     </div>
   </div>
 
-  <!-- GenAI PM Modal -->
+  <!-- MODAL: GenAI for PMs -->
   <div id="genai-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="genai-title">
     <div class="modal-card" role="document">
       <header class="modal-header">
@@ -378,13 +381,14 @@
         </ol>
       </div>
       <div class="modal-actions">
-        <a class="btn" href="https://raw.githubusercontent.com/Ajay-Sai-Kiran/website/main/assets/AI%20for%20Product%20Managers%20(1).pdf" download="AI-for-Product-Managers.pdf" rel="noopener">Download Syllabus (PDF)</a>
+        <a class="btn" href="https://raw.githubusercontent.com/Ajay-Sai-Kiran/website/main/assets/AI%20for%20Product%20Managers%20(1).pdf"
+           download="AI-for-Product-Managers.pdf" rel="noopener">Download Syllabus (PDF)</a>
         <a class="btn btn-dark" href="contact.html">Register Interest</a>
       </div>
     </div>
   </div>
 
-  <!-- SAP modal -->
+  <!-- MODAL: SAP -->
   <div id="sap-pppmqm-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="sap-pppmqm-title">
     <div class="modal-card" role="document">
       <header class="modal-header">
@@ -392,16 +396,16 @@
         <button class="close-btn" aria-label="Close syllabus" data-close-modal>&times;</button>
       </header>
       <div class="modal-body">
-        <p><strong>Outcome:</strong> Deliver integrated Production Planning, Quality Management, and Plant Maintenance in SAP S/4HANA.</p>
+        <p><strong>Outcome:</strong> Deliver integrated Production Planning, Quality Management, and Plant Maintenance in SAP S/4HANA with hands-on confidence and governance alignment.</p>
         <ol class="syllabus">
-          <li><strong>Week 1:</strong> S/4HANA Manufacturing & Asset Management Overview.</li>
-          <li><strong>Week 2:</strong> PP Master Data — materials, BOMs, work centers/resources, routings/task lists.</li>
+          <li><strong>Week 1:</strong> S/4HANA overview; org structure & master-data map; roles & Fiori.</li>
+          <li><strong>Week 2:</strong> PP Master Data — materials, BOMs, work centers, routings, versions.</li>
           <li><strong>Week 3:</strong> Demand & MRP — MTS/MTO, PIRs, MRP Live, exception messages.</li>
-          <li><strong>Week 4:</strong> Shop-Floor Execution & Capacity — orders, confirmations, GI/GR, variance & settlement.</li>
+          <li><strong>Week 4:</strong> Execution & Capacity — orders, confirmations, GI/GR, variance & settlement.</li>
           <li><strong>Week 5:</strong> QM Foundations & Procurement — MICs, plans, sampling, GR inspections.</li>
-          <li><strong>Week 6:</strong> QM in Production & Sales — in-process & GR inspections, CAPA.</li>
-          <li><strong>Week 7:</strong> PM/EAM — technical objects, notifications, orders, maintenance plans.</li>
-          <li><strong>Week 8:</strong> Capstone — end-to-end scenario, ADRs, final presentation.</li>
+          <li><strong>Week 6:</strong> QM in Production & Sales — in-process & GR inspections, CAPA, certs.</li>
+          <li><strong>Week 7:</strong> PM/EAM — tech objects, notifications, orders, preventive plans.</li>
+          <li><strong>Week 8:</strong> Capstone — end-to-end scenario; ADRs; final presentation.</li>
         </ol>
       </div>
       <div class="modal-actions">
@@ -411,15 +415,14 @@
     </div>
   </div>
 
-  <!-- Scripts -->
+  <!-- Core scripts -->
   <script src="js/script.js"></script>
   <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://cdn.jsdelivr.net/npm/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
-  <!-- Modals wiring -->
+  <!-- MODAL wiring -->
   <script>
     (function () {
-      // Open via click
       document.querySelectorAll('[data-open-modal]').forEach(el => {
         el.addEventListener('click', e => {
           const sel = el.getAttribute('data-open-modal');
@@ -433,12 +436,10 @@
           if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); }
         });
       });
-      // Allow exempt links to bypass card click
       document.querySelectorAll('[data-modal-exempt]').forEach(el => {
         el.addEventListener('click', e => e.stopPropagation());
         el.addEventListener('keydown', e => e.stopPropagation());
       });
-      // Close actions
       document.querySelectorAll('[data-close-modal]').forEach(btn => {
         btn.addEventListener('click', () => {
           const modal = btn.closest('.modal');
@@ -446,7 +447,6 @@
           document.body.style.overflow = '';
         });
       });
-      // Click outside to close
       document.querySelectorAll('.modal').forEach(modal => {
         modal.addEventListener('click', e => {
           if (e.target === modal) {
@@ -455,17 +455,99 @@
           }
         });
       });
-      // ESC
       document.addEventListener('keydown', e => {
         if (e.key === 'Escape') {
-          document.querySelectorAll('.modal[aria-hidden="false"]').forEach(m => m.setAttribute('aria-hidden', 'true'));
+          document.querySelectorAll('.modal[aria-hidden="false"]').forEach(m => m.setAttribute('aria-hidden','true'));
           document.body.style.overflow = '';
         }
       });
     })();
   </script>
 
-  <!-- LMS Login Modal (kept) -->
+  <!-- LMS AUTH (kept; prevents auto-open on load) -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import {
+      getAuth, onAuthStateChanged, signInWithEmailAndPassword,
+      signOut, setPersistence, browserLocalPersistence
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "YOUR_FIREBASE_API_KEY",
+      authDomain: "YOUR_FIREBASE_AUTH_DOMAIN",
+      projectId: "YOUR_FIREBASE_PROJECT_ID",
+      appId: "YOUR_FIREBASE_APP_ID",
+      storageBucket: "YOUR_FIREBASE_STORAGE_BUCKET",
+      messagingSenderId: "YOUR_FIREBASE_MESSAGING_SENDER_ID",
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const loginLinks = document.querySelectorAll('[data-lms-login-open]');
+    const modalShell = document.getElementById('lms-login-shell');
+    const form = document.getElementById('lms-login-form');
+    const emailEl = document.getElementById('lms-email');
+    const pwdEl = document.getElementById('lms-password');
+    const submitBtn = document.getElementById('lms-submit');
+    const errorEl = document.getElementById('lms-error');
+    const embedSection = document.getElementById('lms-embed-section');
+    const iframe = document.getElementById('lms-iframe');
+    const signoutBtn = document.getElementById('lms-signout');
+    const accountBtn = document.getElementById('lms-open-in-modal');
+
+    document.addEventListener('DOMContentLoaded', () => {
+      modalShell?.classList.add('lms-hidden');
+      modalShell?.setAttribute('aria-hidden','true');
+      embedSection?.classList.add('lms-hidden');
+    });
+
+    const openModal = () => { modalShell.classList.remove('lms-hidden'); modalShell.setAttribute('aria-hidden','false'); };
+    const closeModal = () => { modalShell.classList.add('lms-hidden'); modalShell.setAttribute('aria-hidden','true'); errorEl.textContent=''; form?.reset(); };
+    const showEmbed = () => embedSection.classList.remove('lms-hidden');
+    const hideEmbed = () => embedSection.classList.add('lms-hidden');
+
+    loginLinks.forEach(el => el.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (auth.currentUser) {
+        document.getElementById('lms-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else { openModal(); setTimeout(() => emailEl?.focus(), 0); }
+    }));
+    document.querySelector('[data-lms-close]')?.addEventListener('click', closeModal);
+    accountBtn?.addEventListener('click', () => openModal());
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorEl.textContent = '';
+      submitBtn.disabled = true; submitBtn.textContent = 'Logging in…';
+      try {
+        await setPersistence(auth, browserLocalPersistence);
+        await signInWithEmailAndPassword(auth, (emailEl.value||'').trim(), pwdEl.value||'');
+        closeModal(); showEmbed();
+      } catch (err) {
+        const map = {
+          'auth/invalid-email':'That email looks invalid.',
+          'auth/missing-password':'Please enter your password.',
+          'auth/user-not-found':'No account found with that email.',
+          'auth/wrong-password':'Incorrect password.',
+          'auth/too-many-requests':'Too many attempts. Try again later.',
+          'auth/network-request-failed':'Network error. Check your connection.',
+        };
+        errorEl.textContent = map[err?.code] || 'Unable to sign in. Please try again.';
+      } finally {
+        submitBtn.disabled = false; submitBtn.textContent = 'Log in';
+      }
+    });
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) { showEmbed(); loginLinks.forEach(el => el.textContent='Open LMS'); }
+      else { hideEmbed(); loginLinks.forEach(el => el.textContent='Login to LMS'); }
+    });
+
+    signoutBtn?.addEventListener('click', async () => { await signOut(auth); hideEmbed(); });
+  </script>
+
+  <!-- LMS LOGIN MODAL -->
   <div id="lms-login-shell" class="lms-modal-backdrop lms-hidden" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="lms-login-title">
     <div class="lms-modal" role="document">
       <header id="lms-login-title">Login to LMS</header>
@@ -486,102 +568,5 @@
       </div>
     </div>
   </div>
-
-  <!-- Firebase Auth -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-
-    const firebaseConfig = {
-      apiKey: "YOUR_FIREBASE_API_KEY",
-      authDomain: "YOUR_FIREBASE_AUTH_DOMAIN",
-      projectId: "YOUR_FIREBASE_PROJECT_ID",
-      appId: "YOUR_FIREBASE_APP_ID",
-      storageBucket: "YOUR_FIREBASE_STORAGE_BUCKET",
-      messagingSenderId: "YOUR_FIREBASE_MESSAGING_SENDER_ID",
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    // Elements
-    const loginLinks = document.querySelectorAll('[data-lms-login-open]');
-    const modalShell = document.getElementById('lms-login-shell');
-    const form = document.getElementById('lms-login-form');
-    const emailEl = document.getElementById('lms-email');
-    const pwdEl = document.getElementById('lms-password');
-    const submitBtn = document.getElementById('lms-submit');
-    const errorEl = document.getElementById('lms-error');
-    const embedSection = document.getElementById('lms-embed-section');
-    const iframe = document.getElementById('lms-iframe');
-    const signoutBtn = document.getElementById('lms-signout');
-    const accountBtn = document.getElementById('lms-open-in-modal');
-
-    // Force-hide LMS UI on load (prevents "auto-open" edge cases)
-    document.addEventListener('DOMContentLoaded', () => {
-      modalShell?.classList.add('lms-hidden');
-      modalShell?.setAttribute('aria-hidden','true');
-      embedSection?.classList.add('lms-hidden');
-    });
-
-    const openModal = () => { modalShell.classList.remove('lms-hidden'); modalShell.setAttribute('aria-hidden','false'); };
-    const closeModal = () => {
-      modalShell.classList.add('lms-hidden');
-      modalShell.setAttribute('aria-hidden','true');
-      errorEl.textContent = '';
-      form?.reset();
-    };
-    const showEmbed = () => embedSection.classList.remove('lms-hidden');
-    const hideEmbed = () => embedSection.classList.add('lms-hidden');
-
-    // Click handlers
-    loginLinks.forEach(el => el.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (auth.currentUser) {
-        document.getElementById('lms-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      } else {
-        openModal();
-        setTimeout(() => emailEl?.focus(), 0);
-      }
-    }));
-    document.querySelector('[data-lms-close]')?.addEventListener('click', closeModal);
-    accountBtn?.addEventListener('click', () => openModal());
-
-    // Submit
-    form?.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      errorEl.textContent = '';
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Logging in…';
-      try {
-        await signInWithEmailAndPassword(auth, emailEl.value.trim(), pwdEl.value);
-        closeModal(); showEmbed();
-      } catch (err) {
-        const map = {
-          'auth/invalid-email': 'That email looks invalid.',
-          'auth/missing-password': 'Please enter your password.',
-          'auth/weak-password': 'That password is too weak.',
-          'auth/user-not-found': 'No account found with that email.',
-          'auth/wrong-password': 'Incorrect password.',
-          'auth/too-many-requests': 'Too many attempts. Try again later.',
-        };
-        errorEl.textContent = map[err?.code] || 'Unable to sign in. Please check your details and try again.';
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Log in';
-      }
-    });
-
-    // Auth state (never auto-opens modal)
-    onAuthStateChanged(auth, (user) => {
-      if (user) { showEmbed(); loginLinks.forEach(el => el.textContent = 'Open LMS'); }
-      else { hideEmbed(); loginLinks.forEach(el => el.textContent = 'Login to LMS'); }
-    });
-
-    // Extra safety: close on click-outside/Escape
-    modalShell?.addEventListener('click', (e) => { if (e.target === modalShell) closeModal(); });
-    window.addEventListener('keydown', (e) => { if (!modalShell?.classList.contains('lms-hidden') && e.key === 'Escape') closeModal(); });
-    signoutBtn?.addEventListener('click', async () => { await signOut(auth); hideEmbed(); });
-  </script>
 </body>
 </html>
