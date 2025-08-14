@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>D3-FORGE | Design, Development & Deploy</title>
 
@@ -10,41 +10,136 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
 
   <style>
-    /* ===== Sticky NAVBAR ===== */
-    .navbar{
-      position: fixed; top: 0; left: 0; right: 0; z-index: 2000;
-      background: #ffffff; display:flex; align-items:center; justify-content:space-between;
-      padding:.6rem 1rem; box-shadow:0 2px 12px rgba(0,0,0,.06);
+    /* ============= Root + Helpers ============= */
+    :root{
+      --nav-h: 64px;
+      --bg-dark: #0d2326;
+      --brand: #01b8cf;
+      --text: #0d2326;
+      --card-dark: #171b1d;
     }
-    body{ padding-top:72px; } /* leave room for navbar */
-
+    html{
+      /* when you jump to an anchor (#services), headings won't hide under the sticky nav */
+      scroll-padding-top: calc(var(--nav-h) + 14px);
+    }
+    body{
+      margin:0;
+      font-family: "Open Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: #111;
+      line-height: 1.6;
+      /* leave space for sticky bar + safe area on iOS */
+      padding-top: calc(var(--nav-h) + env(safe-area-inset-top, 0px));
+      background:#f6f7f8;
+    }
+    .container{
+      width: min(1200px, 100%);
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+    /* ============= Sticky Navbar ============= */
+    .navbar{
+      position: sticky; /* stays visible but participates in layout (smoother than fixed) */
+      top: 0;
+      left: 0;
+      right: 0;
+      height: calc(var(--nav-h) + env(safe-area-inset-top, 0px));
+      z-index: 2000;
+      background:#fff;
+      padding: env(safe-area-inset-top, 0px) 0 0 0; /* add safe area inside the bar */
+      box-shadow: 0 2px 12px rgba(0,0,0,.06);
+    }
+    .navbar .inner{
+      height: var(--nav-h);
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 0 16px;
+    }
     .brand{ display:flex; align-items:center; gap:.6rem; text-decoration:none; }
-    .brand img{ height:40px; width:auto; display:block; }
-    .brand .site-name{ font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; font-weight:800; color:#0d2326; font-size:1.2rem; letter-spacing:.2px; }
+    .brand img{ height:36px; width:auto; display:block; border-radius:8px; }
+    .brand .site-name{
+      font-family:Poppins, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight:800; color:#0d2326; font-size:1.25rem; letter-spacing:.2px;
+    }
+    .nav-links{ display:flex; gap:1rem; list-style:none; margin:0; padding:0; align-items:center; }
+    .nav-links a{ color:#0d2326; text-decoration:none; font-weight:600; padding:.35rem .2rem; }
+    .nav-links a.active{ color:var(--brand); border-bottom:3px solid var(--brand); }
 
-    .nav-links{ display:flex; gap:1.2rem; list-style:none; margin:0; padding:0; align-items:center; }
-    .nav-links a{ color:#0d2326!important; text-decoration:none; font-weight:600; }
-    .nav-links a.active{ color:#01b8cf!important; border-bottom:3px solid #01b8cf; padding-bottom:.2rem; }
-
-    /* ===== Free Course Banner ===== */
-    .free-banner{ background: linear-gradient(135deg, #01b8cf 0%, #0d2326 100%); color:#fff; padding: 1rem 0; }
+    /* ============= Free Course Banner (desktop only) ============= */
+    .free-banner{ background: linear-gradient(135deg, var(--brand) 0%, var(--bg-dark) 100%); color:#fff; padding: 16px 0; }
     .free-banner .container{ display:grid; grid-template-columns:1fr auto; align-items:center; gap:1rem; }
-    .badge-new{ display:inline-flex; align-items:center; gap:.4rem; font-weight:800; letter-spacing:.02em; background:#fff; color:#0d2326; border-radius:999px; padding:.35rem .7rem; font-size:.8rem; }
-    .free-banner h2{ margin:.25rem 0 0; font-size:clamp(1.15rem, 2.5vw, 1.5rem); font-weight:700; }
+    .badge-new{ display:inline-flex; align-items:center; gap:.4rem; font-weight:800; background:#fff; color:#0d2326; border-radius:999px; padding:.35rem .7rem; font-size:.8rem; }
+    .free-banner h2{ margin:.25rem 0 0; font-size: clamp(1.15rem, 2.2vw, 1.5rem); font-weight:700; }
     .free-banner p{ margin:.25rem 0 0; opacity:.9; }
     .free-banner .actions{ display:flex; gap:.5rem; flex-wrap:wrap; }
     .free-banner .btn{ background:#fff; color:#0d2326; border-radius:10px; padding:.5rem .85rem; font-weight:700; border:0; cursor:pointer; }
     .free-banner .btn.ghost{ background:transparent; color:#fff; border:1px solid rgba(255,255,255,.7); }
+    /* Hide banner entirely on phones */
+    @media (max-width:768px){ .free-banner{ display:none !important; } }
 
-    /* ✅ Hide the top Agentic AI banner completely on mobile */
-    @media (max-width:768px){
-      .free-banner{ display:none !important; }
+    /* ============= Hero ============= */
+    .hero{
+      position:relative;
+      background: radial-gradient(1200px 1200px at 30% 30%, #0a2f44 0%, #0a2330 35%, #081e28 55%, #08161b 100%);
+      color:#fff;
+      padding: 64px 0;
+    }
+    .hero h1{
+      font-family:Poppins, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight:800;
+      margin:0 0 12px 0;
+      line-height:1.1;
+      font-size: clamp(1.8rem, 5vw, 3.2rem);
+      letter-spacing:.2px;
+    }
+    .hero p{
+      max-width: 58ch;
+      font-size: clamp(1rem, 1.8vw, 1.2rem);
+      opacity:.95;
+      margin: 0 0 18px 0;
+    }
+    .hero .btn{
+      display:inline-block; background:#0aa8c0; color:#fff; text-decoration:none; font-weight:700;
+      border-radius:12px; padding: 14px 22px;
     }
 
-    /* ===== Sections / Cards / Modals (kept from your site) ===== */
-    .section-dark{ background: var(--colour-dark, #0d2326); color: var(--colour-light, #ffffff); }
+    /* ============= Sections ============= */
+    .section{ padding: 56px 0; background:#f6f7f8; }
+    .section-dark{ background: var(--bg-dark); color:#fff; }
+    .section-title{
+      font-family:Poppins, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight:800;
+      font-size: clamp(1.6rem, 4.2vw, 2.4rem);
+      margin: 0 0 10px 0;
+      line-height:1.15;
+      color: inherit;
+    }
+    .section-subtitle{
+      font-size: clamp(1rem, 2vw, 1.125rem);
+      opacity:.9;
+      max-width: 68ch;
+    }
+
+    /* ============= Cards ============= */
+    .cards{ display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 18px; }
+    .card{
+      background: #101416;
+      color: #e9f0f3;
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 10px 24px rgba(0,0,0,.15);
+    }
+    .card h3{
+      font-family:Poppins, system-ui; font-weight:800; margin: 0 0 6px 0; font-size: clamp(1.15rem, 2.6vw, 1.5rem);
+    }
+    .card p{ margin:0; opacity:.9; }
+
+    /* ============= Course Cards + Pills ============= */
     .course-cards{ display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:1.25rem; }
-    .course-card{ background:#01b8cf; color:#0d2326; border-radius:14px; padding:1.25rem 1.25rem 1rem; box-shadow:0 8px 28px rgba(0,0,0,.18); border:1px solid rgba(255,255,255,.15); transition:transform .18s ease, box-shadow .18s ease; cursor:pointer; }
+    .course-card{
+      background:#01b8cf; color:#0d2326; border-radius:14px; padding:1.25rem 1.25rem 1rem;
+      box-shadow:0 8px 28px rgba(0,0,0,.18); border:1px solid rgba(255,255,255,.15);
+      transition:transform .18s ease, box-shadow .18s ease; cursor:pointer;
+    }
     .course-card:hover{ transform:translateY(-3px); box-shadow:0 14px 34px rgba(0,0,0,.22); }
     .course-card h3{ color:#fff; margin:.5rem 0 .25rem; font-weight:700; }
     .course-card p{ color:#e9feff; margin:0 0 .75rem; }
@@ -55,51 +150,61 @@
     .pill-muted{ background:rgba(255,255,255,.2); color:#fff; padding:.35rem .6rem; border-radius:999px; font-size:.8rem; }
     .pill-new{ background:#fff; color:#0d2326; font-weight:700; padding:.3rem .55rem; border-radius:999px; font-size:.75rem; }
 
+    /* ============= Modals ============= */
     .modal{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,.55); z-index:9999; padding:1rem; }
     .modal[aria-hidden="false"]{ display:flex; }
     .modal-card{ width:min(960px,92vw); max-height:90vh; overflow:auto; background:#fff; color:#111; border-radius:18px; box-shadow:0 24px 64px rgba(0,0,0,.25); }
     .modal-header{ display:flex; align-items:center; justify-content:space-between; padding:1rem 1.25rem; border-bottom:1px solid rgba(0,0,0,.08); position:sticky; top:0; background:#fff; border-top-left-radius:18px; border-top-right-radius:18px; }
     .modal-body{ padding:1.25rem; }
-    .modal-actions{ display:flex; gap:.75rem; padding:0 1.25rem 1.25rem; flex-wrap:wrap; }
+    .modal-actions{ display:flex; gap:.75rem; padding: 0 1.25rem 1.25rem; flex-wrap:wrap; }
     .close-btn{ background:transparent; border:none; font-size:1.6rem; line-height:1; cursor:pointer; color:#333; }
-    .btn-dark{ background:#0d2326; color:#fff; border-radius:10px; padding:.55rem .85rem; }
+    .btn-dark{ background: var(--bg-dark); color:#fff; border-radius:10px; padding:.55rem .85rem; }
 
-    /* LMS minimal */
-    .lms-hidden { display: none !important; }
-    .lms-embed-wrap { border: 1px solid #e5e7eb; border-radius: 14px; overflow: hidden; }
-    .lms-embed-wrap iframe { width: 100%; height: min(80vh, 1200px); border: 0; display: block; }
-    .lms-embed-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 16px 0; }
-    .lms-btn { appearance: none; border: 0; border-radius: 999px; padding: 10px 16px; cursor: pointer; font-weight: 600; }
-    .lms-btn.ghost { background: transparent; color: #111827; }
-    .lms-btn.primary { background: #111827; color: #fff; }
-    .lms-modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.45); display: grid; place-items: center; z-index: 10000; }
-    .lms-modal { width: 100%; max-width: 420px; background: #fff; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,.15); overflow: hidden; }
-    .lms-modal header { padding: 16px 20px; font-weight: 600; border-bottom: 1px solid #eee; }
-    .lms-modal .lms-body { padding: 20px; }
-    .lms-modal .lms-actions { display: flex; gap: 10px; justify-content: flex-end; padding: 16px 20px; border-top: 1px solid #eee; }
-    .lms-field { display: grid; gap: 6px; margin-bottom: 14px; }
-    .lms-field input { width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 10px; font: inherit; }
-    .lms-error { color: #b91c1c; font-size: 0.9rem; min-height: 1.2em; }
+    /* ============= Footer ============= */
+    footer{ background:#0f1619; color:#dbe5e8; padding-top: 24px; }
+    footer .footer-container{ display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:20px; }
+    footer a{ color:#dbe5e8; text-decoration:none; }
+    .copyright{ text-align:center; opacity:.8; padding: 16px 0 24px 0; margin:0; }
+
+    /* ============= Floating WhatsApp position fix ============= */
+    .whatsapp-floating{
+      position: fixed; right: 16px; bottom: max(16px, env(safe-area-inset-bottom, 16px));
+      width:56px; height:56px; display:grid; place-items:center; background:#25D366; color:#fff; border-radius:50%;
+      box-shadow: 0 10px 24px rgba(0,0,0,.25); z-index: 1200;
+    }
+    .whatsapp-floating ion-icon{ font-size:28px; }
+
+    /* ============= Mobile tweaks ============= */
+    @media (max-width:768px){
+      .brand img{ height:32px; }
+      .brand .site-name{ font-size:1.1rem; }
+      .cards .card{ padding: 18px; }
+      .hero{ padding: 48px 0; }
+      .section{ padding: 44px 0; }
+    }
   </style>
 </head>
+
 <body>
-  <!-- NAV -->
-  <nav class="navbar">
-    <a href="index.html" class="brand" aria-label="D-3Forge Home">
-      <img src="assets/IMG-20250811-WA0109.jpg" alt="D-3Forge Logo" />
-      <span class="site-name">D-3Forge</span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="index.html" class="active">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="services.html">Services</a></li>
-      <li><a href="training.html">Training</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a href="#" data-lms-login-open>Login to LMS</a></li>
-    </ul>
+  <!-- NAVBAR -->
+  <nav class="navbar" role="navigation" aria-label="Primary">
+    <div class="inner">
+      <a href="index.html" class="brand">
+        <img src="assets/IMG-20250811-WA0109.jpg" alt="D-3Forge Logo">
+        <span class="site-name">D-3Forge</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="training.html">Training</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="#" data-lms-login-open>Login to LMS</a></li>
+      </ul>
+    </div>
   </nav>
 
-  <!-- ✅ FREE COURSE TOP BANNER (HIDDEN ON MOBILE) -->
+  <!-- DESKTOP-ONLY: Free Course Banner -->
   <section class="free-banner" aria-label="Free Course: Agentic AI">
     <div class="container">
       <div>
@@ -119,54 +224,54 @@
   <!-- HERO -->
   <header class="hero">
     <div class="container">
-      <h1 class="fade-in">Design • Develop • Deploy</h1>
-      <p class="fade-in" style="--delay:0.2s">Innovative software solutions & hands-on training for the next generation of tech leaders.</p>
-      <a href="services.html" class="btn fade-in" style="--delay:0.4s">Explore our Services</a>
+      <h1>Design • Develop • Deploy</h1>
+      <p>Innovative software solutions & hands-on training for the next generation of tech leaders.</p>
+      <a href="services.html" class="btn">Explore our Services</a>
     </div>
   </header>
 
   <!-- SERVICES -->
   <section class="section" id="services-overview">
     <div class="container">
-      <h2 class="section-title fade-in">Our Solutions</h2>
-      <p class="section-subtitle fade-in">From artificial intelligence to comprehensive quality assurance, D3-FORGE delivers end-to-end software services that power innovation.</p>
+      <h2 class="section-title">Our Solutions</h2>
+      <p class="section-subtitle">From artificial intelligence to comprehensive quality assurance, D3-FORGE delivers end-to-end software services that power innovation.</p>
+
       <div class="cards">
-        <div class="card service fade-in" style="--delay:0s">
-          <ion-icon name="hardware-chip-outline"></ion-icon>
+        <article class="card">
           <h3>AI & Machine Learning</h3>
           <p>Develop intelligent systems that learn from data, automate decisions and deliver predictive insights.</p>
-        </div>
-        <div class="card service fade-in" style="--delay:0.1s">
-          <ion-icon name="phone-portrait-outline"></ion-icon>
+        </article>
+
+        <article class="card">
           <h3>Web & Mobile Development</h3>
           <p>Create responsive websites and mobile apps with modern frameworks that scale seamlessly across devices.</p>
-        </div>
-        <div class="card service fade-in" style="--delay:0.2s">
-          <ion-icon name="cloud-outline"></ion-icon>
+        </article>
+
+        <article class="card">
           <h3>Cloud Solutions</h3>
           <p>Leverage the power of the cloud to build, deploy and manage applications with high availability and security.</p>
-        </div>
-        <div class="card service fade-in" style="--delay:0.3s">
-          <ion-icon name="bug-outline"></ion-icon>
+        </article>
+
+        <article class="card">
           <h3>QA & Testing</h3>
           <p>Ensure quality through automated and manual testing strategies, safeguarding user experience and reliability.</p>
-        </div>
+        </article>
       </div>
     </div>
   </section>
 
-  <!-- TRAINING -->
-  <section class="section" id="training-overview" style="background: var(--colour-dark); color: var(--colour-light);">
+  <!-- TRAINING (light intro strip kept simple) -->
+  <section class="section" id="training-overview" style="background:#eef3f5;">
     <div class="container">
-      <h2 class="section-title fade-in" style="color: var(--colour-light)">Empowering Learners</h2>
-      <p class="section-subtitle fade-in" style="color: #ccc">Our student-centred training programmes focus on practical experience, modular curricula and industry-relevant skills.</p>
+      <h2 class="section-title" style="color:#0d2326">Empowering Learners</h2>
+      <p class="section-subtitle" style="color:#33434a">Our student‑centred training programmes focus on practical experience, modular curricula and industry‑relevant skills.</p>
     </div>
   </section>
 
   <!-- UPCOMING COURSES -->
   <section class="section section-dark" id="upcoming-courses">
     <div class="container">
-      <h2 class="section-title" style="color: var(--colour-light)">Upcoming Courses</h2>
+      <h2 class="section-title">Upcoming Courses</h2>
       <p class="section-subtitle" style="color:#cde9e6">Reserve your spot in our next industry-ready cohorts.</p>
 
       <div class="course-cards">
@@ -237,12 +342,12 @@
   </section>
 
   <!-- CTA -->
-  <section class="section" style="background: var(--colour-accent); color: var(--colour-light);">
+  <section class="section" style="background: var(--brand); color: #fff;">
     <div class="container">
-      <h2 class="section-title fade-in" style="color: var(--colour-light)">Ready to build your future?</h2>
-      <p class="section-subtitle fade-in" style="color:#e6f4f1">Partner with D3-FORGE for cutting-edge software solutions and transformative training.</p>
-      <div style="text-align:center;" class="fade-in">
-        <a href="contact.html" class="btn" style="background: var(--colour-dark)">Get in Touch</a>
+      <h2 class="section-title" style="color:#fff">Ready to build your future?</h2>
+      <p class="section-subtitle" style="color:#f3fcff">Partner with D3-FORGE for cutting-edge software solutions and transformative training.</p>
+      <div style="text-align:center; margin-top:10px;">
+        <a href="contact.html" class="btn" style="background: var(--bg-dark); color:#fff; text-decoration:none; border-radius:10px; padding:12px 18px; display:inline-block;">Get in Touch</a>
       </div>
     </div>
   </section>
@@ -288,7 +393,7 @@
     <ion-icon name="logo-whatsapp"></ion-icon>
   </a>
 
-  <!-- MODAL: Agentic AI (Free) -->
+  <!-- ========== MODALS ========== -->
   <div id="agentic-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="agentic-title">
     <div class="modal-card" role="document">
       <header class="modal-header">
@@ -300,7 +405,7 @@
         <ol class="syllabus">
           <li><strong>Days 1–3:</strong> Foundations — what is an agent; LLM basics; Python setup; APIs & JSON.</li>
           <li><strong>Days 4–6:</strong> Prompting & Tool Use — function calling; ReAct loop; calculator + web search tool.</li>
-          <li><strong>Days 7–9:</strong> Memory — embeddings; vector store (Chroma); doc retrieval.</li>
+          <li><strong>Days 7–9:</strong> Memory — embeddings; vector store; doc retrieval.</li>
           <li><strong>Days 10–12:</strong> Planning — ReAct/Reflexion; task decomposition; research summarizer agent.</li>
           <li><strong>Days 13–15:</strong> Integrations — files; 3rd‑party APIs (news/Slack/Notion); scheduling.</li>
           <li><strong>Days 16–18:</strong> Reliability — guardrails; retries; logging; quick evals.</li>
@@ -322,7 +427,6 @@
     </div>
   </div>
 
-  <!-- MODAL: GenAI for PMs -->
   <div id="genai-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="genai-title">
     <div class="modal-card" role="document">
       <header class="modal-header">
@@ -332,25 +436,23 @@
       <div class="modal-body">
         <p><strong>Outcome:</strong> Launch AI-powered products with strategic clarity, technical depth, and governance alignment.</p>
         <ol class="syllabus">
-          <li><strong>Week 1:</strong> Strategic Product Leadership in GenAI — vision, RICE/OKRs, market opportunity.</li>
-          <li><strong>Week 2:</strong> Architecture & Technical Foundations — RAG, agentic systems, transformers, compute sizing.</li>
-          <li><strong>Week 3:</strong> Data & Retrieval Pipeline — ingestion, chunking, embeddings, vector DB trade-offs.</li>
-          <li><strong>Week 4:</strong> Agentic Workflow & Multi-Agent Design — orchestration, routers, fallbacks, recovery.</li>
-          <li><strong>Week 5:</strong> MLOps, Deployment & Monitoring — CI/CD, drift/latency/hallucination metrics, rollback.</li>
-          <li><strong>Week 6:</strong> Ethics, Governance & Reliability — bias mitigation, explainability, compliance, auditability.</li>
-          <li><strong>Week 7:</strong> Execution & Stakeholder Alignment — exec storytelling, trade-offs, cross-functional handoffs.</li>
-          <li><strong>Week 8:</strong> Capstone — end-to-end system design, ADRs, final presentation.</li>
+          <li><strong>Week 1:</strong> Strategy & OKRs.</li>
+          <li><strong>Week 2:</strong> Architecture — RAG, agentic systems, transformers, sizing.</li>
+          <li><strong>Week 3:</strong> Data & Retrieval Pipeline — ingestion, embeddings, vector DBs.</li>
+          <li><strong>Week 4:</strong> Agentic Workflow & Multi-Agent Design.</li>
+          <li><strong>Week 5:</strong> MLOps, Deployment & Monitoring.</li>
+          <li><strong>Week 6:</strong> Ethics, Governance & Reliability.</li>
+          <li><strong>Week 7:</strong> Stakeholder Alignment & Storytelling.</li>
+          <li><strong>Week 8:</strong> Capstone — end-to-end ADRs & presentation.</li>
         </ol>
       </div>
       <div class="modal-actions">
-        <a class="btn" href="https://raw.githubusercontent.com/Ajay-Sai-Kiran/website/main/assets/AI%20for%20Product%20Managers%20(1).pdf"
-           download="AI-for-Product-Managers.pdf" rel="noopener">Download Syllabus (PDF)</a>
+        <a class="btn" href="https://raw.githubusercontent.com/Ajay-Sai-Kiran/website/main/assets/AI%20for%20Product%20Managers%20(1).pdf" download="AI-for-Product-Managers.pdf" rel="noopener">Download Syllabus (PDF)</a>
         <a class="btn btn-dark" href="contact.html">Register Interest</a>
       </div>
     </div>
   </div>
 
-  <!-- MODAL: SAP -->
   <div id="sap-pppmqm-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="sap-pppmqm-title">
     <div class="modal-card" role="document">
       <header class="modal-header">
@@ -358,16 +460,16 @@
         <button class="close-btn" aria-label="Close syllabus" data-close-modal>&times;</button>
       </header>
       <div class="modal-body">
-        <p><strong>Outcome:</strong> Deliver integrated Production Planning, Quality Management, and Plant Maintenance in SAP S/4HANA with hands-on confidence and governance alignment.</p>
+        <p><strong>Outcome:</strong> Deliver integrated PP, QM and PM in SAP S/4HANA with hands-on confidence.</p>
         <ol class="syllabus">
-          <li><strong>Week 1:</strong> S/4HANA overview; org structure & master-data map; roles & Fiori.</li>
-          <li><strong>Week 2:</strong> PP Master Data — materials, BOMs, work centers, routings, versions.</li>
-          <li><strong>Week 3:</strong> Demand & MRP — MTS/MTO, PIRs, MRP Live, exception messages.</li>
-          <li><strong>Week 4:</strong> Execution & Capacity — orders, confirmations, GI/GR, variance & settlement.</li>
-          <li><strong>Week 5:</strong> QM Foundations & Procurement — MICs, plans, sampling, GR inspections.</li>
-          <li><strong>Week 6:</strong> QM in Production & Sales — in-process & GR inspections, CAPA, certs.</li>
-          <li><strong>Week 7:</strong> PM/EAM — tech objects, notifications, orders, preventive plans.</li>
-          <li><strong>Week 8:</strong> Capstone — end-to-end scenario; ADRs; final presentation.</li>
+          <li>Week 1: S/4HANA overview, org structure, roles & Fiori.</li>
+          <li>Week 2: PP Master Data.</li>
+          <li>Week 3: Demand & MRP.</li>
+          <li>Week 4: Execution & Capacity.</li>
+          <li>Week 5: QM Foundations & Procurement.</li>
+          <li>Week 6: QM in Production & Sales.</li>
+          <li>Week 7: PM/EAM — notifications & orders, maintenance plans.</li>
+          <li>Week 8: Capstone — end-to-end scenario; ADRs.</li>
         </ol>
       </div>
       <div class="modal-actions">
@@ -378,11 +480,10 @@
   </div>
 
   <!-- Core scripts -->
-  <script src="js/script.js"></script>
   <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://cdn.jsdelivr.net/npm/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
-  <!-- MODAL wiring -->
+  <!-- Modal wiring -->
   <script>
     (function () {
       document.querySelectorAll('[data-open-modal]').forEach(el => {
@@ -426,7 +527,7 @@
     })();
   </script>
 
-  <!-- LMS AUTH (minimal; no auto-open) -->
+  <!-- LMS auth (kept minimal; no auto-open) -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import {
@@ -457,16 +558,16 @@
     const signoutBtn = document.getElementById('lms-signout');
     const accountBtn = document.getElementById('lms-open-in-modal');
 
+    const openModal = () => { modalShell.classList.remove('lms-hidden'); modalShell.setAttribute('aria-hidden','false'); };
+    const closeModal = () => { modalShell.classList.add('lms-hidden'); modalShell.setAttribute('aria-hidden','true'); errorEl.textContent=''; form?.reset(); };
+    const showEmbed = () => embedSection.classList.remove('lms-hidden');
+    const hideEmbed = () => embedSection.classList.add('lms-hidden');
+
     document.addEventListener('DOMContentLoaded', () => {
       modalShell?.classList.add('lms-hidden');
       modalShell?.setAttribute('aria-hidden','true');
       embedSection?.classList.add('lms-hidden');
     });
-
-    const openModal = () => { modalShell.classList.remove('lms-hidden'); modalShell.setAttribute('aria-hidden','false'); };
-    const closeModal = () => { modalShell.classList.add('lms-hidden'); modalShell.setAttribute('aria-hidden','true'); errorEl.textContent=''; form?.reset(); };
-    const showEmbed = () => embedSection.classList.remove('lms-hidden');
-    const hideEmbed = () => embedSection.classList.add('lms-hidden');
 
     loginLinks.forEach(el => el.addEventListener('click', (e) => {
       e.preventDefault();
