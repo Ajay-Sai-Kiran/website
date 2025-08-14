@@ -2,15 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
   <title>D3-FORGE | Design, Development & Deploy</title>
   <link rel="stylesheet" href="css/style.css" />
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
 
-  <!-- Minimal styles for Upcoming Courses + modal + FREE banner -->
   <style>
+    /* ===== NAVBAR (fixed, readable tabs) ===== */
+    .navbar{
+      position: fixed;
+      top:0; left:0; right:0;
+      z-index: 2000;
+      background:#fff;
+    }
+    body{ padding-top: 70px; } /* adjust if your nav height differs */
+    .navbar .nav-links a{ color:#0d2326 !important; text-decoration:none; font-weight:500; }
+    .navbar .nav-links a.active{ color:#01b8cf !important; font-weight:700; }
+
+    /* ===== Courses/card styles (unchanged) ===== */
     .section-dark { background: var(--colour-dark, #0d2326); color: var(--colour-light, #ffffff); }
     .course-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
     .course-card {
@@ -28,7 +37,7 @@
     .pill-muted { background: rgba(255,255,255,.2); color: #fff; padding: .35rem .6rem; border-radius: 999px; font-size: .8rem; }
     .course-card:focus { outline: 3px solid #ffffff; outline-offset: 2px; }
 
-    /* Modal */
+    /* ===== Modal ===== */
     .modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,.55); z-index: 9999; padding: 1rem; }
     .modal[aria-hidden="false"] { display: flex; }
     .modal-card { width: min(960px, 92vw); max-height: 90vh; overflow: auto; background: #ffffff; color: #111; border-radius: 18px; box-shadow: 0 24px 64px rgba(0,0,0,.25); }
@@ -40,77 +49,36 @@
     .syllabus { display:grid; gap:.6rem; padding-left: 1rem; }
     .syllabus li { background:#f6fafb; border:1px solid rgba(0,0,0,.06); padding:.7rem .9rem; border-radius:12px; }
 
-    /* === FREE Course Banner (NEW, fully scoped) === */
+    /* ===== FREE Course Banner (scoped + under Hero) ===== */
     .free-banner {
-      background: linear-gradient(135deg, #01b8cf 0%, #0d2326 100%);
-      color: #fff;
-      padding: 1rem 0;
-      margin-top: var(--nav-offset, 0px); /* pushed below fixed/sticky nav */
-      position: relative;
-      z-index: 1;
+      display:flex; justify-content:space-between; align-items:center;
+      padding: 1rem 2rem; gap: 1rem; flex-wrap: wrap;
+      background: linear-gradient(90deg, #01b8cf, #0d2326); color:#fff;
+      border-top: 1px solid rgba(255,255,255,.06);
     }
-    .free-banner .container {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: center;
-      gap: 1rem;
-    }
-    .free-banner .badge-new {
-      display: inline-flex; align-items: center; gap: .4rem;
-      font-weight: 800; letter-spacing: .02em;
-      background: #fff; color: #0d2326; border-radius: 999px; padding: .35rem .7rem; font-size: .8rem;
-    }
-    .free-banner h2 { margin: .25rem 0 0; font-size: clamp(1.15rem, 2.5vw, 1.5rem); font-weight: 700; }
-    .free-banner p { margin: .25rem 0 0; opacity: .9; }
-    .free-banner .actions { display:flex; gap:.5rem; flex-wrap:wrap; justify-content:flex-end; }
-
-    /* Private button class just for banner */
-    .fb-btn,
-    .fb-btn.ghost {
-      all: unset;               /* reset to avoid inheriting global .btn */
-      display: inline-block;
-      padding: .5rem .85rem;
-      border-radius: 10px;
-      font-weight: 700;
-      cursor: pointer;
-      line-height: 1;
-      user-select: none;
-      text-decoration: none;
+    .free-banner-left { display:flex; align-items:center; gap:1rem; flex:1; min-width:260px; }
+    .free-badge { background:#fff; color:#0d2326; padding:.2rem .6rem; border-radius:999px; font-size:.8rem; font-weight:700; }
+    .free-banner h2 { margin:0; font-size:1.25rem; }
+    .free-banner h2 a { color:#fff; text-decoration: underline; }
+    .free-banner p { margin:0; color:#cde9e6; }
+    .free-banner-actions { display:flex; gap:.5rem; }
+    /* Private banner buttons so global .btn styles remain untouched */
+    .fb-btn, .fb-btn.ghost {
+      all: unset; display:inline-block; padding:.5rem .85rem; border-radius:10px; font-weight:700;
+      cursor:pointer; text-align:center; line-height:1; user-select:none; text-decoration:none;
     }
     .fb-btn { background:#fff; color:#0d2326; }
     .fb-btn.ghost { background:transparent; color:#fff; border:1px solid rgba(255,255,255,.7); }
 
-    /* Ensure navbar doesn't overlay content invisibly */
-    .navbar { position: relative; z-index: 1000; }
-
-    /* Small screen tweaks: stack banner content */
-    @media (max-width: 640px) {
-      .free-banner .container { grid-template-columns: 1fr; }
-      .free-banner .actions { justify-content:flex-start; }
+    /* Small screen stacking */
+    @media (max-width:640px){
+      .free-banner { padding: 1rem; }
+      .free-banner-actions { width:100%; justify-content:flex-start; }
     }
-  </style>
-
-  <!-- Minimal, namespaced LMS styles. Safe to move into css/style.css -->
-  <style>
-    .lms-hidden { display: none !important; }
-    .lms-embed-wrap { border: 1px solid #e5e7eb; border-radius: 14px; overflow: hidden; }
-    .lms-embed-wrap iframe { width: 100%; height: min(80vh, 1200px); border: 0; display: block; }
-    .lms-embed-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 16px 0; }
-    .lms-btn { appearance: none; border: 0; border-radius: 999px; padding: 10px 16px; cursor: pointer; font-weight: 600; }
-    .lms-btn.ghost { background: transparent; color: #111827; }
-    .lms-btn.primary { background: #111827; color: #fff; }
-    .lms-modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.45); display: grid; place-items: center; z-index: 10000; }
-    .lms-modal { width: 100%; max-width: 420px; background: #fff; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,.15); overflow: hidden; }
-    .lms-modal header { padding: 16px 20px; font-weight: 600; border-bottom: 1px solid #eee; }
-    .lms-modal .lms-body { padding: 20px; }
-    .lms-modal .lms-actions { display: flex; gap: 10px; justify-content: flex-end; padding: 16px 20px; border-top: 1px solid #eee; }
-    .lms-field { display: grid; gap: 6px; margin-bottom: 14px; }
-    .lms-field input { width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 10px; font: inherit; }
-    .lms-error { color: #b91c1c; font-size: 0.9rem; min-height: 1.2em; }
   </style>
 </head>
 <body>
-  <!-- Navigation -->
+  <!-- NAVIGATION -->
   <nav class="navbar">
     <a href="index.html" class="logo">D3-FORGE</a>
     <ul class="nav-links">
@@ -119,47 +87,10 @@
       <li><a href="services.html">Services</a></li>
       <li><a href="training.html">Training</a></li>
       <li><a href="contact.html">Contact</a></li>
-      <!-- NEW: Login to LMS (desktop) -->
-      <li><a href="#" data-lms-login-open>Login to LMS</a></li>
     </ul>
-    <div class="hamburger">
-      <ion-icon name="menu-outline"></ion-icon>
-    </div>
   </nav>
 
-  <!-- FREE COURSE TOP BANNER (NEW) -->
-  <section class="free-banner" aria-label="Free Course: Agentic AI">
-    <div class="container">
-      <div>
-        <span class="badge-new" aria-label="New course">NEW</span>
-        <h2>Free Course: <span style="text-decoration: underline;">Agentic AI</span></h2>
-        <p>Hands-on, 30-day pathway from zero → building real, tool-using LLM agents.</p>
-      </div>
-      <div class="actions">
-        <!-- Opens the Agentic syllabus modal -->
-        <button type="button" class="fb-btn" data-open-modal="#agentic-modal">VIEW SYLLABUS</button>
-        <!-- Opens WhatsApp chat (does not trigger modal) -->
-        <a
-          class="fb-btn ghost"
-          href="https://wa.me/918125352626?text=Hi%20D3-FORGE%2C%20I%20want%20to%20enroll%20in%20the%20Free%20Agentic%20AI%20course."
-          target="_blank" rel="noopener" data-modal-exempt
-        >ENROLL FREE</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Mobile navigation -->
-  <div class="mobile-nav">
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="services.html">Services</a>
-    <a href="training.html">Training</a>
-    <a href="contact.html">Contact</a>
-    <!-- NEW: Login to LMS (mobile) -->
-    <a href="#" data-lms-login-open>Login to LMS</a>
-  </div>
-
-  <!-- Hero Section -->
+  <!-- HERO (your existing hero stays first) -->
   <header class="hero">
     <div class="container">
       <h1 class="fade-in">Design • Develop • Deploy</h1>
@@ -168,7 +99,23 @@
     </div>
   </header>
 
-  <!-- Services Overview -->
+  <!-- FREE COURSE BANNER (now UNDER the Hero) -->
+  <section class="free-banner" aria-label="Free Course: Agentic AI">
+    <div class="free-banner-left">
+      <span class="free-badge">NEW</span>
+      <div>
+        <h2>Free Course: <a href="#" data-open-modal="#agentic-modal">Agentic AI</a></h2>
+        <p>Hands-on, 30-day pathway from zero → building real, tool-using LLM agents.</p>
+      </div>
+    </div>
+    <div class="free-banner-actions">
+      <a href="#" class="fb-btn" data-open-modal="#agentic-modal">VIEW SYLLABUS</a>
+      <a href="https://wa.me/918125352626?text=Hi%20D3-FORGE,%20I%20want%20to%20enroll%20in%20the%20free%20Agentic%20AI%20course."
+         target="_blank" rel="noopener" class="fb-btn ghost">ENROLL FREE</a>
+    </div>
+  </section>
+
+  <!-- (Your other sections continue below; example:) -->
   <section class="section" id="services-overview">
     <div class="container">
       <h2 class="section-title fade-in">Our Solutions</h2>
@@ -198,47 +145,14 @@
     </div>
   </section>
 
-  <!-- Training Overview -->
-  <section class="section" id="training-overview" style="background: var(--colour-dark); color: var(--colour-light);">
-    <div class="container">
-      <h2 class="section-title fade-in" style="color: var(--colour-light)">Empowering Learners</h2>
-      <p class="section-subtitle fade-in" style="color: #ccc">Our student-centred training programmes focus on practical experience, modular curricula and industry-relevant skills.</p>
-      <div class="cards">
-        <div class="card training fade-in" style="--delay:0s">
-          <ion-icon name="rocket-outline"></ion-icon>
-          <h3>AI & Data Science</h3>
-          <p>Master machine learning algorithms, neural networks and data visualisation to build intelligent applications.</p>
-        </div>
-        <div class="card training fade-in" style="--delay:0.1s">
-          <ion-icon name="code-slash-outline"></ion-icon>
-          <h3>Full-Stack Development</h3>
-          <p>Learn front-end & back-end technologies, from HTML/CSS and JavaScript to frameworks and databases.</p>
-        </div>
-        <div class="card training fade-in" style="--delay:0.2s">
-          <ion-icon name="server-outline"></ion-icon>
-          <h3>Cloud & DevOps</h3>
-          <p>Deploy and scale applications using cloud platforms, containers and continuous integration/continuous delivery.</p>
-        </div>
-        <div class="card training fade-in" style="--delay:0.3s">
-          <ion-icon name="shield-checkmark-outline"></ion-icon>
-          <h3>Testing & QA</h3>
-          <p>Acquire skills in manual and automated testing, ensuring that software meets quality standards.</p>
-        </div>
-      </div>
-      <div style="text-align:center; margin-top:2rem;" class="fade-in">
-        <a href="training.html" class="btn">Discover Training</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Upcoming Courses (NEW) -->
+  <!-- Upcoming Courses -->
   <section class="section section-dark" id="upcoming-courses">
     <div class="container">
       <h2 class="section-title" style="color: var(--colour-light)">Upcoming Courses</h2>
       <p class="section-subtitle" style="color:#cde9e6">Reserve your spot in our next industry-ready cohorts.</p>
 
       <div class="course-cards">
-        <!-- Agentic AI — Free (NEW) -->
+        <!-- Agentic AI — Free -->
         <article class="course-card" role="button" tabindex="0"
                  aria-controls="agentic-modal" aria-haspopup="dialog"
                  data-open-modal="#agentic-modal">
@@ -246,99 +160,33 @@
           <h3>Agentic AI (Free)</h3>
           <p>30-day, project-based intro to building LLM agents: tools, memory, planning, and deployment.</p>
           <div class="course-actions">
-            <span class="pill-new" aria-hidden="true">NEW</span>
             <span class="pill-muted">Free</span>
             <button class="btn-light" data-open-modal="#agentic-modal">View Syllabus</button>
-            <a
-              class="btn-ghost"
-              href="https://wa.me/918125352626?text=Hi%20D3-FORGE%2C%20I%20want%20to%20enroll%20in%20the%20Free%20Agentic%20AI%20course."
-              target="_blank" rel="noopener" data-modal-exempt
-            >Enroll Free</a>
+            <a class="btn-ghost"
+               href="https://wa.me/918125352626?text=Hi%20D3-FORGE,%20I%20want%20to%20enroll%20in%20the%20free%20Agentic%20AI%20course."
+               target="_blank" rel="noopener" data-modal-exempt>Enroll Free</a>
           </div>
         </article>
 
         <!-- Generative AI for Product Managers -->
-        <article class="course-card"
-                 role="button" tabindex="0"
+        <article class="course-card" role="button" tabindex="0"
                  aria-controls="genai-modal" aria-haspopup="dialog"
                  data-open-modal="#genai-modal">
-          <div class="course-icon">
-            <ion-icon name="rocket-outline"></ion-icon>
-          </div>
+          <div class="course-icon"><ion-icon name="rocket-outline"></ion-icon></div>
           <h3>Generative AI for Product Managers</h3>
-          <p>8-week end-to-end program: Strategy → Architecture → Data → Agents → MLOps → Governance → Stakeholder Alignment → Capstone.</p>
+          <p>Strategy → Architecture → Data → Agents → MLOps → Governance → Stakeholder Alignment → Capstone.</p>
           <div class="course-actions">
             <button class="btn-light" data-open-modal="#genai-modal">View Syllabus</button>
-            <a
-              class="btn-ghost"
-              href="https://raw.githubusercontent.com/Ajay-Sai-Kiran/website/main/assets/AI%20for%20Product%20Managers%20(1).pdf"
-              download="AI-for-Product-Managers.pdf"
-              rel="noopener"
-              data-modal-exempt
-            >Download PDF</a>
-            <a class="btn-ghost" href="training.html" data-modal-exempt>Details</a>
-          </div>
-        </article>
-
-        <!-- Placeholder Card 2 -->
-        <article class="course-card" aria-disabled="true">
-          <div class="course-icon">
-            <ion-icon name="code-slash-outline"></ion-icon>
-          </div>
-          <h3>SAP PP–PM–QM</h3>
-          <p>Course designed for PP/QM/PM consultants, power users, manufacturing/quality/maintenance leads</p>
-          <div class="course-actions">
-            <span class="pill-muted">Coming Soon</span>
-          </div>
-        </article>
-
-        <!-- Placeholder Card 3 -->
-        <article class="course-card" aria-disabled="true">
-          <div class="course-icon">
-            <ion-icon name="shield-checkmark-outline"></ion-icon>
-          </div>
-          <h3>AI Ethics Fundamentals</h3>
-          <p>Bias mitigation, explainability, governance and compliance in production AI systems.</p>
-          <div class="course-actions">
-            <span class="pill-muted">Coming Soon</span>
+            <a class="btn-ghost"
+               href="https://raw.githubusercontent.com/Ajay-Sai-Kiran/website/main/assets/AI%20for%20Product%20Managers%20(1).pdf"
+               download="AI-for-Product-Managers.pdf" rel="noopener" data-modal-exempt>Download PDF</a>
           </div>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- LMS Embed (hidden until login) -->
-  <section class="section" id="lms-section">
-    <div class="container">
-      <section id="lms-embed-section" class="lms-hidden" aria-live="polite">
-        <div class="lms-embed-toolbar">
-          <strong>Learning Management System</strong>
-          <div style="display:flex; gap:8px; align-items:center">
-            <button type="button" id="lms-open-in-modal" class="lms-btn ghost" title="Open login / account">Account</button>
-            <button type="button" id="lms-signout" class="lms-btn ghost">Sign out</button>
-          </div>
-        </div>
-        <div class="lms-embed-wrap">
-          <!-- Replace LMS_EMBED_URL with your LMS page that allows embedding -->
-          <iframe id="lms-iframe" src="LMS_EMBED_URL" title="LMS"></iframe>
-        </div>
-      </section>
-    </div>
-  </section>
-
-  <!-- Call to Action -->
-  <section class="section" style="background: var(--colour-accent); color: var(--colour-light);">
-    <div class="container">
-      <h2 class="section-title fade-in" style="color: var(--colour-light)">Ready to build your future?</h2>
-      <p class="section-subtitle fade-in" style="color:#e6f4f1">Partner with D3-FORGE for cutting-edge software solutions and transformative training.
-        Responsive design ensures your users get the best experience, regardless of device.</p>
-      <div style="text-align:center;" class="fade-in">
-        <a href="contact.html" class="btn" style="background: var(--colour-dark)">Get in Touch</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
+  <!-- Footer (trimmed) -->
   <footer>
     <div class="container footer-container">
       <div class="footer-column">
@@ -365,65 +213,46 @@
           <a href="#"><ion-icon name="logo-linkedin"></ion-icon></a>
           <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
           <a href="#"><ion-icon name="logo-github"></ion-icon></a>
-          <a href="https://www.instagram.com/d3.forge/"
-           class="ig"
-           target="_blank" rel="noopener noreferrer"
-           aria-label="Instagram">
-          <ion-icon name="logo-instagram"></ion-icon>
-        </a>
+          <a href="https://www.instagram.com/d3.forge/" class="ig" target="_blank" rel="noopener" aria-label="Instagram">
+            <ion-icon name="logo-instagram"></ion-icon>
+          </a>
         </div>
       </div>
     </div>
     <p class="copyright">© 2025 D3-FORGE. All Rights Reserved.</p>
   </footer>
 
-  <!-- Floating WhatsApp -->
-  <a class="whatsapp-floating"
-   href="whatsapp://send?phone=918125352626&text=Hi%20D-3Forge%2C%20I%20have%20a%20question%20about%20your%20services."
-   target="_blank" rel="noopener"
-   aria-label="Chat on WhatsApp">
-  <ion-icon name="logo-whatsapp"></ion-icon>
-</a>
-
   <!-- Modal: Agentic AI — 30-Day Free Course -->
   <div id="agentic-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="agentic-title">
     <div class="modal-card" role="document">
       <header class="modal-header">
-        <h3 id="agentic-title">Agentic AI — 30-Day Free Course (Beginner → Builder)</h3>
+        <h3 id="agentic-title">Agentic AI — 30-Day Free Course</h3>
         <button class="close-btn" aria-label="Close syllabus" data-close-modal>&times;</button>
       </header>
       <div class="modal-body">
         <p><strong>Outcome:</strong> Build and deploy your own tool-using LLM agent with planning, memory, and a small capstone.</p>
         <ol class="syllabus">
-          <li><strong>Days 1–3: Foundations</strong> — What is an agent; LLM basics; set up Python; APIs & JSON; a tiny script calling an API.</li>
-          <li><strong>Days 4–6: Prompting & Tool Use</strong> — Prompts, function/tool calling; ReAct loop; build a calculator + web search tool.</li>
-          <li><strong>Days 7–9: Memory</strong> — Short- vs long-term memory; embeddings; Chroma setup; agent with doc retrieval.</li>
-          <li><strong>Days 10–12: Planning</strong> — ReAct, Reflexion, basic task decomposition; research-and-summarize agent.</li>
-          <li><strong>Days 13–15: Integrations</strong> — Read/write files; call 3rd-party APIs (news/Slack/Notion); schedule tasks.</li>
-          <li><strong>Days 16–18: Reliability</strong> — Guardrails, timeouts/retries, evals; logging + simple metrics.</li>
-          <li><strong>Days 19–21: Multi-Agent</strong> — Coordinator + worker pattern; handoffs; failure recovery.</li>
-          <li><strong>Days 22–24: Performance & Scale</strong> — Async, batching, streaming; caching; persisting memory.</li>
-          <li><strong>Days 25–27: UI & Deploy</strong> — CLI → FastAPI/Streamlit; Docker; deploy to a small cloud host.</li>
-          <li><strong>Days 28–30: Capstone</strong> — Ship a working agent (e.g., research → draft → revise). Write a short README & demo.</li>
+          <li><strong>Days 1–3:</strong> Foundations — what is an agent; LLM basics; Python setup; APIs & JSON.</li>
+          <li><strong>Days 4–6:</strong> Prompting & Tool Use — function calling; ReAct loop; calculator + web search tool.</li>
+          <li><strong>Days 7–9:</strong> Memory — embeddings; Chroma; agent with document retrieval.</li>
+          <li><strong>Days 10–12:</strong> Planning — ReAct/Reflexion; task decomposition; research summarizer agent.</li>
+          <li><strong>Days 13–15:</strong> Integrations — files; 3rd-party APIs (news/Slack/Notion); scheduling.</li>
+          <li><strong>Days 16–18:</strong> Reliability — guardrails; retries; logging; quick evals.</li>
+          <li><strong>Days 19–21:</strong> Multi-Agent — coordinator/worker; handoffs; recovery.</li>
+          <li><strong>Days 22–24:</strong> Performance — async/streaming; caching; memory persistence.</li>
+          <li><strong>Days 25–27:</strong> UI & Deploy — FastAPI/Streamlit; Docker; small cloud host.</li>
+          <li><strong>Days 28–30:</strong> Capstone — ship a working agent; README + demo.</li>
         </ol>
-        <p style="margin-top:.75rem"><em>Prereqs:</em> None. We teach the Python you need as you go.</p>
       </div>
       <div class="modal-actions">
-        <a class="btn" href="#" download="Agentic-AI-30-Day-Syllabus.txt" onclick="
-          const blob = new Blob([document.querySelector('#agentic-modal .modal-body').innerText], {type:'text/plain'});
-          const url = URL.createObjectURL(blob);
-          this.href = url;
-        ">Download Syllabus (TXT)</a>
-        <a
-          class="btn btn-dark"
-          href="https://wa.me/918125352626?text=Hi%20D3-FORGE%2C%20I%20want%20to%20enroll%20in%20the%20Free%20Agentic%20AI%20course."
-          target="_blank" rel="noopener" data-modal-exempt
-        >Enroll Free</a>
+        <a class="btn btn-dark"
+           href="https://wa.me/918125352626?text=Hi%20D3-FORGE,%20I%20want%20to%20enroll%20in%20the%20free%20Agentic%20AI%20course."
+           target="_blank" rel="noopener" data-modal-exempt>Enroll Free</a>
       </div>
     </div>
   </div>
 
-  <!-- Modal: Generative AI for Product Managers Syllabus -->
+  <!-- Modal: Generative AI for Product Managers (optional) -->
   <div id="genai-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="genai-title">
     <div class="modal-card" role="document">
       <header class="modal-header">
@@ -431,269 +260,67 @@
         <button class="close-btn" aria-label="Close syllabus" data-close-modal>&times;</button>
       </header>
       <div class="modal-body">
-        <p><strong>Outcome:</strong> Launch AI-powered products with strategic clarity, technical depth, and governance alignment.</p>
         <ol class="syllabus">
-          <li><strong>Week 1:</strong> Strategic Product Leadership in GenAI — vision, RICE/OKRs, market opportunity.</li>
-          <li><strong>Week 2:</strong> Architecture & Technical Foundations — RAG, agentic systems, transformers, compute sizing.</li>
-          <li><strong>Week 3:</strong> Data & Retrieval Pipeline — ingestion, chunking, embeddings, vector DB trade-offs.</li>
-          <li><strong>Week 4:</strong> Agentic Workflow & Multi-Agent Design — orchestration, routers, fallbacks, recovery.</li>
-          <li><strong>Week 5:</strong> MLOps, Deployment & Monitoring — CI/CD, drift/latency/hallucination metrics, rollback.</li>
-          <li><strong>Week 6:</strong> Ethics, Governance & Reliability — bias mitigation, explainability, compliance, auditability.</li>
-          <li><strong>Week 7:</strong> Execution & Stakeholder Alignment — exec storytelling, trade-offs, cross-functional handoffs.</li>
-          <li><strong>Week 8:</strong> Capstone — end-to-end system design, ADRs, final presentation.</li>
+          <li><strong>W1:</strong> Strategy & OKRs</li>
+          <li><strong>W2:</strong> Architecture (RAG/Agents)</li>
+          <li><strong>W3:</strong> Data & Retrieval</li>
+          <li><strong>W4:</strong> Multi-Agent Orchestration</li>
+          <li><strong>W5:</strong> MLOps & Monitoring</li>
+          <li><strong>W6:</strong> Ethics & Governance</li>
+          <li><strong>W7:</strong> Stakeholder Alignment</li>
+          <li><strong>W8:</strong> Capstone</li>
         </ol>
       </div>
       <div class="modal-actions">
-        <a
-          class="btn"
-          href="https://raw.githubusercontent.com/Ajay-Sai-Kiran/website/main/assets/AI%20for%20Product%20Managers%20(1).pdf"
-          download="AI-for-Product-Managers.pdf"
-          rel="noopener"
-        >Download Syllabus (PDF)</a>
-        <a class="btn btn-dark" href="contact.html">Register Interest</a>
-      </div>
-    </div>
-  </div>
-
-  <div id="sap-pppmqm-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="sap-pppmqm-title">
-    <div class="modal-card" role="document">
-      <header class="modal-header">
-        <h3 id="sap-pppmqm-title">SAP PP–PM–QM — 8-Week Syllabus</h3>
-        <button class="close-btn" aria-label="Close syllabus" data-close-modal>&times;</button>
-      </header>
-      <div class="modal-body">
-        <p><strong>Outcome:</strong> Deliver integrated Production Planning, Quality Management, and Plant Maintenance in SAP S/4HANA with hands-on confidence and governance alignment.</p>
-        <ol class="syllabus">
-          <li><strong>Week 1:</strong> S/4HANA Manufacturing & Asset Management Overview — org structure (plants, storage locations), master-data map, roles, and Fiori workspace.</li>
-          <li><strong>Week 2:</strong> PP Master Data — materials, BOMs, work centers/resources, routings/task lists, production versions; change control & release strategy.</li>
-          <li><strong>Week 3:</strong> Demand & MRP — planning strategies (MTS/MTO), PIRs, MRP Live, exception messages, pegging, lot sizing.</li>
-          <li><strong>Week 4:</strong> Shop-Floor Execution & Capacity — production orders, confirmations, GI/GR, variance & settlement, basic capacity planning and PP/DS overview.</li>
-          <li><strong>Week 5:</strong> QM Foundations & Procurement — MICs, inspection plans & methods, sampling, GR inspections, usage decisions, defect recording.</li>
-          <li><strong>Week 6:</strong> QM in Production & Sales — in-process (03) & GR from production (04) lots, nonconformance handling/CAPA, quality certificates.</li>
-          <li><strong>Week 7:</strong> PM/EAM — technical objects (functional locations, equipment), notifications & orders, preventive maintenance plans, calibration (QM integration), resource scheduling/mobile.</li>
-          <li><strong>Week 8:</strong> Capstone — end-to-end scenario: forecast → MRP → production → inspections → maintenance order → analytics; ADRs and final presentation.</li>
-        </ol>
-      </div>
-      <div class="modal-actions">
-        <a class="btn" href="assets/syllabus-sap-pp-pm-qm.pdf" download>Download Syllabus (PDF)</a>
         <a class="btn btn-dark" href="contact.html">Register Interest</a>
       </div>
     </div>
   </div>
 
   <!-- Scripts -->
-  <script src="js/script.js"></script>
   <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://cdn.jsdelivr.net/npm/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
-  <!-- Lightweight JS for tile → modal behaviour. Merge into js/script.js if preferred. -->
+  <!-- Modal wiring (kept lightweight) -->
   <script>
     (function () {
-      // Open via buttons or clicking the whole card
+      // Open modal
       document.querySelectorAll('[data-open-modal]').forEach(el => {
         el.addEventListener('click', e => {
+          e.preventDefault();
           const sel = el.getAttribute('data-open-modal');
           const modal = document.querySelector(sel);
-          if (!modal) return;
-          modal.setAttribute('aria-hidden', 'false');
-          document.body.style.overflow = 'hidden';
-          e.preventDefault();
-        });
-        // Keyboard activation on card
-        el.addEventListener('keydown', e => {
-          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); }
+          if (modal) {
+            modal.setAttribute('aria-hidden','false');
+            document.body.style.overflow = 'hidden';
+          }
         });
       });
-
-      // Allow certain links/buttons inside a card to bypass the modal
-      document.querySelectorAll('[data-modal-exempt]').forEach(el => {
-        el.addEventListener('click', e => e.stopPropagation());
-        el.addEventListener('keydown', e => e.stopPropagation());
-      });
-
-      // Close actions
+      // Close via X
       document.querySelectorAll('[data-close-modal]').forEach(btn => {
         btn.addEventListener('click', () => {
           const modal = btn.closest('.modal');
-          modal.setAttribute('aria-hidden', 'true');
+          modal?.setAttribute('aria-hidden','true');
           document.body.style.overflow = '';
         });
       });
-
       // Click outside to close
       document.querySelectorAll('.modal').forEach(modal => {
         modal.addEventListener('click', e => {
           if (e.target === modal) {
-            modal.setAttribute('aria-hidden', 'true');
+            modal.setAttribute('aria-hidden','true');
             document.body.style.overflow = '';
           }
         });
       });
-
       // ESC to close
       document.addEventListener('keydown', e => {
         if (e.key === 'Escape') {
-          document.querySelectorAll('.modal[aria-hidden="false"]').forEach(m => m.setAttribute('aria-hidden', 'true'));
+          document.querySelectorAll('.modal[aria-hidden="false"]').forEach(m => m.setAttribute('aria-hidden','true'));
           document.body.style.overflow = '';
         }
       });
     })();
   </script>
-
-  <!-- Navbar offset helper so banner is always clickable below fixed/sticky nav -->
-  <script>
-    (function () {
-      const nav = document.querySelector('.navbar');
-      function setNavOffset() {
-        if (!nav) return;
-        const pos = getComputedStyle(nav).position;
-        const isOverlaying = pos === 'fixed' || pos === 'sticky';
-        const h = nav.offsetHeight || 64;
-        document.documentElement.style.setProperty('--nav-offset', isOverlaying ? (h + 'px') : '0px');
-      }
-      setNavOffset();
-      window.addEventListener('resize', setNavOffset);
-    })();
-  </script>
-
-  <!-- LMS Login Modal (independent of your existing .modal styles) -->
-  <div id="lms-login-shell" class="lms-modal-backdrop lms-hidden" role="dialog" aria-modal="true" aria-labelledby="lms-login-title">
-    <div class="lms-modal" role="document">
-      <header id="lms-login-title">Login to LMS</header>
-      <form id="lms-login-form" class="lms-body">
-        <div class="lms-field">
-          <label for="lms-email">Email</label>
-          <input id="lms-email" name="email" type="email" autocomplete="email" required />
-        </div>
-        <div class="lms-field">
-          <label for="lms-password">Password</label>
-          <input id="lms-password" name="password" type="password" autocomplete="current-password" required />
-        </div>
-        <p id="lms-error" class="lms-error" aria-live="polite"></p>
-      </form>
-      <div class="lms-actions">
-        <button type="button" class="lms-btn ghost" data-lms-close>Cancel</button>
-        <button type="submit" form="lms-login-form" class="lms-btn primary" id="lms-submit">Log in</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Firebase Auth (modular v10 via CDN). Replace firebaseConfig placeholders. -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-
-    // 🔧 Replace all YOUR_FIREBASE_* placeholders below
-    const firebaseConfig = {
-      apiKey: "YOUR_FIREBASE_API_KEY",
-      authDomain: "YOUR_FIREBASE_AUTH_DOMAIN",
-      projectId: "YOUR_FIREBASE_PROJECT_ID",
-      appId: "YOUR_FIREBASE_APP_ID",
-      // (Optional)
-      storageBucket: "YOUR_FIREBASE_STORAGE_BUCKET",
-      messagingSenderId: "YOUR_FIREBASE_MESSAGING_SENDER_ID",
-    };
-
-    // Initialize
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    // Elements
-    const loginLinks = document.querySelectorAll('[data-lms-login-open]');
-    const modalShell = document.getElementById('lms-login-shell');
-    const form = document.getElementById('lms-login-form');
-    const emailEl = document.getElementById('lms-email');
-    const pwdEl = document.getElementById('lms-password');
-    const submitBtn = document.getElementById('lms-submit');
-    const errorEl = document.getElementById('lms-error');
-    const closeBtn = document.querySelector('[data-lms-close]');
-    const embedSection = document.getElementById('lms-embed-section');
-    const iframe = document.getElementById('lms-iframe');
-    const signoutBtn = document.getElementById('lms-signout');
-    const accountBtn = document.getElementById('lms-open-in-modal');
-
-    // Helpers
-    const openModal = () => modalShell.classList.remove('lms-hidden');
-    const closeModal = () => { modalShell.classList.add('lms-hidden'); errorEl.textContent = ''; form.reset(); };
-    const showEmbed = () => embedSection.classList.remove('lms-hidden');
-    const hideEmbed = () => embedSection.classList.add('lms-hidden');
-
-    // Nav links → open modal or jump to LMS if already signed in
-    loginLinks.forEach(el => el.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (auth.currentUser) {
-        document.getElementById('lms-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      } else {
-        openModal();
-        setTimeout(() => emailEl?.focus(), 0);
-      }
-    }));
-    closeBtn?.addEventListener('click', closeModal);
-    accountBtn?.addEventListener('click', () => openModal());
-
-    // Form submit → Firebase email/password login
-    form?.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      errorEl.textContent = '';
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Logging in…';
-      try {
-        const email = emailEl.value.trim();
-        const password = pwdEl.value;
-        await signInWithEmailAndPassword(auth, email, password);
-        closeModal();
-        showEmbed();
-        // Optional: if your LMS expects a token:
-        // const token = await auth.currentUser.getIdToken();
-        // iframe.src = `LMS_EMBED_URL?token=${encodeURIComponent(token)}`;
-      } catch (err) {
-        console.error('[LMS login] error', err);
-        errorEl.textContent = prettyAuthError(err?.code || err?.message || 'Login failed.');
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Log in';
-      }
-    });
-
-    // Keep UI in sync with auth state
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        showEmbed();
-        loginLinks.forEach(el => el.textContent = 'Open LMS');
-      } else {
-        hideEmbed();
-        loginLinks.forEach(el => el.textContent = 'Login to LMS');
-      }
-    });
-
-    // Sign out → hide embed
-    signoutBtn?.addEventListener('click', async () => {
-      await signOut(auth);
-      hideEmbed();
-    });
-
-    // Human-friendly Firebase errors
-    function prettyAuthError(code) {
-      const map = {
-        'auth/invalid-email': 'That email looks invalid.',
-        'auth/missing-password': 'Please enter your password.',
-        'auth/weak-password': 'That password is too weak.',
-        'auth/user-not-found': 'No account found with that email.',
-        'auth/wrong-password': 'Incorrect password.',
-        'auth/too-many-requests': 'Too many attempts. Try again later.',
-      };
-      return map[code] || 'Unable to sign in. Please check your details and try again.';
-    }
-
-    // Accessibility: close with ESC, click outside
-    modalShell?.addEventListener('click', (e) => { if (e.target === modalShell) closeModal(); });
-    window.addEventListener('keydown', (e) => { if (!modalShell.classList.contains('lms-hidden') && e.key === 'Escape') closeModal(); });
-  </script>
-
-  <!-- Notes:
-    • Replace YOUR_FIREBASE_* and LMS_EMBED_URL above.
-    • Your LMS must allow being framed (no X-Frame-Options: DENY/SAMEORIGIN and proper CSP frame-ancestors on their side).
-    • If you prefer to use your existing modal system, remove the LMS modal markup & styles and call openModal()/closeModal() from your own modal.
-  -->
 </body>
 </html>
