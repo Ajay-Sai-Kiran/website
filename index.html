@@ -37,11 +37,10 @@
     .modal-actions { display:flex; gap:.75rem; padding: 0 1.25rem 1.25rem; flex-wrap: wrap; }
     .close-btn { background:transparent; border:none; font-size:1.6rem; line-height:1; cursor:pointer; color:#333; }
     .btn-dark { background: var(--colour-dark, #0d2326); color:#fff; border-radius:10px; padding:.55rem .85rem; display:inline-block; }
-
     .syllabus { display:grid; gap:.6rem; padding-left: 1rem; }
     .syllabus li { background:#f6fafb; border:1px solid rgba(0,0,0,.06); padding:.7rem .9rem; border-radius:12px; }
 
-    /* === FREE Course Banner (NEW) === */
+    /* === FREE Course Banner (NEW, fully scoped) === */
     .free-banner {
       background: linear-gradient(135deg, #01b8cf 0%, #0d2326 100%);
       color: #fff;
@@ -56,7 +55,7 @@
       align-items: center;
       gap: 1rem;
     }
-    .badge-new {
+    .free-banner .badge-new {
       display: inline-flex; align-items: center; gap: .4rem;
       font-weight: 800; letter-spacing: .02em;
       background: #fff; color: #0d2326; border-radius: 999px; padding: .35rem .7rem; font-size: .8rem;
@@ -64,12 +63,22 @@
     .free-banner h2 { margin: .25rem 0 0; font-size: clamp(1.15rem, 2.5vw, 1.5rem); font-weight: 700; }
     .free-banner p { margin: .25rem 0 0; opacity: .9; }
     .free-banner .actions { display:flex; gap:.5rem; flex-wrap:wrap; justify-content:flex-end; }
-    .free-banner .btn {
-      appearance: none; border: 0; cursor: pointer;
-      background: #fff; color:#0d2326; border-radius: 10px; padding: .5rem .85rem; font-weight:700; text-decoration:none;
+
+    /* Private button class just for banner */
+    .fb-btn,
+    .fb-btn.ghost {
+      all: unset;               /* reset to avoid inheriting global .btn */
+      display: inline-block;
+      padding: .5rem .85rem;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      line-height: 1;
+      user-select: none;
+      text-decoration: none;
     }
-    .free-banner .btn.ghost { background: transparent; color:#fff; border:1px solid rgba(255,255,255,.7); }
-    .pill-new { background:#fff; color:#0d2326; font-weight:700; padding:.3rem .55rem; border-radius:999px; font-size:.75rem; }
+    .fb-btn { background:#fff; color:#0d2326; }
+    .fb-btn.ghost { background:transparent; color:#fff; border:1px solid rgba(255,255,255,.7); }
 
     /* Ensure navbar doesn't overlay content invisibly */
     .navbar { position: relative; z-index: 1000; }
@@ -128,13 +137,13 @@
       </div>
       <div class="actions">
         <!-- Opens the Agentic syllabus modal -->
-        <button type="button" class="btn" data-open-modal="#agentic-modal">VIEW SYLLABUS</button>
+        <button type="button" class="fb-btn" data-open-modal="#agentic-modal">VIEW SYLLABUS</button>
         <!-- Opens WhatsApp chat (does not trigger modal) -->
         <a
-          class="btn ghost"
+          class="fb-btn ghost"
           href="https://wa.me/918125352626?text=Hi%20D3-FORGE%2C%20I%20want%20to%20enroll%20in%20the%20Free%20Agentic%20AI%20course."
           target="_blank" rel="noopener" data-modal-exempt
-        >Enroll Free</a>
+        >ENROLL FREE</a>
       </div>
     </div>
   </section>
@@ -239,9 +248,9 @@
           <div class="course-actions">
             <span class="pill-new" aria-hidden="true">NEW</span>
             <span class="pill-muted">Free</span>
-            <button class="btn btn-light" data-open-modal="#agentic-modal">View Syllabus</button>
+            <button class="btn-light" data-open-modal="#agentic-modal">View Syllabus</button>
             <a
-              class="btn btn-ghost"
+              class="btn-ghost"
               href="https://wa.me/918125352626?text=Hi%20D3-FORGE%2C%20I%20want%20to%20enroll%20in%20the%20Free%20Agentic%20AI%20course."
               target="_blank" rel="noopener" data-modal-exempt
             >Enroll Free</a>
@@ -259,15 +268,15 @@
           <h3>Generative AI for Product Managers</h3>
           <p>8-week end-to-end program: Strategy → Architecture → Data → Agents → MLOps → Governance → Stakeholder Alignment → Capstone.</p>
           <div class="course-actions">
-            <button class="btn btn-light" data-open-modal="#genai-modal">View Syllabus</button>
+            <button class="btn-light" data-open-modal="#genai-modal">View Syllabus</button>
             <a
-              class="btn btn-ghost"
+              class="btn-ghost"
               href="https://raw.githubusercontent.com/Ajay-Sai-Kiran/website/main/assets/AI%20for%20Product%20Managers%20(1).pdf"
               download="AI-for-Product-Managers.pdf"
               rel="noopener"
               data-modal-exempt
             >Download PDF</a>
-            <a class="btn btn-ghost" href="training.html" data-modal-exempt>Details</a>
+            <a class="btn-ghost" href="training.html" data-modal-exempt>Details</a>
           </div>
         </article>
 
