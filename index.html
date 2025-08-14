@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>D3-FORGE | Design, Development & Deploy</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css" />
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
 
-  <!-- Minimal styles for the new Upcoming Courses section + modal.
-       Move these to css/style.css when convenient. -->
+  <!-- Minimal styles for Upcoming Courses + modal + FREE banner -->
   <style>
     .section-dark { background: var(--colour-dark, #0d2326); color: var(--colour-light, #ffffff); }
     .course-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
@@ -24,7 +23,7 @@
     .course-card p { color: #e9feff; margin: 0 0 .75rem; }
     .course-icon { font-size: 34px; color: #083a41; }
     .course-actions { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; }
-    .btn-light { background: #ffffff; color: #0d2326; border: none; padding: .55rem .85rem; border-radius: 10px; font-weight: 600; }
+    .btn-light { background: #ffffff; color: #0d2326; border: none; padding: .55rem .85rem; border-radius: 10px; font-weight: 600; cursor: pointer; }
     .btn-ghost { background: transparent; border: 1px solid rgba(255,255,255,.7); color: #ffffff; padding: .5rem .85rem; border-radius: 10px; }
     .pill-muted { background: rgba(255,255,255,.2); color: #fff; padding: .35rem .6rem; border-radius: 999px; font-size: .8rem; }
     .course-card:focus { outline: 3px solid #ffffff; outline-offset: 2px; }
@@ -37,15 +36,19 @@
     .modal-body { padding: 1.25rem; }
     .modal-actions { display:flex; gap:.75rem; padding: 0 1.25rem 1.25rem; flex-wrap: wrap; }
     .close-btn { background:transparent; border:none; font-size:1.6rem; line-height:1; cursor:pointer; color:#333; }
-    .btn-dark { background: var(--colour-dark, #0d2326); color:#fff; }
+    .btn-dark { background: var(--colour-dark, #0d2326); color:#fff; border-radius:10px; padding:.55rem .85rem; display:inline-block; }
+
     .syllabus { display:grid; gap:.6rem; padding-left: 1rem; }
     .syllabus li { background:#f6fafb; border:1px solid rgba(0,0,0,.06); padding:.7rem .9rem; border-radius:12px; }
 
-    /* === Free Course Banner (NEW) === */
+    /* === FREE Course Banner (NEW) === */
     .free-banner {
       background: linear-gradient(135deg, #01b8cf 0%, #0d2326 100%);
       color: #fff;
       padding: 1rem 0;
+      margin-top: var(--nav-offset, 0px); /* pushed below fixed/sticky nav */
+      position: relative;
+      z-index: 1;
     }
     .free-banner .container {
       display: grid;
@@ -54,32 +57,28 @@
       gap: 1rem;
     }
     .badge-new {
-      display: inline-flex;
-      align-items: center;
-      gap: .4rem;
-      font-weight: 800;
-      letter-spacing: .02em;
-      background: #fff;
-      color: #0d2326;
-      border-radius: 999px;
-      padding: .35rem .7rem;
-      font-size: .8rem;
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-weight: 800; letter-spacing: .02em;
+      background: #fff; color: #0d2326; border-radius: 999px; padding: .35rem .7rem; font-size: .8rem;
     }
-    .free-banner h2 {
-      margin: .25rem 0 0;
-      font-size: clamp(1.15rem, 2.5vw, 1.5rem);
-      font-weight: 700;
-    }
+    .free-banner h2 { margin: .25rem 0 0; font-size: clamp(1.15rem, 2.5vw, 1.5rem); font-weight: 700; }
     .free-banner p { margin: .25rem 0 0; opacity: .9; }
-    .free-banner .actions { display:flex; gap:.5rem; flex-wrap:wrap; }
+    .free-banner .actions { display:flex; gap:.5rem; flex-wrap:wrap; justify-content:flex-end; }
     .free-banner .btn {
-      background: #fff; color:#0d2326; border-radius: 10px;
-      padding: .5rem .85rem; font-weight:700; border:0;
+      appearance: none; border: 0; cursor: pointer;
+      background: #fff; color:#0d2326; border-radius: 10px; padding: .5rem .85rem; font-weight:700; text-decoration:none;
     }
     .free-banner .btn.ghost { background: transparent; color:#fff; border:1px solid rgba(255,255,255,.7); }
-
-    /* Optional: small NEW pill for cards */
     .pill-new { background:#fff; color:#0d2326; font-weight:700; padding:.3rem .55rem; border-radius:999px; font-size:.75rem; }
+
+    /* Ensure navbar doesn't overlay content invisibly */
+    .navbar { position: relative; z-index: 1000; }
+
+    /* Small screen tweaks: stack banner content */
+    @media (max-width: 640px) {
+      .free-banner .container { grid-template-columns: 1fr; }
+      .free-banner .actions { justify-content:flex-start; }
+    }
   </style>
 
   <!-- Minimal, namespaced LMS styles. Safe to move into css/style.css -->
@@ -128,8 +127,14 @@
         <p>Hands-on, 30-day pathway from zero → building real, tool-using LLM agents.</p>
       </div>
       <div class="actions">
-        <button class="btn" data-open-modal="#agentic-modal">View Syllabus</button>
-        <a$1href="https://wa.me/918125352626?text=Hi%20D3-FORGE%2C%20I%20want%20to%20enroll%20in%20the%20Free%20Agentic%20AI%20course."$2 target="_blank" rel="noopener" data-modal-exempt>Enroll Free</a>
+        <!-- Opens the Agentic syllabus modal -->
+        <button type="button" class="btn" data-open-modal="#agentic-modal">VIEW SYLLABUS</button>
+        <!-- Opens WhatsApp chat (does not trigger modal) -->
+        <a
+          class="btn ghost"
+          href="https://wa.me/918125352626?text=Hi%20D3-FORGE%2C%20I%20want%20to%20enroll%20in%20the%20Free%20Agentic%20AI%20course."
+          target="_blank" rel="noopener" data-modal-exempt
+        >Enroll Free</a>
       </div>
     </div>
   </section>
@@ -235,7 +240,11 @@
             <span class="pill-new" aria-hidden="true">NEW</span>
             <span class="pill-muted">Free</span>
             <button class="btn btn-light" data-open-modal="#agentic-modal">View Syllabus</button>
-            <a class="btn btn-ghost" href="training.html" data-modal-exempt>Details</a>
+            <a
+              class="btn btn-ghost"
+              href="https://wa.me/918125352626?text=Hi%20D3-FORGE%2C%20I%20want%20to%20enroll%20in%20the%20Free%20Agentic%20AI%20course."
+              target="_blank" rel="noopener" data-modal-exempt
+            >Enroll Free</a>
           </div>
         </article>
 
@@ -251,7 +260,6 @@
           <p>8-week end-to-end program: Strategy → Architecture → Data → Agents → MLOps → Governance → Stakeholder Alignment → Capstone.</p>
           <div class="course-actions">
             <button class="btn btn-light" data-open-modal="#genai-modal">View Syllabus</button>
-            <!-- NEW: direct download from GitHub raw (does NOT open modal) -->
             <a
               class="btn btn-ghost"
               href="https://raw.githubusercontent.com/Ajay-Sai-Kiran/website/main/assets/AI%20for%20Product%20Managers%20(1).pdf"
@@ -259,7 +267,6 @@
               rel="noopener"
               data-modal-exempt
             >Download PDF</a>
-            <!-- Ensure Details link navigates normally (does NOT open modal) -->
             <a class="btn btn-ghost" href="training.html" data-modal-exempt>Details</a>
           </div>
         </article>
@@ -393,12 +400,16 @@
         <p style="margin-top:.75rem"><em>Prereqs:</em> None. We teach the Python you need as you go.</p>
       </div>
       <div class="modal-actions">
-        <a class="btn" href="#" download="Agentic-AI-30-Day-Syllabus.pdf" onclick="
+        <a class="btn" href="#" download="Agentic-AI-30-Day-Syllabus.txt" onclick="
           const blob = new Blob([document.querySelector('#agentic-modal .modal-body').innerText], {type:'text/plain'});
           const url = URL.createObjectURL(blob);
           this.href = url;
         ">Download Syllabus (TXT)</a>
-        <a$1href="https://wa.me/918125352626?text=Hi%20D3-FORGE%2C%20I%20want%20to%20enroll%20in%20the%20Free%20Agentic%20AI%20course."$2 target="_blank" rel="noopener" data-modal-exempt>Enroll Free</a>
+        <a
+          class="btn btn-dark"
+          href="https://wa.me/918125352626?text=Hi%20D3-FORGE%2C%20I%20want%20to%20enroll%20in%20the%20Free%20Agentic%20AI%20course."
+          target="_blank" rel="noopener" data-modal-exempt
+        >Enroll Free</a>
       </div>
     </div>
   </div>
@@ -424,7 +435,6 @@
         </ol>
       </div>
       <div class="modal-actions">
-        <!-- UPDATED: link directly to your GitHub PDF (raw) and force a clean filename -->
         <a
           class="btn"
           href="https://raw.githubusercontent.com/Ajay-Sai-Kiran/website/main/assets/AI%20for%20Product%20Managers%20(1).pdf"
@@ -486,7 +496,7 @@
         });
       });
 
-      // ✅ Allow certain links/buttons inside a card to bypass the modal
+      // Allow certain links/buttons inside a card to bypass the modal
       document.querySelectorAll('[data-modal-exempt]').forEach(el => {
         el.addEventListener('click', e => e.stopPropagation());
         el.addEventListener('keydown', e => e.stopPropagation());
@@ -518,6 +528,22 @@
           document.body.style.overflow = '';
         }
       });
+    })();
+  </script>
+
+  <!-- Navbar offset helper so banner is always clickable below fixed/sticky nav -->
+  <script>
+    (function () {
+      const nav = document.querySelector('.navbar');
+      function setNavOffset() {
+        if (!nav) return;
+        const pos = getComputedStyle(nav).position;
+        const isOverlaying = pos === 'fixed' || pos === 'sticky';
+        const h = nav.offsetHeight || 64;
+        document.documentElement.style.setProperty('--nav-offset', isOverlaying ? (h + 'px') : '0px');
+      }
+      setNavOffset();
+      window.addEventListener('resize', setNavOffset);
     })();
   </script>
 
@@ -554,7 +580,7 @@
       authDomain: "YOUR_FIREBASE_AUTH_DOMAIN",
       projectId: "YOUR_FIREBASE_PROJECT_ID",
       appId: "YOUR_FIREBASE_APP_ID",
-      // (Optional but recommended if you use other products)
+      // (Optional)
       storageBucket: "YOUR_FIREBASE_STORAGE_BUCKET",
       messagingSenderId: "YOUR_FIREBASE_MESSAGING_SENDER_ID",
     };
@@ -579,11 +605,7 @@
 
     // Helpers
     const openModal = () => modalShell.classList.remove('lms-hidden');
-    const closeModal = () => {
-      modalShell.classList.add('lms-hidden');
-      errorEl.textContent = '';
-      form.reset();
-    };
+    const closeModal = () => { modalShell.classList.add('lms-hidden'); errorEl.textContent = ''; form.reset(); };
     const showEmbed = () => embedSection.classList.remove('lms-hidden');
     const hideEmbed = () => embedSection.classList.add('lms-hidden');
 
@@ -612,8 +634,7 @@
         await signInWithEmailAndPassword(auth, email, password);
         closeModal();
         showEmbed();
-        // Optional: If your LMS expects a token or user hint, you could refresh the iframe here
-        // and append a query param with an ID token. Example (only if your LMS is configured to accept it):
+        // Optional: if your LMS expects a token:
         // const token = await auth.currentUser.getIdToken();
         // iframe.src = `LMS_EMBED_URL?token=${encodeURIComponent(token)}`;
       } catch (err) {
