@@ -1,84 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
   <title>D3-FORGE | Design, Development & Deploy</title>
-  <link rel="stylesheet" href="css/style.css" />
 
+  <!-- Your base stylesheet (kept) -->
+  <link rel="stylesheet" href="css/style.css"/>
+
+  <!-- Meta (SEO) -->
+  <meta name="description" content="D3-FORGE builds AI products and services: Agentic AI, Generative AI chatbots, RAG pipelines, automation, MLOps, cloud & DevOps. Training and consulting available." />
+
+  <!-- Ionicons -->
+  <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+  <!-- Page-scoped styles (safe overrides only) -->
   <style>
-    /* ===== NAVBAR (fixed, readable tabs) ===== */
+    /* ===== NAVBAR (fixed, solid background, visible logo/links) ===== */
     .navbar{
-      position: fixed;
-      top:0; left:0; right:0;
-      z-index: 2000;
-      background:#fff;
+      position:fixed; top:0; left:0; right:0; z-index:2000;
+      background:#ffffff;
+      display:flex; align-items:center; justify-content:space-between;
+      padding: .6rem 1rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,.06);
     }
-    body{ padding-top: 70px; } /* adjust if your nav height differs */
-    .navbar .nav-links a{ color:#0d2326 !important; text-decoration:none; font-weight:500; }
-    .navbar .nav-links a.active{ color:#01b8cf !important; font-weight:700; }
+    body{ padding-top:72px; } /* adjust if your nav height differs */
 
-    /* ===== Courses/card styles (unchanged) ===== */
-    .section-dark { background: var(--colour-dark, #0d2326); color: var(--colour-light, #ffffff); }
-    .course-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
-    .course-card {
-      background: #01b8cf; color: #0d2326; border-radius: 14px; padding: 1.25rem 1.25rem 1rem;
-      box-shadow: 0 8px 28px rgba(0,0,0,.18); border: 1px solid rgba(255,255,255,.15);
-      transition: transform .18s ease, box-shadow .18s ease; cursor: pointer;
+    /* Logo restored and visible */
+    .navbar .logo{
+      font-family: Poppins, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 800;
+      letter-spacing: .5px;
+      color:#0d2326 !important; /* dark */
+      text-decoration:none;
+      font-size: 1.1rem;
+      opacity: 1 !important;    /* in case previous css lowered it */
     }
-    .course-card:hover { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(0,0,0,.22); }
-    .course-card h3 { color: #ffffff; margin: .5rem 0 .25rem; font-weight: 700; }
-    .course-card p { color: #e9feff; margin: 0 0 .75rem; }
-    .course-icon { font-size: 34px; color: #083a41; }
-    .course-actions { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; }
-    .btn-light { background: #ffffff; color: #0d2326; border: none; padding: .55rem .85rem; border-radius: 10px; font-weight: 600; cursor: pointer; }
-    .btn-ghost { background: transparent; border: 1px solid rgba(255,255,255,.7); color: #ffffff; padding: .5rem .85rem; border-radius: 10px; }
-    .pill-muted { background: rgba(255,255,255,.2); color: #fff; padding: .35rem .6rem; border-radius: 999px; font-size: .8rem; }
-    .course-card:focus { outline: 3px solid #ffffff; outline-offset: 2px; }
 
-    /* ===== Modal ===== */
-    .modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,.55); z-index: 9999; padding: 1rem; }
-    .modal[aria-hidden="false"] { display: flex; }
-    .modal-card { width: min(960px, 92vw); max-height: 90vh; overflow: auto; background: #ffffff; color: #111; border-radius: 18px; box-shadow: 0 24px 64px rgba(0,0,0,.25); }
-    .modal-header { display:flex; align-items:center; justify-content:space-between; padding:1rem 1.25rem; border-bottom:1px solid rgba(0,0,0,.08); position:sticky; top:0; background:#fff; border-top-left-radius:18px; border-top-right-radius:18px; }
-    .modal-body { padding: 1.25rem; }
-    .modal-actions { display:flex; gap:.75rem; padding: 0 1.25rem 1.25rem; flex-wrap: wrap; }
-    .close-btn { background:transparent; border:none; font-size:1.6rem; line-height:1; cursor:pointer; color:#333; }
-    .btn-dark { background: var(--colour-dark, #0d2326); color:#fff; border-radius:10px; padding:.55rem .85rem; display:inline-block; }
-    .syllabus { display:grid; gap:.6rem; padding-left: 1rem; }
-    .syllabus li { background:#f6fafb; border:1px solid rgba(0,0,0,.06); padding:.7rem .9rem; border-radius:12px; }
+    .navbar .nav-links{
+      display:flex; gap:1.2rem; list-style:none; margin:0; padding:0;
+      align-items:center;
+    }
+    .navbar .nav-links a{
+      color:#0d2326 !important; text-decoration:none; font-weight:600;
+    }
+    .navbar .nav-links a.active{
+      color:#01b8cf !important; border-bottom:3px solid #01b8cf; padding-bottom: .2rem;
+    }
 
-    /* ===== FREE Course Banner (scoped + under Hero) ===== */
-    .free-banner {
+    /* ===== HERO stays as your theme defines; no overrides here ===== */
+
+    /* ===== FREE Course Banner (scoped, under Hero) ===== */
+    .free-banner{
       display:flex; justify-content:space-between; align-items:center;
       padding: 1rem 2rem; gap: 1rem; flex-wrap: wrap;
       background: linear-gradient(90deg, #01b8cf, #0d2326); color:#fff;
       border-top: 1px solid rgba(255,255,255,.06);
     }
-    .free-banner-left { display:flex; align-items:center; gap:1rem; flex:1; min-width:260px; }
-    .free-badge { background:#fff; color:#0d2326; padding:.2rem .6rem; border-radius:999px; font-size:.8rem; font-weight:700; }
-    .free-banner h2 { margin:0; font-size:1.25rem; }
-    .free-banner h2 a { color:#fff; text-decoration: underline; }
-    .free-banner p { margin:0; color:#cde9e6; }
-    .free-banner-actions { display:flex; gap:.5rem; }
-    /* Private banner buttons so global .btn styles remain untouched */
-    .fb-btn, .fb-btn.ghost {
-      all: unset; display:inline-block; padding:.5rem .85rem; border-radius:10px; font-weight:700;
+    .free-banner-left{ display:flex; align-items:center; gap:1rem; flex:1; min-width:260px; }
+    .free-badge{ background:#fff; color:#0d2326; padding:.25rem .6rem; border-radius:999px; font-size:.8rem; font-weight:800; }
+    .free-banner h2{ margin:0; font-size:1.25rem; }
+    .free-banner h2 a{ color:#fff; text-decoration: underline; }
+    .free-banner p{ margin:0; color:#cde9e6; }
+    .free-banner-actions{ display:flex; gap:.5rem; }
+    .fb-btn, .fb-btn.ghost{
+      all:unset; display:inline-block; padding:.5rem .85rem; border-radius:10px; font-weight:800;
       cursor:pointer; text-align:center; line-height:1; user-select:none; text-decoration:none;
     }
-    .fb-btn { background:#fff; color:#0d2326; }
-    .fb-btn.ghost { background:transparent; color:#fff; border:1px solid rgba(255,255,255,.7); }
+    .fb-btn{ background:#fff; color:#0d2326; }
+    .fb-btn.ghost{ background:transparent; color:#fff; border:1px solid rgba(255,255,255,.7); }
 
-    /* Small screen stacking */
+    /* ===== PRODUCT & SERVICE SECTIONS ===== */
+    .section { padding: 2.2rem 0; }
+    .container{ max-width:1200px; margin:0 auto; padding:0 1rem; }
+    .section-title{ margin:0 0 .4rem; font-size: clamp(1.4rem, 2.8vw, 2rem); }
+    .section-subtitle{ margin:.2rem 0 1.1rem; color:#556; }
+
+    /* Products */
+    .products{ background:#f7fbfc; }
+    .card-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+    .p-card{
+      background:#ffffff; border:1px solid #e5f3f6; border-radius:14px; padding:1rem;
+      box-shadow: 0 8px 22px rgba(0,0,0,.06);
+      transition: transform .16s ease, box-shadow .16s ease;
+    }
+    .p-card:hover{ transform: translateY(-3px); box-shadow: 0 14px 30px rgba(0,0,0,.10); }
+    .p-card h3{ margin:.2rem 0 .35rem; font-size:1.05rem; }
+    .p-card p{ margin:0 0 .75rem; color:#334; }
+    .p-actions{ display:flex; gap:.5rem; flex-wrap:wrap; }
+    .p-btn{ background:#01b8cf; color:#0d2326; border:0; border-radius:10px; padding:.45rem .75rem; font-weight:800; cursor:pointer; }
+    .p-btn.ghost{ background:transparent; color:#0d2326; border:1px solid #9edfe8; }
+
+    /* Services (dark band) */
+    .services{ background:#0d2326; color:#e9feff; }
+    .s-card{
+      background:#06292d; border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:1rem;
+      box-shadow: 0 10px 24px rgba(0,0,0,.18);
+      transition: transform .16s ease, box-shadow .16s ease;
+    }
+    .s-card:hover{ transform: translateY(-3px); box-shadow: 0 16px 32px rgba(0,0,0,.22); }
+    .s-card h3{ margin:.2rem 0 .35rem; font-size:1.05rem; color:#fff; }
+    .s-card p{ margin:0 0 .7rem; color:#cde9e6; }
+    .s-actions{ display:flex; gap:.5rem; flex-wrap:wrap; }
+    .s-btn{ background:#01b8cf; color:#0d2326; border:0; border-radius:10px; padding:.45rem .75rem; font-weight:800; cursor:pointer; }
+    .s-btn.ghost{ background:transparent; color:#e9feff; border:1px solid rgba(255,255,255,.5); }
+
+    /* ===== MODAL (generic) ===== */
+    .modal{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,.55); z-index:9999; padding:1rem; }
+    .modal[aria-hidden="false"]{ display:flex; }
+    .modal-card{ width:min(960px, 92vw); max-height:90vh; overflow:auto; background:#fff; color:#111; border-radius:18px; box-shadow:0 24px 64px rgba(0,0,0,.25); }
+    .modal-header{ display:flex; align-items:center; justify-content:space-between; padding:1rem 1.25rem; border-bottom:1px solid rgba(0,0,0,.08); position:sticky; top:0; background:#fff; border-top-left-radius:18px; border-top-right-radius:18px; }
+    .modal-body{ padding:1.25rem; }
+    .modal-actions{ display:flex; gap:.75rem; padding:0 1.25rem 1.25rem; flex-wrap:wrap; }
+    .close-btn{ background:transparent; border:none; font-size:1.6rem; line-height:1; cursor:pointer; color:#333; }
+    .btn-dark{ background:#0d2326; color:#fff; border-radius:10px; padding:.55rem .85rem; display:inline-block; }
+    .syllabus{ display:grid; gap:.6rem; padding-left:1rem; }
+    .syllabus li{ background:#f6fafb; border:1px solid rgba(0,0,0,.06); padding:.7rem .9rem; border-radius:12px; }
+
+    /* Small screen tweak for banner */
     @media (max-width:640px){
-      .free-banner { padding: 1rem; }
-      .free-banner-actions { width:100%; justify-content:flex-start; }
+      .free-banner{ padding:1rem; }
+      .free-banner-actions{ width:100%; justify-content:flex-start; }
     }
   </style>
+
+  <!-- JSON-LD: Item lists for Products & Services -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@graph":[
+      {
+        "@type":"ItemList",
+        "name":"D3-FORGE Products",
+        "itemListElement":[
+          {"@type":"ListItem","position":1,"item":{"@type":"Product","name":"Agentic AI Starter (Free Course)","description":"30-day, hands-on program to build tool-using LLM agents with memory, planning and deployment."}},
+          {"@type":"ListItem","position":2,"item":{"@type":"Product","name":"GenAI Chatbot Accelerator","description":"Prebuilt chatbot stack with RAG, analytics, safety and multi-channel deploy."}},
+          {"@type":"ListItem","position":3,"item":{"@type":"Product","name":"RAG Pipeline Kit","description":"Ingestion, chunking, embeddings, vector DB and eval harness for production search."}}
+        ]
+      },
+      {
+        "@type":"ItemList",
+        "name":"D3-FORGE Services",
+        "itemListElement":[
+          {"@type":"ListItem","position":1,"item":{"@type":"Service","name":"Generative AI Product Development","description":"E2E delivery of LLM applications from discovery to deployment and monitoring."}},
+          {"@type":"ListItem","position":2,"item":{"@type":"Service","name":"AI Automation & Workflows","description":"Automate business processes with tool-using agents, approvals and audit logs."}},
+          {"@type":"ListItem","position":3,"item":{"@type":"Service","name":"MLOps & LLMOps","description":"CI/CD, evals, observability, drift detection and rollback for AI systems."}}
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
-  <!-- NAVIGATION -->
+  <!-- NAV -->
   <nav class="navbar">
     <a href="index.html" class="logo">D3-FORGE</a>
     <ul class="nav-links">
@@ -90,16 +166,16 @@
     </ul>
   </nav>
 
-  <!-- HERO (your existing hero stays first) -->
+  <!-- HERO (your existing styles handle the visuals) -->
   <header class="hero">
     <div class="container">
       <h1 class="fade-in">Design • Develop • Deploy</h1>
-      <p class="fade-in" style="--delay:0.2s">Innovative software solutions & hands-on training for the next generation of tech leaders.</p>
-      <a href="services.html" class="btn fade-in" style="--delay:0.4s">Explore our Services</a>
+      <p class="fade-in" style="--delay:.2s">Innovative software solutions & hands-on training for the next generation of tech leaders.</p>
+      <a href="services.html" class="btn fade-in" style="--delay:.4s">Explore our Services</a>
     </div>
   </header>
 
-  <!-- FREE COURSE BANNER (now UNDER the Hero) -->
+  <!-- FREE COURSE BANNER -->
   <section class="free-banner" aria-label="Free Course: Agentic AI">
     <div class="free-banner-left">
       <span class="free-badge">NEW</span>
@@ -115,78 +191,116 @@
     </div>
   </section>
 
-  <!-- (Your other sections continue below; example:) -->
-  <section class="section" id="services-overview">
+  <!-- OUR PRODUCTS -->
+  <section class="section products" id="our-products">
     <div class="container">
-      <h2 class="section-title fade-in">Our Solutions</h2>
-      <p class="section-subtitle fade-in">From artificial intelligence to comprehensive quality assurance, D3-FORGE delivers end-to-end software services that power innovation.</p>
-      <div class="cards">
-        <div class="card service fade-in" style="--delay:0s">
-          <ion-icon name="hardware-chip-outline"></ion-icon>
-          <h3>AI & Machine Learning</h3>
-          <p>Develop intelligent systems that learn from data, automate decisions and deliver predictive insights.</p>
-        </div>
-        <div class="card service fade-in" style="--delay:0.1s">
-          <ion-icon name="phone-portrait-outline"></ion-icon>
-          <h3>Web & Mobile Development</h3>
-          <p>Create responsive websites and mobile apps with modern frameworks that scale seamlessly across devices.</p>
-        </div>
-        <div class="card service fade-in" style="--delay:0.2s">
-          <ion-icon name="cloud-outline"></ion-icon>
-          <h3>Cloud Solutions</h3>
-          <p>Leverage the power of the cloud to build, deploy and manage applications with high availability and security.</p>
-        </div>
-        <div class="card service fade-in" style="--delay:0.3s">
-          <ion-icon name="bug-outline"></ion-icon>
-          <h3>QA & Testing</h3>
-          <p>Ensure quality through automated and manual testing strategies, safeguarding user experience and reliability.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+      <h2 class="section-title">Our Products</h2>
+      <p class="section-subtitle">Ready-to-use accelerators and kits to launch AI faster.</p>
 
-  <!-- Upcoming Courses -->
-  <section class="section section-dark" id="upcoming-courses">
-    <div class="container">
-      <h2 class="section-title" style="color: var(--colour-light)">Upcoming Courses</h2>
-      <p class="section-subtitle" style="color:#cde9e6">Reserve your spot in our next industry-ready cohorts.</p>
-
-      <div class="course-cards">
-        <!-- Agentic AI — Free -->
-        <article class="course-card" role="button" tabindex="0"
-                 aria-controls="agentic-modal" aria-haspopup="dialog"
-                 data-open-modal="#agentic-modal">
-          <div class="course-icon"><ion-icon name="construct-outline"></ion-icon></div>
-          <h3>Agentic AI (Free)</h3>
-          <p>30-day, project-based intro to building LLM agents: tools, memory, planning, and deployment.</p>
-          <div class="course-actions">
-            <span class="pill-muted">Free</span>
-            <button class="btn-light" data-open-modal="#agentic-modal">View Syllabus</button>
-            <a class="btn-ghost"
-               href="https://wa.me/918125352626?text=Hi%20D3-FORGE,%20I%20want%20to%20enroll%20in%20the%20free%20Agentic%20AI%20course."
-               target="_blank" rel="noopener" data-modal-exempt>Enroll Free</a>
+      <div class="card-grid">
+        <!-- Product 1 -->
+        <article class="p-card">
+          <div style="font-size:28px;color:#01b8cf"><ion-icon name="construct-outline"></ion-icon></div>
+          <h3>Agentic AI Starter (Free)</h3>
+          <p>30-day program to build an autonomous, tool-using agent with memory, planning and deployment.</p>
+          <div class="p-actions">
+            <a href="#" class="p-btn" data-open-modal="#agentic-modal">View Syllabus</a>
+            <a href="https://wa.me/918125352626?text=Hi%20D3-FORGE,%20I%20want%20to%20enroll%20in%20Agentic%20AI%20Starter."
+               target="_blank" rel="noopener" class="p-btn ghost">Enroll Free</a>
           </div>
         </article>
 
-        <!-- Generative AI for Product Managers -->
-        <article class="course-card" role="button" tabindex="0"
-                 aria-controls="genai-modal" aria-haspopup="dialog"
-                 data-open-modal="#genai-modal">
-          <div class="course-icon"><ion-icon name="rocket-outline"></ion-icon></div>
-          <h3>Generative AI for Product Managers</h3>
-          <p>Strategy → Architecture → Data → Agents → MLOps → Governance → Stakeholder Alignment → Capstone.</p>
-          <div class="course-actions">
-            <button class="btn-light" data-open-modal="#genai-modal">View Syllabus</button>
-            <a class="btn-ghost"
-               href="https://raw.githubusercontent.com/Ajay-Sai-Kiran/website/main/assets/AI%20for%20Product%20Managers%20(1).pdf"
-               download="AI-for-Product-Managers.pdf" rel="noopener" data-modal-exempt>Download PDF</a>
+        <!-- Product 2 -->
+        <article class="p-card">
+          <div style="font-size:28px;color:#01b8cf"><ion-icon name="chatbubbles-outline"></ion-icon></div>
+          <h3>GenAI Chatbot Accelerator</h3>
+          <p>Production chatbot stack: RAG, safety guardrails, analytics and multi-channel deployment.</p>
+          <div class="p-actions">
+            <a href="services.html#chatbots" class="p-btn">See Demo</a>
+            <a href="contact.html" class="p-btn ghost">Get Pricing</a>
+          </div>
+        </article>
+
+        <!-- Product 3 -->
+        <article class="p-card">
+          <div style="font-size:28px;color:#01b8cf"><ion-icon name="library-outline"></ion-icon></div>
+          <h3>RAG Pipeline Kit</h3>
+          <p>Ingestion, chunking, embeddings and vector DB with an evaluation harness, ready for production.</p>
+          <div class="p-actions">
+            <a href="services.html#rag" class="p-btn">How it Works</a>
+            <a href="contact.html" class="p-btn ghost">Start a Pilot</a>
           </div>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- Footer (trimmed) -->
+  <!-- OUR SERVICES -->
+  <section class="section services" id="our-services">
+    <div class="container">
+      <h2 class="section-title" style="color:#fff">Our Services</h2>
+      <p class="section-subtitle" style="color:#bfe8ec">Custom development and consulting to deliver AI in production.</p>
+
+      <div class="card-grid">
+        <!-- Service 1 -->
+        <article class="s-card">
+          <div class="trend-icon"><ion-icon name="rocket-outline"></ion-icon></div>
+          <h3>Generative AI Product Development</h3>
+          <p>End-to-end LLM products: discovery, UX, RAG/agents, evals, launch and monitoring.</p>
+          <div class="s-actions">
+            <a href="services.html#genai-products" class="s-btn">Engage</a>
+            <a href="contact.html" class="s-btn ghost">Talk to Us</a>
+          </div>
+        </article>
+
+        <!-- Service 2 -->
+        <article class="s-card">
+          <div class="trend-icon"><ion-icon name="sparkles-outline"></ion-icon></div>
+          <h3>AI Automation & Workflows</h3>
+          <p>Automate processes with tool-using agents, approvals and auditability across your stack.</p>
+          <div class="s-actions">
+            <a href="services.html#automation" class="s-btn">Use Cases</a>
+            <a href="contact.html" class="s-btn ghost">Estimate ROI</a>
+          </div>
+        </article>
+
+        <!-- Service 3 -->
+        <article class="s-card">
+          <div class="trend-icon"><ion-icon name="git-branch-outline"></ion-icon></div>
+          <h3>MLOps & LLMOps</h3>
+          <p>CI/CD for prompts/models, evals, telemetry, drift detection and safe rollback.</p>
+          <div class="s-actions">
+            <a href="services.html#mllmops" class="s-btn">Our Stack</a>
+            <a href="contact.html" class="s-btn ghost">Audit My Setup</a>
+          </div>
+        </article>
+
+        <!-- Service 4 -->
+        <article class="s-card">
+          <div class="trend-icon"><ion-icon name="cloud-outline"></ion-icon></div>
+          <h3>Cloud & DevOps for AI</h3>
+          <p>GPU sizing, containers, cost controls, observability and zero-downtime deploys.</p>
+          <div class="s-actions">
+            <a href="services.html#cloud-devops" class="s-btn">Capabilities</a>
+            <a href="contact.html" class="s-btn ghost">Assess Readiness</a>
+          </div>
+        </article>
+
+        <!-- Service 5 -->
+        <article class="s-card">
+          <div class="trend-icon"><ion-icon name="shield-checkmark-outline"></ion-icon></div>
+          <h3>AI Safety & Governance</h3>
+          <p>Bias mitigation, red-team tests, PII handling, access controls and audit logs.</p>
+          <div class="s-actions">
+            <a href="services.html#governance" class="s-btn">Best Practices</a>
+            <a href="contact.html" class="s-btn ghost">Compliance Help</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER (minimal) -->
   <footer>
     <div class="container footer-container">
       <div class="footer-column">
@@ -222,7 +336,7 @@
     <p class="copyright">© 2025 D3-FORGE. All Rights Reserved.</p>
   </footer>
 
-  <!-- Modal: Agentic AI — 30-Day Free Course -->
+  <!-- MODAL: Agentic AI — 30-Day Free Course -->
   <div id="agentic-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="agentic-title">
     <div class="modal-card" role="document">
       <header class="modal-header">
@@ -234,7 +348,7 @@
         <ol class="syllabus">
           <li><strong>Days 1–3:</strong> Foundations — what is an agent; LLM basics; Python setup; APIs & JSON.</li>
           <li><strong>Days 4–6:</strong> Prompting & Tool Use — function calling; ReAct loop; calculator + web search tool.</li>
-          <li><strong>Days 7–9:</strong> Memory — embeddings; Chroma; agent with document retrieval.</li>
+          <li><strong>Days 7–9:</strong> Memory — embeddings; vector store (Chroma); doc retrieval.</li>
           <li><strong>Days 10–12:</strong> Planning — ReAct/Reflexion; task decomposition; research summarizer agent.</li>
           <li><strong>Days 13–15:</strong> Integrations — files; 3rd-party APIs (news/Slack/Notion); scheduling.</li>
           <li><strong>Days 16–18:</strong> Reliability — guardrails; retries; logging; quick evals.</li>
@@ -245,78 +359,48 @@
         </ol>
       </div>
       <div class="modal-actions">
-        <a class="btn btn-dark"
+        <a class="btn-dark"
            href="https://wa.me/918125352626?text=Hi%20D3-FORGE,%20I%20want%20to%20enroll%20in%20the%20free%20Agentic%20AI%20course."
-           target="_blank" rel="noopener" data-modal-exempt>Enroll Free</a>
+           target="_blank" rel="noopener" data-modal-exempt>Enroll Free on WhatsApp</a>
       </div>
     </div>
   </div>
 
-  <!-- Modal: Generative AI for Product Managers (optional) -->
-  <div id="genai-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="genai-title">
-    <div class="modal-card" role="document">
-      <header class="modal-header">
-        <h3 id="genai-title">Generative AI for Product Managers — 8-Week Syllabus</h3>
-        <button class="close-btn" aria-label="Close syllabus" data-close-modal>&times;</button>
-      </header>
-      <div class="modal-body">
-        <ol class="syllabus">
-          <li><strong>W1:</strong> Strategy & OKRs</li>
-          <li><strong>W2:</strong> Architecture (RAG/Agents)</li>
-          <li><strong>W3:</strong> Data & Retrieval</li>
-          <li><strong>W4:</strong> Multi-Agent Orchestration</li>
-          <li><strong>W5:</strong> MLOps & Monitoring</li>
-          <li><strong>W6:</strong> Ethics & Governance</li>
-          <li><strong>W7:</strong> Stakeholder Alignment</li>
-          <li><strong>W8:</strong> Capstone</li>
-        </ol>
-      </div>
-      <div class="modal-actions">
-        <a class="btn btn-dark" href="contact.html">Register Interest</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Scripts -->
-  <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://cdn.jsdelivr.net/npm/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
-  <!-- Modal wiring (kept lightweight) -->
+  <!-- Minimal modal wiring -->
   <script>
-    (function () {
-      // Open modal
-      document.querySelectorAll('[data-open-modal]').forEach(el => {
-        el.addEventListener('click', e => {
+    (function(){
+      // open
+      document.querySelectorAll('[data-open-modal]').forEach(el=>{
+        el.addEventListener('click', e=>{
           e.preventDefault();
           const sel = el.getAttribute('data-open-modal');
           const modal = document.querySelector(sel);
-          if (modal) {
-            modal.setAttribute('aria-hidden','false');
-            document.body.style.overflow = 'hidden';
-          }
+          if(!modal) return;
+          modal.setAttribute('aria-hidden','false');
+          document.body.style.overflow = 'hidden';
         });
       });
-      // Close via X
-      document.querySelectorAll('[data-close-modal]').forEach(btn => {
-        btn.addEventListener('click', () => {
+      // close (X)
+      document.querySelectorAll('[data-close-modal]').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
           const modal = btn.closest('.modal');
           modal?.setAttribute('aria-hidden','true');
           document.body.style.overflow = '';
         });
       });
-      // Click outside to close
-      document.querySelectorAll('.modal').forEach(modal => {
-        modal.addEventListener('click', e => {
-          if (e.target === modal) {
+      // click outside
+      document.querySelectorAll('.modal').forEach(modal=>{
+        modal.addEventListener('click', e=>{
+          if(e.target === modal){
             modal.setAttribute('aria-hidden','true');
             document.body.style.overflow = '';
           }
         });
       });
-      // ESC to close
-      document.addEventListener('keydown', e => {
-        if (e.key === 'Escape') {
-          document.querySelectorAll('.modal[aria-hidden="false"]').forEach(m => m.setAttribute('aria-hidden','true'));
+      // ESC
+      document.addEventListener('keydown', e=>{
+        if(e.key === 'Escape'){
+          document.querySelectorAll('.modal[aria-hidden="false"]').forEach(m=>m.setAttribute('aria-hidden','true'));
           document.body.style.overflow = '';
         }
       });
