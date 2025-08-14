@@ -10,27 +10,21 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
 
   <style>
-    /* ===== NAVBAR (fixed, white) ===== */
+    /* ===== Sticky NAVBAR ===== */
     .navbar{
       position: fixed; top: 0; left: 0; right: 0; z-index: 2000;
       background: #ffffff; display:flex; align-items:center; justify-content:space-between;
       padding:.6rem 1rem; box-shadow:0 2px 12px rgba(0,0,0,.06);
     }
-    body{ padding-top:72px; }
+    body{ padding-top:72px; } /* leave room for navbar */
+
     .brand{ display:flex; align-items:center; gap:.6rem; text-decoration:none; }
     .brand img{ height:40px; width:auto; display:block; }
     .brand .site-name{ font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; font-weight:800; color:#0d2326; font-size:1.2rem; letter-spacing:.2px; }
-    .brand .mobile-title{ display:none; font-weight:800; font-size:1.2rem; color:#0d2326; }
+
     .nav-links{ display:flex; gap:1.2rem; list-style:none; margin:0; padding:0; align-items:center; }
     .nav-links a{ color:#0d2326!important; text-decoration:none; font-weight:600; }
     .nav-links a.active{ color:#01b8cf!important; border-bottom:3px solid #01b8cf; padding-bottom:.2rem; }
-    .hamburger{ display:none; }
-
-    /* ===== “Mobile: show only ‘Free’ in the top bar” ===== */
-    @media (max-width:768px){
-      .brand img, .brand .site-name{ display:none !important; }
-      .brand .mobile-title{ display:inline-block; }
-    }
 
     /* ===== Free Course Banner ===== */
     .free-banner{ background: linear-gradient(135deg, #01b8cf 0%, #0d2326 100%); color:#fff; padding: 1rem 0; }
@@ -42,7 +36,12 @@
     .free-banner .btn{ background:#fff; color:#0d2326; border-radius:10px; padding:.5rem .85rem; font-weight:700; border:0; cursor:pointer; }
     .free-banner .btn.ghost{ background:transparent; color:#fff; border:1px solid rgba(255,255,255,.7); }
 
-    /* ===== Course cards & modal (kept from your version) ===== */
+    /* ✅ Hide the top Agentic AI banner completely on mobile */
+    @media (max-width:768px){
+      .free-banner{ display:none !important; }
+    }
+
+    /* ===== Sections / Cards / Modals (kept from your site) ===== */
     .section-dark{ background: var(--colour-dark, #0d2326); color: var(--colour-light, #ffffff); }
     .course-cards{ display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:1.25rem; }
     .course-card{ background:#01b8cf; color:#0d2326; border-radius:14px; padding:1.25rem 1.25rem 1rem; box-shadow:0 8px 28px rgba(0,0,0,.18); border:1px solid rgba(255,255,255,.15); transition:transform .18s ease, box-shadow .18s ease; cursor:pointer; }
@@ -89,7 +88,6 @@
     <a href="index.html" class="brand" aria-label="D-3Forge Home">
       <img src="assets/IMG-20250811-WA0109.jpg" alt="D-3Forge Logo" />
       <span class="site-name">D-3Forge</span>
-      <span class="mobile-title">Agentic AI (Free course)</span> <!-- shown only on mobile -->
     </a>
     <ul class="nav-links">
       <li><a href="index.html" class="active">Home</a></li>
@@ -99,10 +97,9 @@
       <li><a href="contact.html">Contact</a></li>
       <li><a href="#" data-lms-login-open>Login to LMS</a></li>
     </ul>
-    <div class="hamburger"><ion-icon name="menu-outline"></ion-icon></div>
   </nav>
 
-  <!-- FREE COURSE TOP BANNER -->
+  <!-- ✅ FREE COURSE TOP BANNER (HIDDEN ON MOBILE) -->
   <section class="free-banner" aria-label="Free Course: Agentic AI">
     <div class="container">
       <div>
@@ -118,16 +115,6 @@
       </div>
     </div>
   </section>
-
-  <!-- Mobile nav (your original) -->
-  <div class="mobile-nav">
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="services.html">Services</a>
-    <a href="training.html">Training</a>
-    <a href="contact.html">Contact</a>
-    <a href="#" data-lms-login-open>Login to LMS</a>
-  </div>
 
   <!-- HERO -->
   <header class="hero">
@@ -173,31 +160,6 @@
     <div class="container">
       <h2 class="section-title fade-in" style="color: var(--colour-light)">Empowering Learners</h2>
       <p class="section-subtitle fade-in" style="color: #ccc">Our student-centred training programmes focus on practical experience, modular curricula and industry-relevant skills.</p>
-      <div class="cards">
-        <div class="card training fade-in" style="--delay:0s">
-          <ion-icon name="rocket-outline"></ion-icon>
-          <h3>AI & Data Science</h3>
-          <p>Master machine learning algorithms, neural networks and data visualisation to build intelligent applications.</p>
-        </div>
-        <div class="card training fade-in" style="--delay:0.1s">
-          <ion-icon name="code-slash-outline"></ion-icon>
-          <h3>Full-Stack Development</h3>
-          <p>Learn front-end & back-end technologies, from HTML/CSS and JavaScript to frameworks and databases.</p>
-        </div>
-        <div class="card training fade-in" style="--delay:0.2s">
-          <ion-icon name="server-outline"></ion-icon>
-          <h3>Cloud & DevOps</h3>
-          <p>Deploy and scale applications using cloud platforms, containers and continuous integration/continuous delivery.</p>
-        </div>
-        <div class="card training fade-in" style="--delay:0.3s">
-          <ion-icon name="shield-checkmark-outline"></ion-icon>
-          <h3>Testing & QA</h3>
-          <p>Acquire skills in manual and automated testing, ensuring that software meets quality standards.</p>
-        </div>
-      </div>
-      <div style="text-align:center; margin-top:2rem;" class="fade-in">
-        <a href="training.html" class="btn">Discover Training</a>
-      </div>
     </div>
   </section>
 
@@ -464,7 +426,7 @@
     })();
   </script>
 
-  <!-- LMS AUTH (kept; prevents auto-open on load) -->
+  <!-- LMS AUTH (minimal; no auto-open) -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import {
@@ -492,7 +454,6 @@
     const submitBtn = document.getElementById('lms-submit');
     const errorEl = document.getElementById('lms-error');
     const embedSection = document.getElementById('lms-embed-section');
-    const iframe = document.getElementById('lms-iframe');
     const signoutBtn = document.getElementById('lms-signout');
     const accountBtn = document.getElementById('lms-open-in-modal');
 
