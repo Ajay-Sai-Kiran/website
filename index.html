@@ -9,8 +9,7 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 
-  <!-- Minimal styles for the new Upcoming Courses section + modal.
-       Move these to css/style.css when convenient. -->
+  <!-- Minimal styles for Upcoming Courses + modal -->
   <style>
     .section-dark { background: var(--colour-dark, #0d2326); color: var(--colour-light, #ffffff); }
     .course-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
@@ -28,6 +27,7 @@
     .btn-ghost { background: transparent; border: 1px solid rgba(255,255,255,.7); color: #ffffff; padding: .5rem .85rem; border-radius: 10px; }
     .pill-muted { background: rgba(255,255,255,.2); color: #fff; padding: .35rem .6rem; border-radius: 999px; font-size: .8rem; }
     .course-card:focus { outline: 3px solid #ffffff; outline-offset: 2px; }
+    .pill-new { background:#ffffff; color:#0d2326; font-weight:700; padding:.3rem .55rem; border-radius:999px; font-size:.75rem; }
 
     /* Modal */
     .modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,.55); z-index: 9999; padding: 1rem; }
@@ -42,7 +42,7 @@
     .syllabus li { background:#f6fafb; border:1px solid rgba(0,0,0,.06); padding:.7rem .9rem; border-radius:12px; }
   </style>
 
-  <!-- Minimal, namespaced LMS styles. Safe to move into css/style.css -->
+  <!-- Minimal, namespaced LMS styles -->
   <style>
     .lms-hidden { display: none !important; }
     .lms-embed-wrap { border: 1px solid #e5e7eb; border-radius: 14px; overflow: hidden; }
@@ -78,6 +78,7 @@
       <ion-icon name="menu-outline"></ion-icon>
     </div>
   </nav>
+
   <!-- Mobile navigation -->
   <div class="mobile-nav">
     <a href="index.html">Home</a>
@@ -161,13 +162,33 @@
     </div>
   </section>
 
-  <!-- Upcoming Courses (NEW) -->
+  <!-- Upcoming Courses -->
   <section class="section section-dark" id="upcoming-courses">
     <div class="container">
       <h2 class="section-title" style="color: var(--colour-light)">Upcoming Courses</h2>
       <p class="section-subtitle" style="color:#cde9e6">Reserve your spot in our next industry-ready cohorts.</p>
 
       <div class="course-cards">
+        <!-- NEW: Agentic AI (Free) -->
+        <article class="course-card"
+                 role="button" tabindex="0"
+                 aria-controls="agentic-modal" aria-haspopup="dialog"
+                 data-open-modal="#agentic-modal">
+          <div class="course-icon">
+            <ion-icon name="construct-outline"></ion-icon>
+          </div>
+          <h3>Agentic AI (Free)</h3>
+          <p>30‑day, project‑based intro to building LLM agents: tools, memory, planning, and deployment.</p>
+          <div class="course-actions">
+            <span class="pill-new" aria-hidden="true">NEW</span>
+            <span class="pill-muted">Free</span>
+            <button class="btn btn-light" data-open-modal="#agentic-modal">View Syllabus</button>
+            <a class="btn btn-ghost"
+               href="https://wa.me/918125352626?text=Hi%20D3-FORGE%2C%20I%20want%20to%20enroll%20in%20the%20Free%20Agentic%20AI%20course."
+               target="_blank" rel="noopener" data-modal-exempt>Enroll Free</a>
+          </div>
+        </article>
+
         <!-- Generative AI for Product Managers -->
         <article class="course-card"
                  role="button" tabindex="0"
@@ -180,15 +201,11 @@
           <p>8-week end-to-end program: Strategy → Architecture → Data → Agents → MLOps → Governance → Stakeholder Alignment → Capstone.</p>
           <div class="course-actions">
             <button class="btn btn-light" data-open-modal="#genai-modal">View Syllabus</button>
-            <!-- NEW: direct download from GitHub raw (does NOT open modal) -->
-            <a
-              class="btn btn-ghost"
+            <a class="btn btn-ghost"
               href="https://raw.githubusercontent.com/Ajay-Sai-Kiran/website/main/assets/AI%20for%20Product%20Managers%20(1).pdf"
               download="AI-for-Product-Managers.pdf"
               rel="noopener"
-              data-modal-exempt
-            >Download PDF</a>
-            <!-- Ensure Details link navigates normally (does NOT open modal) -->
+              data-modal-exempt>Download PDF</a>
             <a class="btn btn-ghost" href="training.html" data-modal-exempt>Details</a>
           </div>
         </article>
@@ -232,7 +249,6 @@
           </div>
         </div>
         <div class="lms-embed-wrap">
-          <!-- Replace LMS_EMBED_URL with your LMS page that allows embedding -->
           <iframe id="lms-iframe" src="LMS_EMBED_URL" title="LMS"></iframe>
         </div>
       </section>
@@ -298,6 +314,48 @@
   <ion-icon name="logo-whatsapp"></ion-icon>
 </a>
 
+  <!-- ====== MODALS ====== -->
+
+  <!-- NEW: Agentic AI Free Course Syllabus Modal -->
+  <div id="agentic-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="agentic-title">
+    <div class="modal-card" role="document">
+      <header class="modal-header">
+        <h3 id="agentic-title">Agentic AI — 30-Day Free Course (Beginner → Builder)</h3>
+        <button class="close-btn" aria-label="Close syllabus" data-close-modal>&times;</button>
+      </header>
+      <div class="modal-body">
+        <p><strong>Outcome:</strong> Build and deploy your own tool‑using LLM agent with planning, memory, and a small capstone.</p>
+        <ol class="syllabus">
+          <li><strong>Days 1–3:</strong> Foundations — what is an agent; LLM basics; Python setup; APIs & JSON.</li>
+          <li><strong>Days 4–6:</strong> Prompting & Tool Use — function calling; ReAct loop; calculator + web search tool.</li>
+          <li><strong>Days 7–9:</strong> Memory — embeddings; vector store; document retrieval.</li>
+          <li><strong>Days 10–12:</strong> Planning — ReAct / Reflexion; task decomposition; research summarizer agent.</li>
+          <li><strong>Days 13–15:</strong> Integrations — read/write files; 3rd‑party APIs (news/Slack/Notion); scheduling.</li>
+          <li><strong>Days 16–18:</strong> Reliability — guardrails; retries/timeouts; logging; quick evals.</li>
+          <li><strong>Days 19–21:</strong> Multi‑Agent — coordinator/worker; handoffs; recovery.</li>
+          <li><strong>Days 22–24:</strong> Performance — async/streaming; caching; persisting memory.</li>
+          <li><strong>Days 25–27:</strong> UI & Deploy — FastAPI/Streamlit; Docker; deploy to a small cloud host.</li>
+          <li><strong>Days 28–30:</strong> Capstone — ship a working agent; README + demo.</li>
+        </ol>
+        <p style="margin-top:.6rem"><em>Prereqs:</em> None — we teach the Python you need as you go.</p>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-dark" data-close-modal>Close</button>
+        <a class="btn"
+           href="#"
+           download="Agentic-AI-30-Day-Syllabus.txt"
+           onclick="
+             const blob = new Blob([document.querySelector('#agentic-modal .modal-body').innerText], {type:'text/plain'});
+             const url = URL.createObjectURL(blob);
+             this.href = url;
+           ">Download Syllabus (TXT)</a>
+        <a class="btn btn-dark"
+           href="https://wa.me/918125352626?text=Hi%20D3-FORGE%2C%20I%20want%20to%20enroll%20in%20the%20Free%20Agentic%20AI%20course."
+           target="_blank" rel="noopener" data-modal-exempt>Enroll Free</a>
+      </div>
+    </div>
+  </div>
+
   <!-- Modal: Generative AI for Product Managers Syllabus -->
   <div id="genai-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="genai-title">
     <div class="modal-card" role="document">
@@ -319,13 +377,10 @@
         </ol>
       </div>
       <div class="modal-actions">
-        <!-- UPDATED: link directly to your GitHub PDF (raw) and force a clean filename -->
-        <a
-          class="btn"
+        <a class="btn"
           href="https://raw.githubusercontent.com/Ajay-Sai-Kiran/website/main/assets/AI%20for%20Product%20Managers%20(1).pdf"
           download="AI-for-Product-Managers.pdf"
-          rel="noopener"
-        >Download Syllabus (PDF)</a>
+          rel="noopener">Download Syllabus (PDF)</a>
         <a class="btn btn-dark" href="contact.html">Register Interest</a>
       </div>
     </div>
@@ -362,10 +417,9 @@
   <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://cdn.jsdelivr.net/npm/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
-  <!-- Lightweight JS for tile → modal behaviour. Merge into js/script.js if preferred. -->
+  <!-- Modal behavior -->
   <script>
     (function () {
-      // Open via buttons or clicking the whole card
       document.querySelectorAll('[data-open-modal]').forEach(el => {
         el.addEventListener('click', e => {
           const sel = el.getAttribute('data-open-modal');
@@ -375,19 +429,16 @@
           document.body.style.overflow = 'hidden';
           e.preventDefault();
         });
-        // Keyboard activation on card
         el.addEventListener('keydown', e => {
           if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); }
         });
       });
 
-      // ✅ Allow certain links/buttons inside a card to bypass the modal
       document.querySelectorAll('[data-modal-exempt]').forEach(el => {
         el.addEventListener('click', e => e.stopPropagation());
         el.addEventListener('keydown', e => e.stopPropagation());
       });
 
-      // Close actions
       document.querySelectorAll('[data-close-modal]').forEach(btn => {
         btn.addEventListener('click', () => {
           const modal = btn.closest('.modal');
@@ -396,7 +447,6 @@
         });
       });
 
-      // Click outside to close
       document.querySelectorAll('.modal').forEach(modal => {
         modal.addEventListener('click', e => {
           if (e.target === modal) {
@@ -406,7 +456,6 @@
         });
       });
 
-      // ESC to close
       document.addEventListener('keydown', e => {
         if (e.key === 'Escape') {
           document.querySelectorAll('.modal[aria-hidden="false"]').forEach(m => m.setAttribute('aria-hidden', 'true'));
@@ -416,7 +465,7 @@
     })();
   </script>
 
-  <!-- LMS Login Modal (independent of your existing .modal styles) -->
+  <!-- LMS Login Modal -->
   <div id="lms-login-shell" class="lms-modal-backdrop lms-hidden" role="dialog" aria-modal="true" aria-labelledby="lms-login-title">
     <div class="lms-modal" role="document">
       <header id="lms-login-title">Login to LMS</header>
@@ -443,22 +492,18 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-    // 🔧 Replace all YOUR_FIREBASE_* placeholders below
     const firebaseConfig = {
       apiKey: "YOUR_FIREBASE_API_KEY",
       authDomain: "YOUR_FIREBASE_AUTH_DOMAIN",
       projectId: "YOUR_FIREBASE_PROJECT_ID",
       appId: "YOUR_FIREBASE_APP_ID",
-      // (Optional but recommended if you use other products)
       storageBucket: "YOUR_FIREBASE_STORAGE_BUCKET",
       messagingSenderId: "YOUR_FIREBASE_MESSAGING_SENDER_ID",
     };
 
-    // Initialize
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    // Elements
     const loginLinks = document.querySelectorAll('[data-lms-login-open]');
     const modalShell = document.getElementById('lms-login-shell');
     const form = document.getElementById('lms-login-form');
@@ -472,17 +517,11 @@
     const signoutBtn = document.getElementById('lms-signout');
     const accountBtn = document.getElementById('lms-open-in-modal');
 
-    // Helpers
     const openModal = () => modalShell.classList.remove('lms-hidden');
-    const closeModal = () => {
-      modalShell.classList.add('lms-hidden');
-      errorEl.textContent = '';
-      form.reset();
-    };
+    const closeModal = () => { modalShell.classList.add('lms-hidden'); errorEl.textContent=''; form.reset(); };
     const showEmbed = () => embedSection.classList.remove('lms-hidden');
     const hideEmbed = () => embedSection.classList.add('lms-hidden');
 
-    // Nav links → open modal or jump to LMS if already signed in
     loginLinks.forEach(el => el.addEventListener('click', (e) => {
       e.preventDefault();
       if (auth.currentUser) {
@@ -495,32 +534,33 @@
     closeBtn?.addEventListener('click', closeModal);
     accountBtn?.addEventListener('click', () => openModal());
 
-    // Form submit → Firebase email/password login
     form?.addEventListener('submit', async (e) => {
       e.preventDefault();
       errorEl.textContent = '';
       submitBtn.disabled = true;
       submitBtn.textContent = 'Logging in…';
       try {
-        const email = emailEl.value.trim();
-        const password = pwdEl.value;
-        await signInWithEmailAndPassword(auth, email, password);
+        await signInWithEmailAndPassword(auth, emailEl.value.trim(), pwdEl.value);
         closeModal();
         showEmbed();
-        // Optional: If your LMS expects a token or user hint, you could refresh the iframe here
-        // and append a query param with an ID token. Example (only if your LMS is configured to accept it):
+        // Optionally pass token to iframe if your LMS supports it:
         // const token = await auth.currentUser.getIdToken();
         // iframe.src = `LMS_EMBED_URL?token=${encodeURIComponent(token)}`;
       } catch (err) {
-        console.error('[LMS login] error', err);
-        errorEl.textContent = prettyAuthError(err?.code || err?.message || 'Login failed.');
+        const map = {
+          'auth/invalid-email': 'That email looks invalid.',
+          'auth/missing-password': 'Please enter your password.',
+          'auth/user-not-found': 'No account found with that email.',
+          'auth/wrong-password': 'Incorrect password.',
+          'auth/too-many-requests': 'Too many attempts. Try again later.',
+        };
+        errorEl.textContent = map[err?.code] || 'Unable to sign in. Please check your details and try again.';
       } finally {
         submitBtn.disabled = false;
         submitBtn.textContent = 'Log in';
       }
     });
 
-    // Keep UI in sync with auth state
     onAuthStateChanged(auth, (user) => {
       if (user) {
         showEmbed();
@@ -531,34 +571,13 @@
       }
     });
 
-    // Sign out → hide embed
     signoutBtn?.addEventListener('click', async () => {
       await signOut(auth);
       hideEmbed();
     });
 
-    // Human-friendly Firebase errors
-    function prettyAuthError(code) {
-      const map = {
-        'auth/invalid-email': 'That email looks invalid.',
-        'auth/missing-password': 'Please enter your password.',
-        'auth/weak-password': 'That password is too weak.',
-        'auth/user-not-found': 'No account found with that email.',
-        'auth/wrong-password': 'Incorrect password.',
-        'auth/too-many-requests': 'Too many attempts. Try again later.',
-      };
-      return map[code] || 'Unable to sign in. Please check your details and try again.';
-    }
-
-    // Accessibility: close with ESC, click outside
     modalShell?.addEventListener('click', (e) => { if (e.target === modalShell) closeModal(); });
     window.addEventListener('keydown', (e) => { if (!modalShell.classList.contains('lms-hidden') && e.key === 'Escape') closeModal(); });
   </script>
-
-  <!-- Notes:
-    • Replace YOUR_FIREBASE_* and LMS_EMBED_URL above.
-    • Your LMS must allow being framed (no X-Frame-Options: DENY/SAMEORIGIN and proper CSP frame-ancestors on their side).
-    • If you prefer to use your existing modal system, remove the LMS modal markup & styles and call openModal()/closeModal() from your own modal.
-  -->
 </body>
 </html>
