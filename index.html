@@ -11,23 +11,42 @@
 
   <!-- Minimal styles for Upcoming Courses + modal -->
   <style>
+    /* ===== Indian Tricolour Palette ===== */
+    :root {
+      --flag-saffron: #FF9933;
+      --flag-white: #FFFFFF;
+      --flag-green: #138808;
+      --flag-navy: #000080; /* Ashoka Chakra */
+    }
+
     .section-dark { background: var(--colour-dark, #0d2326); color: var(--colour-light, #ffffff); }
     .course-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
+
+    /* === UPDATED: Tricolour card background === */
     .course-card {
-      background: #01b8cf; color: #0d2326; border-radius: 14px; padding: 1.25rem 1.25rem 1rem;
+      background: linear-gradient(135deg, var(--flag-saffron) 0%, var(--flag-white) 50%, var(--flag-green) 100%);
+      color: #0d2326; border-radius: 14px; padding: 1.25rem 1.25rem 1rem;
       box-shadow: 0 8px 28px rgba(0,0,0,.18); border: 1px solid rgba(255,255,255,.15);
       transition: transform .18s ease, box-shadow .18s ease; cursor: pointer;
     }
     .course-card:hover { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(0,0,0,.22); }
-    .course-card h3 { color: #ffffff; margin: .5rem 0 .25rem; font-weight: 700; }
-    .course-card p { color: #e9feff; margin: 0 0 .75rem; }
-    .course-icon { font-size: 34px; color: #083a41; }
+    .course-card h3 { color: var(--flag-navy); margin: .5rem 0 .25rem; font-weight: 700; }
+    .course-card p { color: #0d2326; margin: 0 0 .75rem; }
+
+    /* Icon hint to Ashoka Chakra navy */
+    .course-icon { font-size: 34px; color: var(--flag-navy); }
+
     .course-actions { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; }
-    .btn-light { background: #ffffff; color: #0d2326; border: none; padding: .55rem .85rem; border-radius: 10px; font-weight: 600; }
-    .btn-ghost { background: transparent; border: 1px solid rgba(255,255,255,.7); color: #ffffff; padding: .5rem .85rem; border-radius: 10px; }
-    .pill-muted { background: rgba(255,255,255,.2); color: #fff; padding: .35rem .6rem; border-radius: 999px; font-size: .8rem; }
-    .course-card:focus { outline: 3px solid #ffffff; outline-offset: 2px; }
-    .pill-new { background:#ffffff; color:#0d2326; font-weight:700; padding:.3rem .55rem; border-radius:999px; font-size:.75rem; }
+
+    /* === UPDATED: Buttons on course cards to saffron/green === */
+    .course-actions .btn-light { background: var(--flag-saffron); color: #ffffff; border: none; padding: .55rem .85rem; border-radius: 10px; font-weight: 600; }
+    .course-actions .btn-ghost { background: transparent; border: 1px solid var(--flag-green); color: var(--flag-green); padding: .5rem .85rem; border-radius: 10px; }
+
+    .pill-muted { background: rgba(0,0,0,.15); color: #0d2326; padding: .35rem .6rem; border-radius: 999px; font-size: .8rem; font-weight: 600; }
+    .course-card:focus { outline: 3px solid var(--flag-navy); outline-offset: 2px; }
+
+    /* NEW: Mark NEW pill in saffron for visual consistency */
+    .pill-new { background: var(--flag-saffron); color:#ffffff; font-weight:700; padding:.3rem .55rem; border-radius:999px; font-size:.75rem; }
 
     /* Modal */
     .modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,.55); z-index: 9999; padding: 1rem; }
