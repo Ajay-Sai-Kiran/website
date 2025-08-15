@@ -1,101 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>D3-FORGE | Design, Development & Deploy</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>D3-FORGE | Design, Develop & Deploy</title>
+  <link rel="stylesheet" href="css/style.css" />
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
 
-  <!-- Minimal styles for Upcoming Courses + modal -->
+  <!-- ===== Tricolour Theme (site-wide) ===== -->
   <style>
-    /* ===== Indian Tricolour Palette ===== */
+    /* --- Palette --- */
     :root {
-      --flag-saffron: #FF9933;
-      --flag-white: #FFFFFF;
+      --flag-saffron: #ff9933;
+      --flag-white: #ffffff;
       --flag-green: #138808;
       --flag-navy: #000080; /* Ashoka Chakra */
+
+      /* Optional existing tokens fallbacks */
+      --colour-dark: #0d2326;
+      --colour-light: #ffffff;
+      --colour-accent: var(--flag-green);
     }
 
-    .section-dark { background: var(--colour-dark, #0d2326); color: var(--colour-light, #ffffff); }
-    .course-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
+    /* Basic Resets for safety (light touch) */
+    *, *::before, *::after { box-sizing: border-box; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
 
-    /* === UPDATED: Tricolour card background === */
-    .course-card {
-      background: linear-gradient(135deg, var(--flag-saffron) 0%, var(--flag-white) 50%, var(--flag-green) 100%);
-      color: #0d2326; border-radius: 14px; padding: 1.25rem 1.25rem 1rem;
-      box-shadow: 0 8px 28px rgba(0,0,0,.18); border: 1px solid rgba(255,255,255,.15);
-      transition: transform .18s ease, box-shadow .18s ease; cursor: pointer;
-    }
+    /* ====== Global Buttons ====== */
+    .btn { display:inline-block; padding:.7rem 1.1rem; border-radius:12px; font-weight:700; border:0; cursor:pointer; transition:transform .15s ease, box-shadow .15s ease, filter .15s ease; }
+    .btn:focus { outline: 3px solid var(--flag-navy); outline-offset: 2px; }
+
+    /* Primary CTA = Tricolour gradient */
+    .btn,
+    .btn.primary { background: linear-gradient(90deg, var(--flag-saffron) 0%, var(--flag-white) 50%, var(--flag-green) 100%); color:#0d2326; border:1px solid rgba(0,0,0,.08); box-shadow:0 8px 18px rgba(0,0,0,.25); }
+    .btn:hover { filter:brightness(.97); transform:translateY(-1px); }
+
+    /* Dark button keeps navy accent for contrast */
+    .btn.btn-dark { background: var(--flag-navy); color:#fff; }
+
+    /* Ghost = green outline, saffron on hover */
+    .btn.btn-ghost { background:transparent; color:var(--flag-green); border:1.5px solid var(--flag-green); }
+    .btn.btn-ghost:hover { background: var(--flag-saffron); color:#111; border-color: var(--flag-saffron); }
+
+    /* ====== Navbar ====== */
+    .navbar { position:sticky; top:0; z-index:50; padding: 12px 18px; background: linear-gradient(90deg, rgba(255,153,51,.95) 0%, rgba(255,255,255,.9) 50%, rgba(19,136,8,.95) 100%); backdrop-filter: blur(6px); }
+    .navbar .logo { font-weight:800; letter-spacing:.5px; color:#0d2326; }
+    .nav-links { list-style:none; display:flex; gap:18px; align-items:center; }
+    .nav-links a { color:#0d2326; padding:6px 2px; border-bottom:2px solid transparent; }
+    .nav-links a.active, .nav-links a:hover { border-bottom:2px solid transparent; border-image: linear-gradient(90deg, var(--flag-saffron), var(--flag-white) 50%, var(--flag-green)) 1; }
+
+    .hamburger ion-icon { color: var(--flag-navy); }
+
+    /* ====== Hero ====== */
+    .hero .btn { background: linear-gradient(90deg, var(--flag-saffron), var(--flag-white) 50%, var(--flag-green)); color:#0d2326; }
+    .hero h1 { color: var(--flag-white); text-shadow: 0 3px 18px rgba(0,0,0,.45); }
+    .hero p { color: #eaf7ee; }
+
+    /* ====== Section Titles ====== */
+    .section-title { color: var(--flag-white); }
+    .section-subtitle { color: #e6efe9; }
+
+    /* Light sections get navy titles for contrast */
+    .section:not(.section-dark) .section-title { color: var(--flag-navy); }
+    .section:not(.section-dark) .section-subtitle { color: #2b3a31; }
+
+    /* ====== Cards ====== */
+    .cards .card { border-radius: 16px; border:1px solid rgba(0,0,0,.08); }
+    .card.service, .card.training { background: linear-gradient(135deg, rgba(255,153,51,.12), rgba(255,255,255,.35) 50%, rgba(19,136,8,.12)); }
+    .cards .card h3 { color: var(--flag-navy); }
+
+    /* ====== Upcoming Courses (full tricolour) ====== */
+    .section-dark { background: linear-gradient(180deg, #0b1a1c 0%, #0d2326 40%, #0b1a1c 100%); color: var(--flag-white); }
+    .course-cards { display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:1.25rem; }
+    .course-card { background: linear-gradient(135deg, var(--flag-saffron) 0%, var(--flag-white) 50%, var(--flag-green) 100%); color:#0d2326; border-radius:14px; padding:1.25rem 1.25rem 1rem; box-shadow:0 8px 28px rgba(0,0,0,.18); border:1px solid rgba(0,0,0,.06); transition: transform .18s ease, box-shadow .18s ease; cursor: pointer; }
     .course-card:hover { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(0,0,0,.22); }
-    .course-card h3 { color: var(--flag-navy); margin: .5rem 0 .25rem; font-weight: 700; }
-    .course-card p { color: #0d2326; margin: 0 0 .75rem; }
+    .course-card h3 { color: var(--flag-navy); margin:.5rem 0 .25rem; font-weight:700; }
+    .course-card p { color:#0d2326; margin:0 0 .75rem; }
+    .course-icon { font-size:34px; color: var(--flag-navy); }
+    .course-actions { display:flex; gap:.5rem; align-items:center; flex-wrap:wrap; }
 
-    /* Icon hint to Ashoka Chakra navy */
-    .course-icon { font-size: 34px; color: var(--flag-navy); }
+    .btn-light { background: var(--flag-saffron); color:#111; border:0; padding:.55rem .85rem; border-radius:10px; font-weight:700; }
+    .btn-light:hover { filter: brightness(.96); }
 
-    .course-actions { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; }
+    .btn-ghost { background: transparent; border:1px solid var(--flag-green); color: var(--flag-green); padding:.5rem .85rem; border-radius:10px; }
+    .btn-ghost:hover { background: var(--flag-green); color:#fff; }
 
-    /* === UPDATED: Buttons on course cards to saffron/green === */
-    .course-actions .btn-light { background: var(--flag-saffron); color: #ffffff; border: none; padding: .55rem .85rem; border-radius: 10px; font-weight: 600; }
-    .course-actions .btn-ghost { background: transparent; border: 1px solid var(--flag-green); color: var(--flag-green); padding: .5rem .85rem; border-radius: 10px; }
+    .pill-muted { background: rgba(0,0,0,.12); color:#111; padding:.35rem .6rem; border-radius:999px; font-size:.8rem; font-weight:600; }
+    .pill-new { background: var(--flag-saffron); color:#111; font-weight:800; padding:.3rem .55rem; border-radius:999px; font-size:.75rem; }
+    .course-card:focus { outline:3px solid var(--flag-navy); outline-offset:2px; }
 
-    .pill-muted { background: rgba(0,0,0,.15); color: #0d2326; padding: .35rem .6rem; border-radius: 999px; font-size: .8rem; font-weight: 600; }
-    .course-card:focus { outline: 3px solid var(--flag-navy); outline-offset: 2px; }
-
-    /* NEW: Mark NEW pill in saffron for visual consistency */
-    .pill-new { background: var(--flag-saffron); color:#ffffff; font-weight:700; padding:.3rem .55rem; border-radius:999px; font-size:.75rem; }
-
-    /* Modal */
-    .modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,.55); z-index: 9999; padding: 1rem; }
-    .modal[aria-hidden="false"] { display: flex; }
-    .modal-card { width: min(960px, 92vw); max-height: 90vh; overflow: auto; background: #ffffff; color: #111; border-radius: 18px; box-shadow: 0 24px 64px rgba(0,0,0,.25); }
-    .modal-header { display:flex; align-items:center; justify-content:space-between; padding:1rem 1.25rem; border-bottom:1px solid rgba(0,0,0,.08); position:sticky; top:0; background:#fff; border-top-left-radius:18px; border-top-right-radius:18px; }
-    .modal-body { padding: 1.25rem; }
-    .modal-actions { display:flex; gap:.75rem; padding: 0 1.25rem 1.25rem; flex-wrap: wrap; }
-    .close-btn { background:transparent; border:none; font-size:1.6rem; line-height:1; cursor:pointer; color:#333; }
-    .btn-dark { background: var(--colour-dark, #0d2326); color:#fff; }
-    .syllabus { display:grid; gap:.6rem; padding-left: 1rem; }
+    /* ====== Modals ====== */
+    .modal { position: fixed; inset: 0; display:none; align-items:center; justify-content:center; background: rgba(0,0,0,.55); z-index: 9999; padding:1rem; }
+    .modal[aria-hidden="false"] { display:flex; }
+    .modal-card { width:min(960px, 92vw); max-height:90vh; overflow:auto; background:#ffffff; color:#111; border-radius:18px; box-shadow:0 24px 64px rgba(0,0,0,.25); border: 2px solid var(--flag-navy); }
+    .modal-header { display:flex; align-items:center; justify-content:space-between; padding:1rem 1.25rem; border-bottom:1px solid rgba(0,0,0,.08); position:sticky; top:0; background: linear-gradient(90deg, rgba(255,153,51,.16), rgba(255,255,255,1) 50%, rgba(19,136,8,.16)); border-top-left-radius:18px; border-top-right-radius:18px; }
+    .modal-header h3 { color: var(--flag-navy); }
+    .modal-body { padding:1.25rem; }
+    .modal-actions { display:flex; gap:.75rem; padding:0 1.25rem 1.25rem; flex-wrap:wrap; }
+    .close-btn { background:transparent; border:none; font-size:1.6rem; line-height:1; cursor:pointer; color:var(--flag-navy); }
+    .btn-dark { background: var(--flag-navy); color:#fff; }
+    .syllabus { display:grid; gap:.6rem; padding-left:1rem; }
     .syllabus li { background:#f6fafb; border:1px solid rgba(0,0,0,.06); padding:.7rem .9rem; border-radius:12px; }
-  </style>
 
-  <!-- Minimal, namespaced LMS styles -->
-  <style>
-    .lms-hidden { display: none !important; }
-    .lms-embed-wrap { border: 1px solid #e5e7eb; border-radius: 14px; overflow: hidden; }
-    .lms-embed-wrap iframe { width: 100%; height: min(80vh, 1200px); border: 0; display: block; }
-    .lms-embed-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 16px 0; }
-    .lms-btn { appearance: none; border: 0; border-radius: 999px; padding: 10px 16px; cursor: pointer; font-weight: 600; }
-    .lms-btn.ghost { background: transparent; color: #111827; }
-    .lms-btn.primary { background: #111827; color: #fff; }
-    .lms-modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.45); display: grid; place-items: center; z-index: 10000; }
-    .lms-modal { width: 100%; max-width: 420px; background: #fff; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,.15); overflow: hidden; }
-    .lms-modal header { padding: 16px 20px; font-weight: 600; border-bottom: 1px solid #eee; }
-    .lms-modal .lms-body { padding: 20px; }
-    .lms-modal .lms-actions { display: flex; gap: 10px; justify-content: flex-end; padding: 16px 20px; border-top: 1px solid #eee; }
-    .lms-field { display: grid; gap: 6px; margin-bottom: 14px; }
-    .lms-field input { width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 10px; font: inherit; }
-    .lms-error { color: #b91c1c; font-size: 0.9rem; min-height: 1.2em; }
+    /* ====== LMS (minor colour touches) ====== */
+    .lms-hidden { display:none !important; }
+    .lms-embed-wrap { border: 2px solid var(--flag-navy); border-radius: 14px; overflow:hidden; }
+    .lms-embed-toolbar strong { color: var(--flag-navy); }
+    .lms-btn.primary { background: var(--flag-navy); color:#fff; }
+    .lms-btn.ghost { border:1px solid var(--flag-green); color: var(--flag-green); background: transparent; }
+
+    /* ====== CTA Section ====== */
+    .section.cta { background: linear-gradient(90deg, rgba(255,153,51,.25), rgba(255,255,255,.15) 50%, rgba(19,136,8,.25)); color: var(--flag-white); }
+    .section.cta .btn { background: linear-gradient(90deg, var(--flag-saffron), var(--flag-white) 50%, var(--flag-green)); color:#0d2326; }
+
+    /* ====== Footer ====== */
+    footer { background:#0c1a1d; color:#dce9e4; border-top: 4px solid var(--flag-navy); }
+    footer h4 { color: var(--flag-saffron); }
+    footer a:hover { color: var(--flag-green); }
+    .social-icons a { display:inline-grid; place-items:center; width:36px; height:36px; border-radius:50%; border:1px solid rgba(255,255,255,.2); }
+    .social-icons a:hover { border-color: var(--flag-green); background: rgba(19,136,8,.15); }
+
+    /* ====== Floating WhatsApp (tricolour ring) ====== */
+    .whatsapp-floating { position: fixed; bottom: 18px; right: 18px; display:grid; place-items:center; width:52px; height:52px; border-radius: 50%; background: var(--flag-green); color:#fff; box-shadow: 0 8px 24px rgba(0,0,0,.25); border: 3px solid var(--flag-saffron); }
+    .whatsapp-floating:focus { outline: 3px solid var(--flag-navy); outline-offset: 3px; }
+
+    /* Utility */
+    .fade-in { opacity:1; }
   </style>
 </head>
 <body>
   <!-- Navigation -->
   <nav class="navbar">
-    <a href="index.html" class="logo">D3-FORGE</a>
+    <a href="index.html" class="logo">D3–FORGE</a>
     <ul class="nav-links">
       <li><a href="index.html" class="active">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="services.html">Services</a></li>
       <li><a href="training.html">Training</a></li>
       <li><a href="contact.html">Contact</a></li>
-      <!-- NEW: Login to LMS (desktop) -->
       <li><a href="#" data-lms-login-open>Login to LMS</a></li>
     </ul>
-    <div class="hamburger">
-      <ion-icon name="menu-outline"></ion-icon>
-    </div>
+    <div class="hamburger"><ion-icon name="menu-outline"></ion-icon></div>
   </nav>
 
   <!-- Mobile navigation -->
@@ -105,7 +153,6 @@
     <a href="services.html">Services</a>
     <a href="training.html">Training</a>
     <a href="contact.html">Contact</a>
-    <!-- NEW: Login to LMS (mobile) -->
     <a href="#" data-lms-login-open>Login to LMS</a>
   </div>
 
@@ -189,68 +236,44 @@
 
       <div class="course-cards">
         <!-- NEW: Agentic AI (Free) -->
-        <article class="course-card"
-                 role="button" tabindex="0"
-                 aria-controls="agentic-modal" aria-haspopup="dialog"
-                 data-open-modal="#agentic-modal">
-          <div class="course-icon">
-            <ion-icon name="construct-outline"></ion-icon>
-          </div>
+        <article class="course-card" role="button" tabindex="0" aria-controls="agentic-modal" aria-haspopup="dialog" data-open-modal="#agentic-modal">
+          <div class="course-icon"><ion-icon name="construct-outline"></ion-icon></div>
           <h3>Agentic AI (Free)</h3>
           <p>30‑day, project‑based intro to building LLM agents: tools, memory, planning, and deployment.</p>
           <div class="course-actions">
             <span class="pill-new" aria-hidden="true">NEW</span>
             <span class="pill-muted">Free</span>
             <button class="btn btn-light" data-open-modal="#agentic-modal">View Syllabus</button>
-            <a class="btn btn-ghost"
-               href="https://wa.me/918125352626?text=Hi%20D3-FORGE%2C%20I%20want%20to%20enroll%20in%20the%20Free%20Agentic%20AI%20course."
-               target="_blank" rel="noopener" data-modal-exempt>Enroll Free</a>
+            <a class="btn btn-ghost" href="https://wa.me/918125352626?text=Hi%20D3-FORGE%2C%20I%20want%20to%20enroll%20in%20the%20Free%20Agentic%20AI%20course." target="_blank" rel="noopener" data-modal-exempt>Enroll Free</a>
           </div>
         </article>
 
         <!-- Generative AI for Product Managers -->
-        <article class="course-card"
-                 role="button" tabindex="0"
-                 aria-controls="genai-modal" aria-haspopup="dialog"
-                 data-open-modal="#genai-modal">
-          <div class="course-icon">
-            <ion-icon name="rocket-outline"></ion-icon>
-          </div>
+        <article class="course-card" role="button" tabindex="0" aria-controls="genai-modal" aria-haspopup="dialog" data-open-modal="#genai-modal">
+          <div class="course-icon"><ion-icon name="rocket-outline"></ion-icon></div>
           <h3>Generative AI for Product Managers</h3>
           <p>8-week end-to-end program: Strategy → Architecture → Data → Agents → MLOps → Governance → Stakeholder Alignment → Capstone.</p>
           <div class="course-actions">
             <button class="btn btn-light" data-open-modal="#genai-modal">View Syllabus</button>
-            <a class="btn btn-ghost"
-              href="https://raw.githubusercontent.com/Ajay-Sai-Kiran/website/main/assets/AI%20for%20Product%20Managers%20(1).pdf"
-              download="AI-for-Product-Managers.pdf"
-              rel="noopener"
-              data-modal-exempt>Download PDF</a>
+            <a class="btn btn-ghost" href="https://raw.githubusercontent.com/Ajay-Sai-Kiran/website/main/assets/AI%20for%20Product%20Managers%20(1).pdf" download="AI-for-Product-Managers.pdf" rel="noopener" data-modal-exempt>Download PDF</a>
             <a class="btn btn-ghost" href="training.html" data-modal-exempt>Details</a>
           </div>
         </article>
 
         <!-- Placeholder Card 2 -->
         <article class="course-card" aria-disabled="true">
-          <div class="course-icon">
-            <ion-icon name="code-slash-outline"></ion-icon>
-          </div>
+          <div class="course-icon"><ion-icon name="code-slash-outline"></ion-icon></div>
           <h3>SAP PP–PM–QM</h3>
           <p>Course designed for PP/QM/PM consultants, power users, manufacturing/quality/maintenance leads</p>
-          <div class="course-actions">
-            <span class="pill-muted">Coming Soon</span>
-          </div>
+          <div class="course-actions"><span class="pill-muted">Coming Soon</span></div>
         </article>
 
         <!-- Placeholder Card 3 -->
         <article class="course-card" aria-disabled="true">
-          <div class="course-icon">
-            <ion-icon name="shield-checkmark-outline"></ion-icon>
-          </div>
+          <div class="course-icon"><ion-icon name="shield-checkmark-outline"></ion-icon></div>
           <h3>AI Ethics Fundamentals</h3>
           <p>Bias mitigation, explainability, governance and compliance in production AI systems.</p>
-          <div class="course-actions">
-            <span class="pill-muted">Coming Soon</span>
-          </div>
+          <div class="course-actions"><span class="pill-muted">Coming Soon</span></div>
         </article>
       </div>
     </div>
@@ -267,22 +290,17 @@
             <button type="button" id="lms-signout" class="lms-btn ghost">Sign out</button>
           </div>
         </div>
-        <div class="lms-embed-wrap">
-          <iframe id="lms-iframe" src="LMS_EMBED_URL" title="LMS"></iframe>
-        </div>
+        <div class="lms-embed-wrap"><iframe id="lms-iframe" src="LMS_EMBED_URL" title="LMS"></iframe></div>
       </section>
     </div>
   </section>
 
   <!-- Call to Action -->
-  <section class="section" style="background: var(--colour-accent); color: var(--colour-light);">
+  <section class="section cta" style="color: var(--colour-light);">
     <div class="container">
       <h2 class="section-title fade-in" style="color: var(--colour-light)">Ready to build your future?</h2>
-      <p class="section-subtitle fade-in" style="color:#e6f4f1">Partner with D3-FORGE for cutting-edge software solutions and transformative training.
-        Responsive design ensures your users get the best experience, regardless of device.</p>
-      <div style="text-align:center;" class="fade-in">
-        <a href="contact.html" class="btn" style="background: var(--colour-dark)">Get in Touch</a>
-      </div>
+      <p class="section-subtitle fade-in" style="color:#e6f4f1">Partner with D3-FORGE for cutting-edge software solutions and transformative training. Responsive design ensures your users get the best experience, regardless of device.</p>
+      <div style="text-align:center;" class="fade-in"><a href="contact.html" class="btn">Get in Touch</a></div>
     </div>
   </section>
 
@@ -310,15 +328,10 @@
       <div class="footer-column">
         <h4>Follow Us</h4>
         <div class="social-icons">
-          <a href="#"><ion-icon name="logo-linkedin"></ion-icon></a>
-          <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
-          <a href="#"><ion-icon name="logo-github"></ion-icon></a>
-          <a href="https://www.instagram.com/d3.forge/"
-           class="ig"
-           target="_blank" rel="noopener noreferrer"
-           aria-label="Instagram">
-          <ion-icon name="logo-instagram"></ion-icon>
-        </a>
+          <a href="#" aria-label="LinkedIn"><ion-icon name="logo-linkedin"></ion-icon></a>
+          <a href="#" aria-label="Twitter"><ion-icon name="logo-twitter"></ion-icon></a>
+          <a href="#" aria-label="GitHub"><ion-icon name="logo-github"></ion-icon></a>
+          <a href="https://www.instagram.com/d3.forge/" class="ig" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><ion-icon name="logo-instagram"></ion-icon></a>
         </div>
       </div>
     </div>
@@ -326,16 +339,9 @@
   </footer>
 
   <!-- Floating WhatsApp -->
-  <a class="whatsapp-floating"
-   href="whatsapp://send?phone=918125352626&text=Hi%20D-3Forge%2C%20I%20have%20a%20question%20about%20your%20services."
-   target="_blank" rel="noopener"
-   aria-label="Chat on WhatsApp">
-  <ion-icon name="logo-whatsapp"></ion-icon>
-</a>
+  <a class="whatsapp-floating" href="whatsapp://send?phone=918125352626&text=Hi%20D-3Forge%2C%20I%20have%20a%20question%20about%20your%20services." target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><ion-icon name="logo-whatsapp"></ion-icon></a>
 
   <!-- ====== MODALS ====== -->
-
-  <!-- NEW: Agentic AI Free Course Syllabus Modal -->
   <div id="agentic-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="agentic-title">
     <div class="modal-card" role="document">
       <header class="modal-header">
@@ -360,22 +366,12 @@
       </div>
       <div class="modal-actions">
         <button class="btn btn-dark" data-close-modal>Close</button>
-        <a class="btn"
-           href="#"
-           download="Agentic-AI-30-Day-Syllabus.txt"
-           onclick="
-             const blob = new Blob([document.querySelector('#agentic-modal .modal-body').innerText], {type:'text/plain'});
-             const url = URL.createObjectURL(blob);
-             this.href = url;
-           ">Download Syllabus (TXT)</a>
-        <a class="btn btn-dark"
-           href="https://wa.me/918125352626?text=Hi%20D3-FORGE%2C%20I%20want%20to%20enroll%20in%20the%20Free%20Agentic%20AI%20course."
-           target="_blank" rel="noopener" data-modal-exempt>Enroll Free</a>
+        <a class="btn" href="#" download="Agentic-AI-30-Day-Syllabus.txt" onclick="const blob = new Blob([document.querySelector('#agentic-modal .modal-body').innerText], {type:'text/plain'}); const url = URL.createObjectURL(blob); this.href = url;">Download Syllabus (TXT)</a>
+        <a class="btn btn-dark" href="https://wa.me/918125352626?text=Hi%20D3-FORGE%2C%20I%20want%20to%20enroll%20in%20the%20Free%20Agentic%20AI%20course." target="_blank" rel="noopener" data-modal-exempt>Enroll Free</a>
       </div>
     </div>
   </div>
 
-  <!-- Modal: Generative AI for Product Managers Syllabus -->
   <div id="genai-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="genai-title">
     <div class="modal-card" role="document">
       <header class="modal-header">
@@ -396,10 +392,7 @@
         </ol>
       </div>
       <div class="modal-actions">
-        <a class="btn"
-          href="https://raw.githubusercontent.com/Ajay-Sai-Kiran/website/main/assets/AI%20for%20Product%20Managers%20(1).pdf"
-          download="AI-for-Product-Managers.pdf"
-          rel="noopener">Download Syllabus (PDF)</a>
+        <a class="btn" href="https://raw.githubusercontent.com/Ajay-Sai-Kiran/website/main/assets/AI%20for%20Product%20Managers%20(1).pdf" download="AI-for-Product-Managers.pdf" rel="noopener">Download Syllabus (PDF)</a>
         <a class="btn btn-dark" href="contact.html">Register Interest</a>
       </div>
     </div>
@@ -448,9 +441,7 @@
           document.body.style.overflow = 'hidden';
           e.preventDefault();
         });
-        el.addEventListener('keydown', e => {
-          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); }
-        });
+        el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); } });
       });
 
       document.querySelectorAll('[data-modal-exempt]').forEach(el => {
@@ -467,12 +458,7 @@
       });
 
       document.querySelectorAll('.modal').forEach(modal => {
-        modal.addEventListener('click', e => {
-          if (e.target === modal) {
-            modal.setAttribute('aria-hidden', 'true');
-            document.body.style.overflow = '';
-          }
-        });
+        modal.addEventListener('click', e => { if (e.target === modal) { modal.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; } });
       });
 
       document.addEventListener('keydown', e => {
@@ -545,10 +531,7 @@
       e.preventDefault();
       if (auth.currentUser) {
         document.getElementById('lms-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      } else {
-        openModal();
-        setTimeout(() => emailEl?.focus(), 0);
-      }
+      } else { openModal(); setTimeout(() => emailEl?.focus(), 0); }
     }));
     closeBtn?.addEventListener('click', closeModal);
     accountBtn?.addEventListener('click', () => openModal());
@@ -581,19 +564,11 @@
     });
 
     onAuthStateChanged(auth, (user) => {
-      if (user) {
-        showEmbed();
-        loginLinks.forEach(el => el.textContent = 'Open LMS');
-      } else {
-        hideEmbed();
-        loginLinks.forEach(el => el.textContent = 'Login to LMS');
-      }
+      if (user) { showEmbed(); loginLinks.forEach(el => el.textContent = 'Open LMS'); }
+      else { hideEmbed(); loginLinks.forEach(el => el.textContent = 'Login to LMS'); }
     });
 
-    signoutBtn?.addEventListener('click', async () => {
-      await signOut(auth);
-      hideEmbed();
-    });
+    signoutBtn?.addEventListener('click', async () => { await signOut(auth); hideEmbed(); });
 
     modalShell?.addEventListener('click', (e) => { if (e.target === modalShell) closeModal(); });
     window.addEventListener('keydown', (e) => { if (!modalShell.classList.contains('lms-hidden') && e.key === 'Escape') closeModal(); });
