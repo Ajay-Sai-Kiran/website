@@ -1,36 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Software Development, AI/ML, Cloud & QA Services | D3-FORGE (Hyderabad)</title>
-  <meta name="description" content="AI & ML, custom software, web & mobile, cloud & DevOps, testing/QA, UI/UX, data engineering, and cybersecurity. Hyderabad-based team delivering from ideation to deployment.">
-  <link rel="canonical" href="https://d-3forge.com/services.html">
-  <link rel="stylesheet" href="css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>D3-FORGE | Products & Services</title>
 
-  <!-- Optional: services list schema to help search engines understand these deep pages -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"ItemList",
-    "name":"D3-FORGE Services",
-    "itemListElement":[
-      {"@type":"ListItem","position":1,"name":"AI & Machine Learning","url":"https://d-3forge.com/services/ai-ml-development-hyderabad.html"},
-      {"@type":"ListItem","position":2,"name":"Custom Software Development","url":"https://d-3forge.com/services/custom-software-development-hyderabad.html"},
-      {"@type":"ListItem","position":3,"name":"Cloud & DevOps","url":"https://d-3forge.com/services/cloud-devops-hyderabad.html"},
-      {"@type":"ListItem","position":4,"name":"Testing & QA","url":"https://d-3forge.com/services/qa-test-automation.html"}
-    ]
-  }
-  </script>
-   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17452355141"></script>
+  <!-- Site styles -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
+
+  <!-- Google tag (gtag.js) — same as your index -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17452355141"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);} 
+    function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'AW-17452355141');
   </script>
+
+  <!-- Page-scoped styles for product/bundle cards -->
+  <style>
+    .section-dark { background: var(--colour-dark, #0d2326); color: var(--colour-light, #fff); }
+    .catalog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+    .product-card { background: #0f1f22; color: #e8feff; border: 1px solid rgba(255,255,255,.08); border-radius: 14px; padding: 1rem; box-shadow: 0 10px 28px rgba(0,0,0,.18); }
+    .product-card h3 { color: #90f0ff; margin: .2rem 0 .35rem; font-size: 1.1rem; }
+    .product-card p { margin: .25rem 0 .6rem; color: #cde9e6; }
+    .feature-tags { display: flex; flex-wrap: wrap; gap: .35rem; margin: .5rem 0 .9rem; }
+    .tag { display: inline-block; padding: .25rem .5rem; border-radius: 999px; font-size: .78rem; border: 1px solid rgba(255,255,255,.18); background: rgba(255,255,255,.06); }
+    .product-actions { display: flex; gap: .5rem; flex-wrap: wrap; }
+    .btn-outline { background: transparent; border: 1px solid #cde9e6; color: #e8feff; padding: .5rem .8rem; border-radius: 10px; font-weight: 600; }
+    .btn-solid { background: #01b8cf; color: #0d2326; border: 0; padding: .55rem .85rem; border-radius: 10px; font-weight: 700; }
+    .synergy { margin-top: .65rem; font-size: .9rem; color: #bdeff5; border-top: 1px dashed rgba(255,255,255,.2); padding-top: .55rem; }
+    .bundle-card { background: #ffffff; color: #0d2326; border: 1px solid rgba(0,0,0,.06); border-radius: 14px; padding: 1rem; box-shadow: 0 6px 16px rgba(0,0,0,.08); }
+    .bundle-card h3 { margin: .2rem 0 .35rem; color: #0d2326; }
+    .bundle-flow { background: #f6fafb; border: 1px solid rgba(0,0,0,.06); border-radius: 12px; padding: .75rem .9rem; line-height: 1.55; }
+    .bundle-tags { display: flex; flex-wrap: wrap; gap: .35rem; margin: .5rem 0 .8rem; }
+    .bundle-tag { font-size: .75rem; padding: .2rem .5rem; border-radius: 999px; background: #eef9fb; border: 1px solid #cfecef; color: #08464e; }
+  </style>
 </head>
 <body>
   <!-- Navigation -->
@@ -39,100 +48,262 @@
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
-      <li><a href="services.html" class="active">Services</a></li>
+      <li><a href="products.html" class="active" aria-current="page">Products</a></li>
+      <li><a href="services.html">Services</a></li>
       <li><a href="training.html">Training</a></li>
       <li><a href="contact.html">Contact</a></li>
+      <li><a href="#" data-lms-login-open>Login to LMS</a></li>
     </ul>
-    <div class="hamburger">
-      <ion-icon name="menu-outline"></ion-icon>
-    </div>
+    <div class="hamburger"><ion-icon name="menu-outline"></ion-icon></div>
   </nav>
+
+  <!-- Mobile navigation -->
   <div class="mobile-nav">
     <a href="index.html">Home</a>
     <a href="about.html">About</a>
+    <a href="products.html" aria-current="page">Products</a>
     <a href="services.html">Services</a>
     <a href="training.html">Training</a>
     <a href="contact.html">Contact</a>
+    <a href="#" data-lms-login-open>Login to LMS</a>
   </div>
 
-  <!-- Services Header -->
-  <header class="hero" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('assets/hero.jpg');">
+  <!-- Hero -->
+  <header class="hero">
     <div class="container">
-      <h1 class="fade-in">Software Solutions</h1>
-      <p class="fade-in" style="--delay:0.2s">Comprehensive services to guide you from ideation to deployment</p>
+      <h1 class="fade-in">Products & Service Modules</h1>
+      <p class="fade-in" style="--delay:.2s">Mix-and-match building blocks or choose a bundle tailored for your industry.</p>
+      <a href="#core-modules" class="btn fade-in" style="--delay:.4s">Browse Modules</a>
     </div>
   </header>
 
-  <!-- Services List -->
-  <section class="section">
+  <!-- Core Service Modules -->
+  <section class="section section-dark" id="core-modules" aria-labelledby="core-title">
     <div class="container">
-      <h2 class="section-title fade-in">What We Offer</h2>
-      <p class="section-subtitle fade-in">Explore our range of services designed to meet your project’s needs at every stage.</p>
+      <h2 class="section-title" id="core-title" style="color:var(--colour-light)">Core Service Modules</h2>
+      <p class="section-subtitle" style="color:#cde9e6">Pick the capabilities you need; we’ll compose them into outcomes.</p>
 
-      <div class="cards">
-        <!-- AI & ML (links to deep page) -->
-        <div class="card service fade-in" style="--delay:0s">
-          <ion-icon name="hardware-chip-outline"></ion-icon>
-          <h3>AI & Machine Learning</h3>
-          <p>We build and deploy AI models for computer vision, natural language processing and predictive analytics.</p>
-          <p><a class="btn-link" href="services/ai-ml-development-hyderabad.html" aria-label="Learn more about AI & Machine Learning services">Learn more →</a></p>
-        </div>
+      <div class="catalog-grid" role="list">
+        <!-- 1. Communication & Collaboration -->
+        <article class="product-card" role="listitem">
+          <h3><ion-icon name="chatbubbles-outline"></ion-icon> Communication & Collaboration</h3>
+          <p>Unified communication layer across web, mobile, and ops.</p>
+          <div class="feature-tags">
+            <span class="tag">WhatsApp Bot</span>
+            <span class="tag">Send Emails</span>
+            <span class="tag">QR Code Generator</span>
+          </div>
+          <p class="synergy">💡 Synergy: Forms a <strong>Unified Communication Layer</strong> used in Governance, Retail, Healthcare, Education.</p>
+          <div class="product-actions">
+            <a class="btn-solid" href="https://wa.me/918125352626?text=Interested%20in%20Communication%20%26%20Collaboration%20module" target="_blank" rel="noopener">WhatsApp Demo</a>
+            <a class="btn-outline" href="contact.html">Request Proposal</a>
+          </div>
+        </article>
 
-        <!-- Custom Software (links to deep page) -->
-        <div class="card service fade-in" style="--delay:0.1s">
-          <ion-icon name="desktop-outline"></ion-icon>
-          <h3>Custom Software</h3>
-          <p>Bespoke solutions tailored to your business requirements, from enterprise systems to SaaS platforms.</p>
-          <p><a class="btn-link" href="services/custom-software-development-hyderabad.html" aria-label="Learn more about Custom Software Development">Learn more →</a></p>
-        </div>
+        <!-- 2. Content & Knowledge -->
+        <article class="product-card" role="listitem">
+          <h3><ion-icon name="book-outline"></ion-icon> Content & Knowledge</h3>
+          <p>Turn documents and web pages into multilingual, accessible knowledge.</p>
+          <div class="feature-tags">
+            <span class="tag">PDF → Text</span>
+            <span class="tag">Website Summarization</span>
+            <span class="tag">Text-to-Speech</span>
+            <span class="tag">Language Translator</span>
+            <span class="tag">Speech-to-Text</span>
+          </div>
+          <p class="synergy">💡 Synergy: A full <strong>Document-to-Knowledge Pipeline</strong> for research, education, telemedicine, civic engagement.</p>
+          <div class="product-actions">
+            <a class="btn-solid" href="https://wa.me/918125352626?text=Interested%20in%20Content%20%26%20Knowledge%20module" target="_blank" rel="noopener">WhatsApp Demo</a>
+            <a class="btn-outline" href="contact.html">Request Proposal</a>
+          </div>
+        </article>
 
-        <!-- Web & Mobile Apps (route to Custom Software page for now) -->
-        <div class="card service fade-in" style="--delay:0.2s">
-          <ion-icon name="phone-portrait-outline"></ion-icon>
-          <h3>Web & Mobile Apps</h3>
-          <p>Responsive websites and native or hybrid mobile applications built with modern technology stacks.</p>
-          <p><a class="btn-link" href="services/custom-software-development-hyderabad.html" aria-label="See Web & Mobile app capabilities">See capabilities →</a></p>
-        </div>
+        <!-- 3. Data & File Automation -->
+        <article class="product-card" role="listitem">
+          <h3><ion-icon name="folder-outline"></ion-icon> Data & File Automation</h3>
+          <p>Clean, compress, merge, and secure your data flows.</p>
+          <div class="feature-tags">
+            <span class="tag">Organize Files</span>
+            <span class="tag">Remove Duplicates</span>
+            <span class="tag">Merge CSV</span>
+            <span class="tag">Compress</span>
+            <span class="tag">Encrypt</span>
+          </div>
+          <p class="synergy">💡 Synergy: Bundled as <strong>Smart DataOps & Compliance</strong> for SMEs, clinics, and city systems.</p>
+          <div class="product-actions">
+            <a class="btn-solid" href="https://wa.me/918125352626?text=Interested%20in%20Data%20%26%20File%20Automation%20module" target="_blank" rel="noopener">WhatsApp Demo</a>
+            <a class="btn-outline" href="contact.html">Request Proposal</a>
+          </div>
+        </article>
 
-        <!-- Cloud & DevOps (links to deep page) -->
-        <div class="card service fade-in" style="--delay:0.3s">
-          <ion-icon name="cloud-outline"></ion-icon>
-          <h3>Cloud & DevOps</h3>
-          <p>Migrate and run applications in the cloud with scalable architectures, containerisation and CI/CD pipelines.</p>
-          <p><a class="btn-link" href="services/cloud-devops-hyderabad.html" aria-label="Learn more about Cloud & DevOps">Learn more →</a></p>
-        </div>
+        <!-- 4. Web & Monitoring -->
+        <article class="product-card" role="listitem">
+          <h3><ion-icon name="globe-outline"></ion-icon> Web & Monitoring</h3>
+          <p>Uptime, DNS, performance & visual drift monitoring with alerts.</p>
+          <div class="feature-tags">
+            <span class="tag">Connectivity</span>
+            <span class="tag">HTTP Status</span>
+            <span class="tag">Screenshot</span>
+            <span class="tag">DNS</span>
+            <span class="tag">Load Time</span>
+          </div>
+          <p class="synergy">💡 Synergy: <strong>Web Reliability-as-a-Service</strong> for cities, brands, and campus IT.</p>
+          <div class="product-actions">
+            <a class="btn-solid" href="https://wa.me/918125352626?text=Interested%20in%20Web%20%26%20Monitoring%20module" target="_blank" rel="noopener">WhatsApp Demo</a>
+            <a class="btn-outline" href="contact.html">Request Proposal</a>
+          </div>
+        </article>
 
-        <!-- Testing & QA (links to deep page) -->
-        <div class="card service fade-in" style="--delay:0.4s">
-          <ion-icon name="bug-outline"></ion-icon>
-          <h3>Testing & QA</h3>
-          <p>Manual and automated testing to ensure reliability, performance and security throughout the development cycle.</p>
-          <p><a class="btn-link" href="services/qa-test-automation.html" aria-label="Learn more about Testing & QA">Learn more →</a></p>
-        </div>
+        <!-- 5. Geospatial & Field -->
+        <article class="product-card" role="listitem">
+          <h3><ion-icon name="pin-outline"></ion-icon> Geospatial & Field</h3>
+          <p>Geocoding, metadata, video frames, and GeoJSON-ready outputs.</p>
+          <div class="feature-tags">
+            <span class="tag">Geocoding</span>
+            <span class="tag">Video Frames</span>
+            <span class="tag">Image EXIF</span>
+            <span class="tag">Compression</span>
+            <span class="tag">GeoJSON</span>
+          </div>
+          <p class="synergy">💡 Synergy: A <strong>Geo-Evidence Service</strong> for Governance, Agriculture, Infrastructure.</p>
+          <div class="product-actions">
+            <a class="btn-solid" href="https://wa.me/918125352626?text=Interested%20in%20Geospatial%20%26%20Field%20module" target="_blank" rel="noopener">WhatsApp Demo</a>
+            <a class="btn-outline" href="contact.html">Request Proposal</a>
+          </div>
+        </article>
 
-        <!-- UI/UX Design (kept simple; route to contact) -->
-        <div class="card service fade-in" style="--delay:0.5s">
-          <ion-icon name="color-palette-outline"></ion-icon>
-          <h3>UI/UX Design</h3>
-          <p>User-centred design processes to craft delightful and accessible experiences, from wireframes to polished interfaces.</p>
-          <p><a class="btn-link" href="contact.html" aria-label="Discuss UI/UX needs">Get in touch →</a></p>
-        </div>
+        <!-- 6. Analytics & Insights -->
+        <article class="product-card" role="listitem">
+          <h3><ion-icon name="analytics-outline"></ion-icon> Analytics & Insights</h3>
+          <p>Social listening and text analytics for weekly decision support.</p>
+          <div class="feature-tags">
+            <span class="tag">YouTube Comments</span>
+            <span class="tag">Tweets → CSV</span>
+            <span class="tag">Wordcloud</span>
+          </div>
+          <p class="synergy">💡 Synergy: <strong>Social & Market Intelligence</strong> for gov, retail, and education.</p>
+          <div class="product-actions">
+            <a class="btn-solid" href="https://wa.me/918125352626?text=Interested%20in%20Analytics%20%26%20Insights%20module" target="_blank" rel="noopener">WhatsApp Demo</a>
+            <a class="btn-outline" href="contact.html">Request Proposal</a>
+          </div>
+        </article>
 
-        <!-- Data Engineering -->
-        <div class="card service fade-in" style="--delay:0.6s">
-          <ion-icon name="analytics-outline"></ion-icon>
-          <h3>Data Engineering</h3>
-          <p>Pipeline design, data warehousing and analytics solutions that transform raw data into actionable insights.</p>
-          <p><a class="btn-link" href="contact.html" aria-label="Discuss Data Engineering">Get in touch →</a></p>
-        </div>
+        <!-- 7. Productivity & Campus Micro-Tools -->
+        <article class="product-card" role="listitem">
+          <h3><ion-icon name="school-outline"></ion-icon> Productivity & Campus Micro-Tools</h3>
+          <p>Small tools that make classrooms and fieldwork smoother.</p>
+          <div class="feature-tags">
+            <span class="tag">Countdown</span>
+            <span class="tag">Stopwatch</span>
+            <span class="tag">Battery Alerts</span>
+          </div>
+          <p class="synergy">💡 Synergy: A <strong>Lightweight Campus Utility</strong> also useful in field survey kits.</p>
+          <div class="product-actions">
+            <a class="btn-solid" href="https://wa.me/918125352626?text=Interested%20in%20Productivity%20%26%20Campus%20Micro-Tools" target="_blank" rel="noopener">WhatsApp Demo</a>
+            <a class="btn-outline" href="contact.html">Request Proposal</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
 
-        <!-- Cybersecurity -->
-        <div class="card service fade-in" style="--delay:0.7s">
-          <ion-icon name="shield-outline"></ion-icon>
-          <h3>Cybersecurity</h3>
-          <p>Risk assessments, penetration testing and secure architectures to protect your digital assets.</p>
-          <p><a class="btn-link" href="contact.html" aria-label="Discuss Cybersecurity">Get in touch →</a></p>
-        </div>
+  <!-- Cross-Domain Bundles -->
+  <section class="section" id="bundles" aria-labelledby="bundle-title">
+    <div class="container">
+      <h2 class="section-title" id="bundle-title">Cross-Domain Service Bundles</h2>
+      <p class="section-subtitle">Pre-composed offerings that combine modules into outcomes.</p>
+
+      <div class="catalog-grid" role="list">
+        <!-- Smart Governance -->
+        <article class="bundle-card" role="listitem">
+          <h3><ion-icon name="business-outline"></ion-icon> Smart Governance Service</h3>
+          <div class="bundle-tags">
+            <span class="bundle-tag">Geo-Evidence</span><span class="bundle-tag">Unified Comms</span><span class="bundle-tag">Web Reliability</span>
+          </div>
+          <p class="bundle-flow">Citizens submit issues → auto-geocoded → video frames captured → WhatsApp + QR tracking → email alerts → dashboard.</p>
+          <div class="product-actions">
+            <a class="btn-solid" href="https://wa.me/918125352626?text=Smart%20Governance%20Service%20demo" target="_blank" rel="noopener">WhatsApp Demo</a>
+            <a class="btn-outline" href="contact.html">Get Proposal</a>
+          </div>
+        </article>
+
+        <!-- Knowledge & Research -->
+        <article class="bundle-card" role="listitem">
+          <h3><ion-icon name="library-outline"></ion-icon> Knowledge & Research Service</h3>
+          <div class="bundle-tags">
+            <span class="bundle-tag">Doc-to-Knowledge</span><span class="bundle-tag">DataOps</span><span class="bundle-tag">Compliance</span>
+          </div>
+          <p class="bundle-flow">Ingest PDFs/web → auto-summarize → TTS for podcasts → multilingual translation → secure archive.</p>
+          <div class="product-actions">
+            <a class="btn-solid" href="https://wa.me/918125352626?text=Knowledge%20%26%20Research%20Service%20demo" target="_blank" rel="noopener">WhatsApp Demo</a>
+            <a class="btn-outline" href="contact.html">Get Proposal</a>
+          </div>
+        </article>
+
+        <!-- Retail Automation -->
+        <article class="bundle-card" role="listitem">
+          <h3><ion-icon name="bag-handle-outline"></ion-icon> Retail Automation Service</h3>
+          <div class="bundle-tags">
+            <span class="bundle-tag">Smart DataOps</span><span class="bundle-tag">Comms Layer</span>
+          </div>
+          <p class="bundle-flow">Clean CSVs → deduplicate inventory → QR tagging → email/WhatsApp reports.</p>
+          <div class="product-actions">
+            <a class="btn-solid" href="https://wa.me/918125352626?text=Retail%20Automation%20Service%20demo" target="_blank" rel="noopener">WhatsApp Demo</a>
+            <a class="btn-outline" href="contact.html">Get Proposal</a>
+          </div>
+        </article>
+
+        <!-- Healthcare & Telemedicine -->
+        <article class="bundle-card" role="listitem">
+          <h3><ion-icon name="medkit-outline"></ion-icon> Healthcare & Telemedicine Service</h3>
+          <div class="bundle-tags">
+            <span class="bundle-tag">Comms Layer</span><span class="bundle-tag">Doc-to-Knowledge</span><span class="bundle-tag">Encryption</span>
+          </div>
+          <p class="bundle-flow">STT intake → translated discharge summary → TTS for accessibility → encrypted storage → email delivery.</p>
+          <div class="product-actions">
+            <a class="btn-solid" href="https://wa.me/918125352626?text=Healthcare%20%26%20Telemedicine%20Service%20demo" target="_blank" rel="noopener">WhatsApp Demo</a>
+            <a class="btn-outline" href="contact.html">Get Proposal</a>
+          </div>
+        </article>
+
+        <!-- Social & Market Insights -->
+        <article class="bundle-card" role="listitem">
+          <h3><ion-icon name="pulse-outline"></ion-icon> Social & Market Insights Service</h3>
+          <div class="bundle-tags">
+            <span class="bundle-tag">Social Listening</span><span class="bundle-tag">Wordcloud</span><span class="bundle-tag">Email Digests</span>
+          </div>
+          <p class="bundle-flow">Scrape comments/tweets → analyze → auto-generate wordcloud → email weekly digest.</p>
+          <div class="product-actions">
+            <a class="btn-solid" href="https://wa.me/918125352626?text=Social%20%26%20Market%20Insights%20Service%20demo" target="_blank" rel="noopener">WhatsApp Demo</a>
+            <a class="btn-outline" href="contact.html">Get Proposal</a>
+          </div>
+        </article>
+
+        <!-- Education & Campus -->
+        <article class="bundle-card" role="listitem">
+          <h3><ion-icon name="school-outline"></ion-icon> Education & Campus Service</h3>
+          <div class="bundle-tags">
+            <span class="bundle-tag">Campus Utilities</span><span class="bundle-tag">Comms Layer</span>
+          </div>
+          <p class="bundle-flow">QR attendance → countdowns for exams → TTS/translation → WhatsApp alerts.</p>
+          <div class="product-actions">
+            <a class="btn-solid" href="https://wa.me/918125352626?text=Education%20%26%20Campus%20Service%20demo" target="_blank" rel="noopener">WhatsApp Demo</a>
+            <a class="btn-outline" href="contact.html">Get Proposal</a>
+          </div>
+        </article>
+
+        <!-- Geospatial & Field Survey -->
+        <article class="bundle-card" role="listitem">
+          <h3><ion-icon name="map-outline"></ion-icon> Geospatial & Field Survey Service</h3>
+          <div class="bundle-tags">
+            <span class="bundle-tag">Geo-Evidence</span><span class="bundle-tag">Compression</span><span class="bundle-tag">Offline Ready</span>
+          </div>
+          <p class="bundle-flow">Capture geotagged media → store metadata → compress & sync → analyze centrally.</p>
+          <div class="product-actions">
+            <a class="btn-solid" href="https://wa.me/918125352626?text=Geospatial%20%26%20Field%20Survey%20Service%20demo" target="_blank" rel="noopener">WhatsApp Demo</a>
+            <a class="btn-outline" href="contact.html">Get Proposal</a>
+          </div>
+        </article>
       </div>
     </div>
   </section>
@@ -140,10 +311,10 @@
   <!-- CTA -->
   <section class="section" style="background: var(--colour-accent); color: var(--colour-light);">
     <div class="container">
-      <h2 class="section-title fade-in" style="color: var(--colour-light)">Looking for training instead?</h2>
-      <p class="section-subtitle fade-in" style="color:#e6f4f1">Our educational programmes combine intuitive navigation, mobile responsiveness and integrated learning portals to deliver the best student experience.</p>
-      <div style="text-align:center;" class="fade-in">
-        <a href="training.html" class="btn" style="background: var(--colour-dark)">Explore Training</a>
+      <h2 class="section-title" style="color:var(--colour-light)">Need a custom bundle?</h2>
+      <p class="section-subtitle" style="color:#e6f4f1">Tell us your outcomes; we’ll compose the right modules and integrations.</p>
+      <div style="text-align:center;">
+        <a href="contact.html" class="btn" style="background: var(--colour-dark)">Get in Touch</a>
       </div>
     </div>
   </section>
@@ -155,7 +326,8 @@
         <h4>Company</h4>
         <ul>
           <li><a href="about.html">About Us</a></li>
-          <li><a href="services.html" class="active">Services</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="services.html">Services</a></li>
           <li><a href="training.html">Training</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
@@ -184,9 +356,9 @@
     <p class="copyright">© 2025 D3-FORGE. All Rights Reserved.</p>
   </footer>
 
-  <!-- Floating WhatsApp (use wa.me for better desktop support) -->
+  <!-- Floating WhatsApp -->
   <a class="whatsapp-floating"
-     href="https://wa.me/918125352626?text=Hi%20D3-FORGE%2C%20I%27d%20like%20to%20discuss%20your%20services."
+     href="whatsapp://send?phone=918125352626&text=Hi%20D-3Forge%2C%20I%20have%20a%20question%20about%20your%20products."
      target="_blank" rel="noopener"
      aria-label="Chat on WhatsApp">
     <ion-icon name="logo-whatsapp"></ion-icon>
