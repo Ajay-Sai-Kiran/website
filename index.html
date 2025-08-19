@@ -48,8 +48,10 @@
     .syllabus { display:grid; gap:.6rem; padding-left: 1rem; }
     .syllabus li { background:#f6fafb; border:1px solid rgba(0,0,0,.06); padding:.7rem .9rem; border-radius:12px; }
 
-    /* Social icon hover (YouTube) */
+    /* Social icon tweaks */
     .social-icons .yt:hover ion-icon { color: #FF0000; }
+    .social-icons a svg { width: 1.2em; height: 1.2em; fill: currentColor; display: inline-block; vertical-align: middle; }
+    .social-icons .x:hover svg { opacity: .85; }
   </style>
 
   <!-- Minimal, namespaced LMS styles -->
@@ -143,7 +145,7 @@
   <section class="section" id="training-overview" style="background: var(--colour-dark); color: var(--colour-light);">
     <div class="container">
       <h2 class="section-title fade-in" style="color: var(--colour-light)">Empowering Learners</h2>
-      <p class="section-subtitle fade-in" style="color: #ccc">Our student-centred training programmes focus on practical experience, modular curricula and industry-relevant skills.</p>
+    <p class="section-subtitle fade-in" style="color: #ccc">Our student-centred training programmes focus on practical experience, modular curricula and industry-relevant skills.</p>
       <div class="cards">
         <div class="card training fade-in" style="--delay:0s">
           <ion-icon name="rocket-outline"></ion-icon>
@@ -302,15 +304,28 @@
         <h4>Follow Us</h4>
         <div class="social-icons">
           <a href="#"><ion-icon name="logo-linkedin"></ion-icon></a>
-          <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
+
+          <!-- UPDATED: X (formerly Twitter) -->
+          <a href="https://x.com/D3Forgetech"
+             class="x"
+             target="_blank" rel="noopener noreferrer"
+             aria-label="X (formerly Twitter)">
+            <!-- Simple X logo (inline SVG, inherits current color) -->
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M18.244 2h3.75l-8.18 9.34L22 22h-6.843l-5.373-7.212L3.6 22H-.154l8.586-9.8L0 2h6.843l4.87 6.47L18.244 2Zm-2.386 18h2.073L8.21 4H6.138l9.72 16Z"/>
+            </svg>
+          </a>
+
           <a href="#"><ion-icon name="logo-github"></ion-icon></a>
-          <!-- NEW: YouTube -->
+
+          <!-- YouTube -->
           <a href="https://www.youtube.com/@d3-forge"
              class="yt"
              target="_blank" rel="noopener noreferrer"
              aria-label="YouTube">
             <ion-icon name="logo-youtube"></ion-icon>
           </a>
+
           <a href="https://www.instagram.com/d3.forge/"
              class="ig"
              target="_blank" rel="noopener noreferrer"
