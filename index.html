@@ -47,6 +47,9 @@
     .btn-dark { background: var(--colour-dark, #0d2326); color:#fff; }
     .syllabus { display:grid; gap:.6rem; padding-left: 1rem; }
     .syllabus li { background:#f6fafb; border:1px solid rgba(0,0,0,.06); padding:.7rem .9rem; border-radius:12px; }
+
+    /* Social icon hover (YouTube) */
+    .social-icons .yt:hover ion-icon { color: #FF0000; }
   </style>
 
   <!-- Minimal, namespaced LMS styles -->
@@ -185,7 +188,7 @@
             <ion-icon name="construct-outline"></ion-icon>
           </div>
           <h3>Agentic AI (Free)</h3>
-          <p>30‑day, project‑based intro to building LLM agents: tools, memory, planning, and deployment.</p>
+          <p>30-day, project-based intro to building LLM agents: tools, memory, planning, and deployment.</p>
           <div class="course-actions">
             <span class="pill-new" aria-hidden="true">NEW</span>
             <span class="pill-muted">Free</span>
@@ -301,12 +304,19 @@
           <a href="#"><ion-icon name="logo-linkedin"></ion-icon></a>
           <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
           <a href="#"><ion-icon name="logo-github"></ion-icon></a>
+          <!-- NEW: YouTube -->
+          <a href="https://www.youtube.com/@d3-forge"
+             class="yt"
+             target="_blank" rel="noopener noreferrer"
+             aria-label="YouTube">
+            <ion-icon name="logo-youtube"></ion-icon>
+          </a>
           <a href="https://www.instagram.com/d3.forge/"
-           class="ig"
-           target="_blank" rel="noopener noreferrer"
-           aria-label="Instagram">
-          <ion-icon name="logo-instagram"></ion-icon>
-        </a>
+             class="ig"
+             target="_blank" rel="noopener noreferrer"
+             aria-label="Instagram">
+            <ion-icon name="logo-instagram"></ion-icon>
+          </a>
         </div>
       </div>
     </div>
@@ -331,15 +341,15 @@
         <button class="close-btn" aria-label="Close syllabus" data-close-modal>&times;</button>
       </header>
       <div class="modal-body">
-        <p><strong>Outcome:</strong> Build and deploy your own tool‑using LLM agent with planning, memory, and a small capstone.</p>
+        <p><strong>Outcome:</strong> Build and deploy your own tool-using LLM agent with planning, memory, and a small capstone.</p>
         <ol class="syllabus">
           <li><strong>Days 1–3:</strong> Foundations — what is an agent; LLM basics; Python setup; APIs & JSON.</li>
           <li><strong>Days 4–6:</strong> Prompting & Tool Use — function calling; ReAct loop; calculator + web search tool.</li>
           <li><strong>Days 7–9:</strong> Memory — embeddings; vector store; document retrieval.</li>
           <li><strong>Days 10–12:</strong> Planning — ReAct / Reflexion; task decomposition; research summarizer agent.</li>
-          <li><strong>Days 13–15:</strong> Integrations — read/write files; 3rd‑party APIs (news/Slack/Notion); scheduling.</li>
+          <li><strong>Days 13–15:</strong> Integrations — read/write files; 3rd-party APIs (news/Slack/Notion); scheduling.</li>
           <li><strong>Days 16–18:</strong> Reliability — guardrails; retries/timeouts; logging; quick evals.</li>
-          <li><strong>Days 19–21:</strong> Multi‑Agent — coordinator/worker; handoffs; recovery.</li>
+          <li><strong>Days 19–21:</strong> Multi-Agent — coordinator/worker; handoffs; recovery.</li>
           <li><strong>Days 22–24:</strong> Performance — async/streaming; caching; persisting memory.</li>
           <li><strong>Days 25–27:</strong> UI & Deploy — FastAPI/Streamlit; Docker; deploy to a small cloud host.</li>
           <li><strong>Days 28–30:</strong> Capstone — ship a working agent; README + demo.</li>
