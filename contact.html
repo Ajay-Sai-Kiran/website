@@ -1,172 +1,140 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Send a Message</title>
-  <meta name="description" content="Contact form to reach our team." />
-  <style>
-    :root {
-      --bg: #f8f9fb;
-      --card: #ffffff;
-      --text: #1f2937;
-      --muted: #6b7280;
-      --primary: #06b6d4;
-      --primary-600: #0891b2;
-      --border: #e5e7eb;
-      --radius: 14px;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-      color: var(--text);
-      background: var(--bg);
-    }
-    .wrap {
-      max-width: 900px;
-      margin: 48px auto 80px;
-      padding: 0 20px;
-    }
-    h1 {
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      text-align: center;
-      margin: 10px 0 28px;
-    }
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: 0 6px 24px rgba(0,0,0,.06);
-      padding: 28px;
-    }
-    .row { display: grid; gap: 14px; }
-    label {
-      display: block;
-      font-size: 0.9rem;
-      color: var(--muted);
-      margin-bottom: 6px;
-    }
-    input, textarea, button {
-      font: inherit;
-    }
-    input, textarea {
-      width: 100%;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 14px 16px;
-      outline: none;
-      background: #fff;
-      transition: border-color .2s, box-shadow .2s;
-    }
-    input::placeholder, textarea::placeholder { color: #a1a1aa; }
-    input:focus, textarea:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 4px rgba(6, 182, 212, .15);
-    }
-    textarea { resize: vertical; min-height: 160px; }
-    .actions {
-      display: flex; gap: 12px; align-items: center; margin-top: 8px;
-    }
-    button[type="submit"] {
-      border: none;
-      border-radius: 10px;
-      padding: 12px 22px;
-      background: var(--primary);
-      color: #fff;
-      font-weight: 700;
-      cursor: pointer;
-      transition: background .2s, transform .02s;
-    }
-    button[type="submit"]:hover { background: var(--primary-600); }
-    button[type="submit"]:active { transform: translateY(1px); }
-    .help { color: var(--muted); font-size: .9rem; }
-    /* honeypot */
-    .hp-wrap { position: absolute; left: -5000px; top: -5000px; }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Contact Us | D3-FORGE</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17452355141"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);} 
+    gtag('js', new Date());
+    gtag('config', 'AW-17452355141');
+  </script>
 </head>
 <body>
-  <main class="wrap">
-    <h1>Send a Message</h1>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <a href="index.html" class="logo">D3-FORGE</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="training.html">Training</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+    <div class="hamburger">
+      <ion-icon name="menu-outline"></ion-icon>
+    </div>
+  </nav>
+  <div class="mobile-nav">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="services.html">Services</a>
+    <a href="training.html">Training</a>
+    <a href="contact.html">Contact</a>
+  </div>
 
-    <section class="card" aria-labelledby="contact-heading">
-      <form
-        action="https://formsubmit.co/d3-forge@d-3forge.com"
-        method="POST"
-        accept-charset="UTF-8"
-        novalidate
-      >
-        <!-- FormSubmit options -->
-        <input type="hidden" name="_subject" value="New message from the website contact form" />
-        <input type="hidden" name="_template" value="table" />
-        <input type="hidden" name="_captcha" value="false" />
-        <!-- Change this to your actual thank-you page -->
-        <input type="hidden" name="_next" value="https://your-domain.com/thank-you.html" />
-        <!-- Optional autoresponse to sender -->
-        <input type="hidden" name="_autoresponse" value="Thanks for contacting us! We’ll get back to you soon." />
+  <!-- Contact Header -->
+  <header class="hero" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('assets/services.jpg');">
+    <div class="container">
+      <h1 class="fade-in">Get in Touch</h1>
+      <p class="fade-in" style="--delay:0.2s">We'd love to hear from you. Reach out to discuss your project or enrol in our training.</p>
+    </div>
+  </header>
 
-        <!-- Honeypot (spam trap) -->
-        <div class="hp-wrap" aria-hidden="true">
-          <label>Leave this field empty</label>
-          <input type="text" name="_honey" tabindex="-1" autocomplete="off" />
+  <!-- Contact Section -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title fade-in">Contact Information</h2>
+      <p class="section-subtitle fade-in">You can reach us through the following channels or send us a message using the form.</p>
+      <div class="contact-info">
+        <div class="fade-in" style="--delay:0s">
+          <h3>Office</h3>
+          <p>Hyderābād, Telangana, India</p>
+          <p>Mon–Fri: 9:00AM – 6:00PM</p>
         </div>
-
-        <div class="row">
-          <div>
-            <label for="name">Your Name</label>
-            <input
-              id="name"
-              name="name"
-              type="text"
-              placeholder="Your Name"
-              autocomplete="name"
-              required
-            />
-          </div>
-
-          <div>
-            <label for="email">Your Email</label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              placeholder="you@example.com"
-              inputmode="email"
-              autocomplete="email"
-              required
-            />
-          </div>
-
-          <div>
-            <label for="subject">Subject</label>
-            <input
-              id="subject"
-              name="subject"
-              type="text"
-              placeholder="Subject"
-              autocomplete="off"
-            />
-          </div>
-
-          <div>
-            <label for="message">Message</label>
-            <textarea
-              id="message"
-              name="message"
-              placeholder="Type your message…"
-              rows="8"
-              required
-            ></textarea>
-          </div>
-
-          <div class="actions">
-            <button type="submit">Submit</button>
-            <p class="help" role="note">We’ll reply to you at the email you provide.</p>
-          </div>
+        <div class="fade-in" style="--delay:0.1s">
+          <h3>Call</h3>
+          
+          <p><a href="tel:+918125352626">+918125352626</a></p>
+          <p><a href="tel:+918125352727">+918125352727</a></p>
         </div>
-      </form>
-    </section>
-  </main>
+        <div class="fade-in" style="--delay:0.2s">
+          <h3>Email</h3>
+          <p><a href="mailto:info@d-3forge.com">info@d-3forge.com</a></p>
+        </div>
+        <div class="fade-in" style="--delay:0.25s">
+          <h3>WhatsApp</h3>
+          <p><a href="https://wa.me/918519888804" target="_blank" rel="noopener">+918125352626</a></p>
+        </div>
+      </div>
+      <div class="fade-in" style="--delay:0.3s; margin-top:3rem;">
+        <h2 class="section-title">Send a Message</h2>
+        <form id="contact-form" class="contact-form">
+          <input type="text" name="name" placeholder="Your Name" required>
+          <input type="email" name="email" placeholder="Your Email" required>
+          <input type="text" name="subject" placeholder="Subject" required>
+          <textarea name="message" rows="5" placeholder="Message" required></textarea>
+          <button type="submit" class="btn">Submit</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-container">
+      <div class="footer-column">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="training.html">Training</a></li>
+          <li><a href="contact.html" class="active">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#">Hyderabad, Telangana, India</a></li>
+          <li><a href="mailto:info@d-3forge.com">info@d-3forge.com</a></li>
+          <li><a href="tel:+918125352626">+918125352626</a></li>
+          <li><a href="tel:+918125352727">+918125352727</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Follow Us</h4>
+        <div class="social-icons">
+          <a href="#"><ion-icon name="logo-linkedin"></ion-icon></a>
+          <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
+          <a href="#"><ion-icon name="logo-github"></ion-icon></a>
+          <a href="https://www.instagram.com/d3.forge/"
+     class="ig"
+     target="_blank" rel="noopener noreferrer"
+     aria-label="Instagram">
+    <ion-icon name="logo-instagram"></ion-icon>
+  </a>
+        </div>
+      </div>
+    </div>
+    <p class="copyright">© 2025 D3-FORGE. All Rights Reserved.</p>
+  </footer>
+
+  <!-- Floating WhatsApp -->
+  <a class="whatsapp-floating"
+   href="https://wa.me/918519888804"
+   target="_blank" rel="noopener"
+   aria-label="Chat on WhatsApp">
+  <ion-icon name="logo-whatsapp"></ion-icon>
+</a>
+
+  <!-- Scripts -->
+  <script src="js/script.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
