@@ -47,6 +47,8 @@
     .btn-dark { background: var(--colour-dark, #0d2326); color:#fff; }
     .syllabus { display:grid; gap:.6rem; padding-left: 1rem; }
     .syllabus li { background:#f6fafb; border:1px solid rgba(0,0,0,.06); padding:.7rem .9rem; border-radius:12px; }
+    .syllabus h4 { margin:.25rem 0 .5rem; }
+    .syllabus ul { margin:.4rem 0 0 1rem; }
 
     /* Social icon tweaks */
     .social-icons .yt:hover ion-icon { color: #FF0000; }
@@ -219,6 +221,26 @@
               rel="noopener"
               data-modal-exempt>Download PDF</a>
             <a class="btn btn-ghost" href="training.html" data-modal-exempt>Details</a>
+          </div>
+        </article>
+
+        <!-- NEW: AI‑Enhanced Automation Testing (9 Weeks) -->
+        <article class="course-card"
+                 role="button" tabindex="0"
+                 aria-controls="ai-automation-modal" aria-haspopup="dialog"
+                 data-open-modal="#ai-automation-modal">
+          <div class="course-icon">
+            <ion-icon name="bug-outline"></ion-icon>
+          </div>
+          <h3>AI‑Enhanced Automation Testing</h3>
+          <p>9-week hands-on path: Manual → Java → Selenium → TestNG → POM → AI testing tools → API → DSA → Capstone.</p>
+          <div class="course-actions">
+            <span class="pill-new" aria-hidden="true">NEW</span>
+            <button class="btn btn-light" data-open-modal="#ai-automation-modal">View Syllabus</button>
+            <a class="btn btn-ghost" href="training.html#ai-automation" data-modal-exempt>Details</a>
+            <a class="btn btn-ghost"
+               href="https://wa.me/918125352626?text=Hi%20D3-FORGE%2C%20I%20want%20to%20enroll%20in%20AI-Enhanced%20Automation%20Testing."
+               target="_blank" rel="noopener" data-modal-exempt>Enroll</a>
           </div>
         </article>
 
@@ -414,6 +436,116 @@
           download="AI-for-Product-Managers.pdf"
           rel="noopener">Download Syllabus (PDF)</a>
         <a class="btn btn-dark" href="contact.html">Register Interest</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEW MODAL: AI‑Enhanced Automation Testing (9 Weeks) -->
+  <div id="ai-automation-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="ai-automation-title">
+    <div class="modal-card" role="document">
+      <header class="modal-header">
+        <h3 id="ai-automation-title">AI‑Enhanced Automation Testing — 9‑Week Syllabus</h3>
+        <button class="close-btn" aria-label="Close syllabus" data-close-modal>&times;</button>
+      </header>
+      <div class="modal-body">
+        <p><strong>Outcome:</strong> Build a modern Java + Selenium + TestNG framework with AI‑assisted test design, self‑healing locators, API testing, DSA practice, and CI/CD reporting.</p>
+        <ol class="syllabus">
+          <li>
+            <h4>Week 1 – Manual Testing</h4>
+            <ul>
+              <li><strong>Topics:</strong> SDLC and STLC overview; Types of Testing (Functional, Non‑Functional, Regression, etc.); Prompt Engineering for Testers; Writing test cases with AI (boundary, negative, exploratory); Bug reporting using AI (summarization, defect clustering).</li>
+              <li><strong>AI Concepts:</strong> AI‑assisted test planning and requirement analysis; Risk‑based prioritization using ML models.</li>
+              <li><strong>Exercises:</strong> Write 5 test cases for a login feature using prompt engineering; Use AI to generate a bug report from a failed test log.</li>
+              <li><strong>Prompt Examples:</strong> “Summarize these requirements and generate 10 functional test cases”; “Analyze this defect log and write a concise bug report for Jira”.</li>
+            </ul>
+          </li>
+          <li>
+            <h4>Week 2 – Java</h4>
+            <ul>
+              <li><strong>Topics:</strong> OOPS concepts (Encapsulation, Inheritance, Polymorphism, Abstraction); Java basics for automation testers.</li>
+              <li><strong>AI Concepts:</strong> AI‑assisted debugging and code completion (IDE copilots).</li>
+              <li><strong>Exercises:</strong> Implement a simple Java class with inheritance and polymorphism; Use AI‑assisted IDE to refactor repetitive code.</li>
+              <li><strong>Prompt Examples:</strong> “Suggest improvements and refactor this Java code snippet”; “Explain this Java exception and propose a fix”.</li>
+            </ul>
+          </li>
+          <li>
+            <h4>Week 3 – Selenium‑Java</h4>
+            <ul>
+              <li><strong>Topics:</strong> Selenium WebDriver basics; Launching browsers and executing commands; Locating web elements (ID, CSS, XPath); UI validation and browser actions.</li>
+              <li><strong>AI Concepts:</strong> AI‑based self‑healing locators for flaky tests.</li>
+              <li><strong>Exercises:</strong> Automate login flow with Selenium; Apply AI tool to fix a broken locator automatically.</li>
+              <li><strong>Prompt Examples:</strong> “Identify the best locator strategy for this login form HTML”; “Fix the failing test caused by UI locator changes”.</li>
+            </ul>
+          </li>
+          <li>
+            <h4>Week 4 – TestNG</h4>
+            <ul>
+              <li><strong>Topics:</strong> TestNG introduction and framework basics; Annotations and execution flow; Test Suites & Groups.</li>
+              <li><strong>AI Concepts:</strong> AI‑enhanced test design for regression coverage.</li>
+              <li><strong>Exercises:</strong> Create a TestNG suite for regression testing login, signup, and logout.</li>
+              <li><strong>Prompt Examples:</strong> “Generate a TestNG XML file for these 3 test classes”; “Suggest missing regression cases for this feature”.</li>
+            </ul>
+          </li>
+          <li>
+            <h4>Week 5 – Page Object Model</h4>
+            <ul>
+              <li><strong>Topics:</strong> Designing maintainable frameworks with POM; Visual regression testing with AI‑powered tools (Applitools, Testim); Data‑driven testing strategies and test data management.</li>
+              <li><strong>AI Concepts:</strong> AI‑assisted test data generation and masking.</li>
+              <li><strong>Exercises:</strong> Build a POM framework for login and dashboard modules; Use AI tool to detect UI visual differences.</li>
+              <li><strong>Prompt Examples:</strong> “Generate masked test data with edge cases for a user table”; “Summarize UI visual differences between two screenshots”.</li>
+            </ul>
+          </li>
+          <li>
+            <h4>Week 6 – AI Testing Tools</h4>
+            <ul>
+              <li><strong>Topics:</strong> Playwright with Codegen and Auto‑Playwright AI integration; Designing AI‑enhanced test cases; Implementing dynamic locators, self‑healing, AI‑based error handling; AI‑enhanced execution and reporting (Allure, Extent Reports).</li>
+              <li><strong>AI Concepts:</strong> Defect prediction using ML; NLP‑based reporting and dashboards.</li>
+              <li><strong>Exercises:</strong> Implement a self‑healing locator for a changing UI element; Generate an automated test report with AI‑generated insights.</li>
+              <li><strong>Prompt Examples:</strong> “Summarize this test execution log into a release note”; “Predict likely defect areas from this commit history”.</li>
+            </ul>
+          </li>
+          <li>
+            <h4>Week 7 – API Testing</h4>
+            <ul>
+              <li><strong>Topics:</strong> Postman basics (manual testing); Automating API testing with Postman.</li>
+              <li><strong>AI Concepts:</strong> AI‑assisted API test generation and auto‑documentation.</li>
+              <li><strong>Exercises:</strong> Write API tests for login and data fetch endpoints; Generate API documentation automatically.</li>
+              <li><strong>Prompt Examples:</strong> “Generate negative test cases for this API specification”; “Write Postman tests for response validation”.</li>
+            </ul>
+          </li>
+          <li>
+            <h4>Week 8 – DSA for Test Automation</h4>
+            <ul>
+              <li><strong>Topics:</strong> Importance of DSA for testers; Arrays, Strings, Collections; Searching & Sorting basics; Practical DSA programs for testers.</li>
+              <li><strong>AI Concepts:</strong> AI‑assisted coding exercises and refactoring suggestions.</li>
+              <li><strong>Exercises:</strong> Write Java code to reverse a string; Implement array duplicate removal.</li>
+              <li><strong>Prompt Examples:</strong> “Optimize this DSA solution for performance”; “Explain the time complexity of this sorting algorithm”.</li>
+            </ul>
+          </li>
+          <li>
+            <h4>Week 9 – Capstone Project & Review</h4>
+            <ul>
+              <li><strong>Topics:</strong> End‑to‑end automation project; Integration of Selenium, TestNG, AI tools, and reporting.</li>
+              <li><strong>AI Concepts:</strong> Best practices in combining manual and AI workflows.</li>
+              <li><strong>Exercises:</strong> Build a CI/CD integrated automation suite with AI tools; Generate AI‑based test reports and defect clustering.</li>
+              <li><strong>Prompt Examples:</strong> “Draft a project summary report with key achievements and risks”; “Propose optimizations for the framework”.</li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+      <div class="modal-actions">
+        <a class="btn"
+           href="#"
+           download="AI-Enhanced-Automation-Testing-9-Week-Syllabus.txt"
+           onclick="
+             const blob = new Blob([document.querySelector('#ai-automation-modal .modal-body').innerText], {type:'text/plain'});
+             const url = URL.createObjectURL(blob);
+             this.href = url;
+           ">Download Syllabus (TXT)</a>
+        <a class="btn btn-dark" href="training.html#ai-automation" data-modal-exempt>Details</a>
+        <a class="btn btn-dark"
+           href="https://wa.me/918125352626?text=Hi%20D3-FORGE%2C%20I%20want%20to%20enroll%20in%20AI-Enhanced%20Automation%20Testing."
+           target="_blank" rel="noopener" data-modal-exempt>Enroll</a>
       </div>
     </div>
   </div>
