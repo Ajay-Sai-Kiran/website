@@ -7,6 +7,8 @@
   <title>Contact Us | D3-FORGE</title>
   <link rel="stylesheet" href="css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Google Tag -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17452355141"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -59,7 +61,6 @@
         </div>
         <div class="fade-in" style="--delay:0.1s">
           <h3>Call</h3>
-          
           <p><a href="tel:+918125352626">+918125352626</a></p>
           <p><a href="tel:+918125352727">+918125352727</a></p>
         </div>
@@ -72,14 +73,41 @@
           <p><a href="https://wa.me/918519888804" target="_blank" rel="noopener">+918125352626</a></p>
         </div>
       </div>
+
+      <!-- Contact Form -->
       <div class="fade-in" style="--delay:0.3s; margin-top:3rem;">
         <h2 class="section-title">Send a Message</h2>
-        <form id="contact-form" class="contact-form">
+
+        <!-- Sends to d3-forge@d-3forge.com via FormSubmit -->
+        <form id="contact-form" class="contact-form" method="POST"
+              action="https://formsubmit.co/d3-forge@d-3forge.com" novalidate>
+
+          <!-- FormSubmit options -->
+          <input type="hidden" name="_subject" value="Website Contact">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
+          <!-- Update this if you add a themed page -->
+          <input type="hidden" name="_next" value="https://d-3forge.com/thank-you.html">
+          <!-- Simple autoresponder to the sender -->
+          <input type="hidden" name="_autoresponse" value="Thanks for contacting D3-FORGE! We received your message and will reply soon. — Team D3-FORGE">
+          <!-- Optional: send a copy to another inbox (uncomment to use) -->
+          <!-- <input type="hidden" name="_cc" value="info@d-3forge.com"> -->
+
+          <!-- Anti-bot honeypot (must stay hidden) -->
+          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+
+          <!-- Fields -->
           <input type="text" name="name" placeholder="Your Name" required>
+          <!-- Keep name="email" so Reply-To is set correctly -->
           <input type="email" name="email" placeholder="Your Email" required>
           <input type="text" name="subject" placeholder="Subject" required>
           <textarea name="message" rows="5" placeholder="Message" required></textarea>
-          <button type="submit" class="btn">Submit</button>
+
+          <button type="submit" class="btn" id="contact-submit">Submit</button>
+
+          <p style="margin:.5rem 0 0; font-size:.9rem; color:#4b6b70">
+            Delivered to <strong>d3-forge@d-3forge.com</strong>. On first submission, please verify the one-time confirmation email.
+          </p>
         </form>
       </div>
     </div>
@@ -113,11 +141,11 @@
           <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
           <a href="#"><ion-icon name="logo-github"></ion-icon></a>
           <a href="https://www.instagram.com/d3.forge/"
-     class="ig"
-     target="_blank" rel="noopener noreferrer"
-     aria-label="Instagram">
-    <ion-icon name="logo-instagram"></ion-icon>
-  </a>
+             class="ig"
+             target="_blank" rel="noopener noreferrer"
+             aria-label="Instagram">
+            <ion-icon name="logo-instagram"></ion-icon>
+          </a>
         </div>
       </div>
     </div>
@@ -126,15 +154,35 @@
 
   <!-- Floating WhatsApp -->
   <a class="whatsapp-floating"
-   href="https://wa.me/918519888804"
-   target="_blank" rel="noopener"
-   aria-label="Chat on WhatsApp">
-  <ion-icon name="logo-whatsapp"></ion-icon>
-</a>
+     href="https://wa.me/918519888804"
+     target="_blank" rel="noopener"
+     aria-label="Chat on WhatsApp">
+    <ion-icon name="logo-whatsapp"></ion-icon>
+  </a>
 
   <!-- Scripts -->
   <script src="js/script.js"></script>
   <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://cdn.jsdelivr.net/npm/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+  <!-- Prevent double submit & basic validation UX -->
+  <script>
+    (function () {
+      const form = document.getElementById('contact-form');
+      const btn  = document.getElementById('contact-submit');
+      if (!form) return;
+      form.addEventListener('submit', function (e) {
+        if (!form.checkValidity()) {
+          e.preventDefault();
+          e.stopPropagation();
+          return;
+        }
+        if (btn) {
+          btn.disabled = true;
+          btn.textContent = 'Sending…';
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
