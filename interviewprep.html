@@ -3,41 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interview Prep Tool</title>
-  <link rel="stylesheet" href="css/style.css"> <!-- keep your site’s styling -->
+  <title>Interview Prep | D3-FORGE</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <!-- Navigation -->
-  <header>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="training.html">Training</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="interviewprep.html" class="active">Interview Prep</a></li>
-      </ul>
-    </nav>
-  </header>
+  <nav class="navbar">
+    <a href="index.html" class="logo">D3-FORGE</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="training.html">Training</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="interviewprep.html" class="active">Interview Prep</a></li>
+    </ul>
+  </nav>
 
-  <!-- Page Content -->
-  <main>
-    <h1>Interview Preparation Assistant</h1>
-    <p>Use this interactive app to practice and prepare for your interviews.</p>
-
-    <iframe
-      src="https://interviewprep-hpxg2ut5uscc5tsjfvvaww.streamlit.app/"
-      width="100%"
-      height="800px"
-      style="border: none;"
-      allowfullscreen
-    ></iframe>
-  </main>
-
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 Your Website. All rights reserved.</p>
-  </footer>
+  <section class="section">
+    <div class="container" style="text-align:center;">
+      <h2 class="section-title">Interview Preparation Assistant</h2>
+      <p class="section-subtitle">Click below to launch the tool.</p>
+      <a href="https://interviewprep-hpxg2ut5uscc5tsjfvvaww.streamlit.app/"
+         target="_blank" rel="noopener"
+         class="btn"
+         style="margin-top:1.5rem; background:#0d2326; color:#fff;">
+         Launch Interview Prep
+      </a>
+    </div>
+  </section>
 </body>
 </html>
