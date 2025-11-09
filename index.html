@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>D3-FORGE | Design, Development & Deploy</title>
+  <title>D3-FORGE TECHNOLOGIES | Design, Development & Deploy</title>
 
   <!-- Main site stylesheet -->
   <link rel="stylesheet" href="css/style.css" />
@@ -223,53 +223,74 @@
       <p class="section-subtitle" style="color:#cde9e6">Reserve your spot in our next industry-ready cohorts.</p>
 
       <div class="course-cards">
-        <!-- Agentic AI (Free) -->
-        <article class="course-card" role="button" tabindex="0" aria-controls="agentic-modal" aria-haspopup="dialog" data-open-modal="#agentic-modal">
-          <div class="course-icon"><ion-icon name="construct-outline"></ion-icon></div>
-          <h3>Agentic AI (Free)</h3>
-          <p>30-day, project-based intro to building LLM agents: tools, memory, planning, and deployment.</p>
-          <div class="course-actions">
-            <span class="pill-new" aria-hidden="true">NEW</span>
-            <span class="pill-muted">Free</span>
-            <button class="btn btn-light" data-open-modal="#agentic-modal">View Syllabus</button>
-            <a class="btn btn-ghost" href="https://wa.me/918125352626?text=Hi%20D3-FORGE%2C%20I%20want%20to%20enroll%20in%20the%20Free%20Agentic%20AI%20course." target="_blank" rel="noopener" data-modal-exempt>Enroll Free</a>
-          </div>
-        </article>
 
-        <!-- Generative AI for Product Managers -->
-        <article class="course-card" role="button" tabindex="0" aria-controls="genai-modal" aria-haspopup="dialog" data-open-modal="#genai-modal">
-          <div class="course-icon"><ion-icon name="rocket-outline"></ion-icon></div>
-          <h3>Generative AI for Product Managers</h3>
-          <p>8-week end-to-end program: Strategy → Architecture → Data → Agents → MLOps → Governance → Stakeholder Alignment → Capstone.</p>
-          <div class="course-actions">
-            <button class="btn btn-light" data-open-modal="#genai-modal">View Syllabus</button>
-            <a class="btn btn-ghost"
-               href="https://raw.githubusercontent.com/Ajay-Sai-Kiran/website/main/assets/AI%20for%20Product%20Managers%20(1).pdf"
-               download="AI-for-Product-Managers.pdf"
-               rel="noopener"
-               data-modal-exempt>Download PDF</a>
-            <a class="btn btn-ghost" href="training.html" data-modal-exempt>Details</a>
-          </div>
-        </article>
+<!-- ✅ AI for Architects -->
+<article class="course-card" data-open-modal="#arch-modal" role="button" tabindex="0">
+  <div class="course-icon"><ion-icon name="layers-outline"></ion-icon></div>
+  <h3>AI for Architects</h3>
+  <p>Design scalable LLM, RAG & Agentic systems end-to-end.</p>
+  <div class="course-actions">
+    <button class="btn btn-light" data-open-modal="#arch-modal">View Syllabus</button>
+    <a class="btn btn-ghost" href="courses/ai-for-architects.html" data-modal-exempt>Details</a>
+  </div>
+</article>
 
-        <!-- SAP PP–PM–QM (Coming soon placeholder card) -->
-        <article class="course-card" aria-disabled="true">
-          <div class="course-icon"><ion-icon name="code-slash-outline"></ion-icon></div>
-          <h3>SAP PP–PM–QM</h3>
-          <p>Course designed for PP/QM/PM consultants, power users, manufacturing/quality/maintenance leads</p>
-          <div class="course-actions"><span class="pill-muted">Coming Soon</span></div>
-        </article>
+<!-- ✅ AI for TPM -->
+<article class="course-card" data-open-modal="#tpm-modal" role="button" tabindex="0">
+  <div class="course-icon"><ion-icon name="briefcase-outline"></ion-icon></div>
+  <h3>AI for TPM</h3>
+  <p>Drive AI delivery — roadmap → execution → stakeholder alignment.</p>
+  <div class="course-actions">
+    <button class="btn btn-light" data-open-modal="#tpm-modal">View Syllabus</button>
+    <a class="btn btn-ghost" href="courses/ai-for-tpm.html" data-modal-exempt>Details</a>
+  </div>
+</article>
 
-        <!-- AI Ethics Fundamentals (Coming soon placeholder card) -->
-        <article class="course-card" aria-disabled="true">
-          <div class="course-icon"><ion-icon name="shield-checkmark-outline"></ion-icon></div>
-          <h3>AI Ethics Fundamentals</h3>
-          <p>Bias mitigation, explainability, governance and compliance in production AI systems.</p>
-          <div class="course-actions"><span class="pill-muted">Coming Soon</span></div>
-        </article>
-      </div>
-    </div>
-  </section>
+<!-- ✅ Machine Learning + Deep Learning -->
+<article class="course-card" data-open-modal="#mldl-modal" role="button" tabindex="0">
+  <div class="course-icon"><ion-icon name="analytics-outline"></ion-icon></div>
+  <h3>Machine Learning + Deep Learning</h3>
+  <p>Start from ML foundations → Neural networks → Deployment.</p>
+  <div class="course-actions">
+    <button class="btn btn-light" data-open-modal="#mldl-modal">View Syllabus</button>
+    <a class="btn btn-ghost" href="courses/ml-dl.html" data-modal-exempt>Details</a>
+  </div>
+</article>
+
+<!-- ✅ MLOps & LLMOps -->
+<article class="course-card" data-open-modal="#mlops-modal" role="button" tabindex="0">
+  <div class="course-icon"><ion-icon name="settings-outline"></ion-icon></div>
+  <h3>MLOps & LLMOps</h3>
+  <p>Learn scalable pipelines, monitoring, RAG infra, evals.</p>
+  <div class="course-actions">
+    <button class="btn btn-light" data-open-modal="#mlops-modal">View Syllabus</button>
+    <a class="btn btn-ghost" href="courses/mlops-llmops.html" data-modal-exempt>Details</a>
+  </div>
+</article>
+
+<!-- ✅ Generative AI -->
+<article class="course-card" data-open-modal="#gen-modal" role="button" tabindex="0">
+  <div class="course-icon"><ion-icon name="sparkles-outline"></ion-icon></div>
+  <h3>Generative AI</h3>
+  <p>Prompting → Diffusion models → RAG → Agents.</p>
+  <div class="course-actions">
+    <button class="btn btn-light" data-open-modal="#gen-modal">View Syllabus</button>
+    <a class="btn btn-ghost" href="courses/generative-ai.html" data-modal-exempt>Details</a>
+  </div>
+</article>
+
+<!-- ✅ Agentic AI -->
+<article class="course-card" data-open-modal="#agentic-x-modal" role="button" tabindex="0">
+  <div class="course-icon"><ion-icon name="construct-outline"></ion-icon></div>
+  <h3>Agentic AI (Advanced)</h3>
+  <p>Memory → Planning → Tools → Multi-Agent architectures.</p>
+  <div class="course-actions">
+    <button class="btn btn-light" data-open-modal="#agentic-x-modal">View Syllabus</button>
+    <a class="btn btn-ghost" href="courses/agentic-ai.html" data-modal-exempt>Details</a>
+  </div>
+</article>
+
+        
 
   <!-- ================== INTERVIEW PREP (NEW) ================== -->
   <section class="section" id="interview-prep">
